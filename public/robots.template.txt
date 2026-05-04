@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://{{VITE_APP_DOMAIN}}/sitemap.xml

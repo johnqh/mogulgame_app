@@ -1,0 +1,95 @@
+{
+  "app": {
+    "name": "เริ่มต้น",
+    "tagline": "โครงการต้นแบบที่แสดงรูปแบบสถาปัตยกรรม Sudobility"
+  },
+  "breadcrumbs": {
+    "home": "หน้าหลัก",
+    "docs": "เอกสาร",
+    "histories": "ประวัติศาสตร์",
+    "settings": "การตั้งค่า",
+    "sitemap": "แผนผังเว็บไซต์",
+    "login": "เข้าสู่ระบบ",
+    "privacy": "ความเป็นส่วนตัว",
+    "terms": "ข้อกำหนด"
+  },
+  "nav": {
+    "home": "Home",
+    "docs": "Documentation",
+    "histories": "Histories",
+    "settings": "Settings",
+    "sitemap": "Sitemap",
+    "login": "Log In",
+    "logout": "Log Out"
+  },
+  "home": {
+    "title": "Starter App",
+    "description": "This is a template project demonstrating the Sudobility architecture pattern. It shows how to build a full-stack application with shared types, a Hono API, TanStack Query hooks, Zustand stores, and a React web app.",
+    "viewDocs": "View Documentation",
+    "viewHistories": "View Histories",
+    "feature1Title": "Shared Types",
+    "feature1Desc": "TypeScript type definitions shared between frontend and backend for type safety across the stack.",
+    "feature2Title": "TanStack Query",
+    "feature2Desc": "Automatic caching, cache invalidation, and background refetching with TanStack Query hooks.",
+    "feature3Title": "Zustand Stores",
+    "feature3Desc": "Lightweight state management with Zustand for offline cache and business logic."
+  },
+  "docs": {
+    "title": "Documentation"
+  },
+  "histories": {
+    "title": "Histories",
+    "loginPrompt": "Log in to view and manage your histories.",
+    "add": "Add History",
+    "create": "Create",
+    "empty": "No histories yet. Add your first one!",
+    "detail": "History Detail",
+    "notFound": "History not found.",
+    "datetime": "Date & Time",
+    "value": "Value",
+    "createdAt": "Created At",
+    "yourTotal": "Your Total",
+    "globalTotal": "Global Total",
+    "percentage": "Your Share"
+  },
+  "sitemap": {
+    "languages": "Languages",
+    "mainPages": "Main Pages"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "back": "Back",
+    "delete": "Delete",
+    "loading": "Loading..."
+  },
+  "signInTitle": "Sign In",
+  "signInWithEmail": "Sign in with email",
+  "createAccount": "Create Account",
+  "resetPassword": "Reset Password",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "logout": "Log Out",
+  "login": "Log In",
+  "continueWithGoogle": "Continue with Google",
+  "continueWithEmail": "Continue with Email",
+  "sendResetLink": "Send Reset Link",
+  "backToSignIn": "Back to Sign In",
+  "close": "Close",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "displayName": "Display Name",
+  "emailPlaceholder": "you@example.com",
+  "passwordPlaceholder": "Enter your password",
+  "confirmPasswordPlaceholder": "Confirm your password",
+  "displayNamePlaceholder": "Your name",
+  "forgotPassword": "Forgot password?",
+  "noAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "or": "or",
+  "resetEmailSent": "Reset email sent",
+  "resetEmailSentDesc": "Check your inbox for the password reset link.",
+  "passwordMismatch": "Passwords do not match",
+  "passwordTooShort": "Password must be at least 6 characters",
+  "loading": "Loading..."
+}

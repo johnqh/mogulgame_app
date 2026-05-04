@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "How to Get Started with Starter",
+    "description": "Set up and explore the Sudobility architecture pattern with the Starter template project.",
+    "steps": [
+      {
+        "name": "Browse the Documentation",
+        "text": "Read the documentation page to understand the six-package architecture: types, API, client, lib, web app, and mobile app."
+      },
+      {
+        "name": "Create a History Entry",
+        "text": "Log in and add your first history entry to see how the full-stack data flow works from frontend to backend."
+      },
+      {
+        "name": "Explore the API",
+        "text": "Check how the Hono API with PostgreSQL and Drizzle ORM handles CRUD operations and authentication."
+      },
+      {
+        "name": "Customize and Extend",
+        "text": "Use this template as a starting point to build your own application following the same architecture pattern."
+      }
+    ]
+  },
+  "webApp": {
+    "description": "A full-stack template project demonstrating the Sudobility architecture pattern with shared types, a Hono API, TanStack Query hooks, Zustand stores, and a React web app.",
+    "features": [
+      "Full-stack TypeScript architecture",
+      "Shared type definitions across frontend and backend",
+      "TanStack Query hooks with automatic caching",
+      "Zustand state management",
+      "Firebase authentication",
+      "16-language internationalization support"
+    ]
+  }
+}
