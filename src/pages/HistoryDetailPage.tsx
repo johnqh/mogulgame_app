@@ -15,7 +15,7 @@ import {
 } from '@sudobility/design';
 import { useLocalizedNavigate } from '../hooks/useLocalizedNavigate';
 import { formatDateTime } from '../utils/formatDateTime';
-import SEOHead from '../components/SEOHead';
+import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
 /**

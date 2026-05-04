@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { GlobalSettingsPage } from '@sudobility/building_blocks';
 import { useTheme } from '@sudobility/components';
 import { useSetPageConfig } from '../hooks/usePageConfig';
-import SEOHead from '../components/SEOHead';
+import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 import { useBuildingBlocksAnalytics } from '../hooks/useBuildingBlocksAnalytics';
 

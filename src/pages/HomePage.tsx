@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Section } from '@sudobility/components';
 import { textVariants, buttonVariant, designTokens, ui } from '@sudobility/design';
 import LocalizedLink from '../components/layout/LocalizedLink';
-import SEOHead from '../components/SEOHead';
-import { buildHowToSchema } from '../components/buildHowToSchema';
+import { SEOHead, buildHowToSchema } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
 /** Landing page showcasing the application's key features and entry points. */
@@ -18,13 +17,17 @@ export default function HomePage() {
 
   const seoTitle = t('seo.home.title');
   const seoDescription = t('seo.home.description');
-  const seoKeywords = t('seo.home.keywords', { returnObjects: true }) as string[];
+  const rawKeywords = t('seo.home.keywords', { returnObjects: true });
+  const seoKeywords = Array.isArray(rawKeywords) ? rawKeywords : undefined;
 
-  const howToSchema = buildHowToSchema(
-    tHowTo('home.name'),
-    tHowTo('home.description'),
-    tHowTo('home.steps', { returnObjects: true }) as { name: string; text: string }[]
-  );
+  const rawSteps = tHowTo('home.steps', { returnObjects: true });
+  const howToSchema = Array.isArray(rawSteps)
+    ? buildHowToSchema(
+        tHowTo('home.name'),
+        tHowTo('home.description'),
+        rawSteps as { name: string; text: string }[]
+      )
+    : undefined;
 
   return (
     <>

@@ -4,7 +4,7 @@ import { Section } from '@sudobility/components';
 import { textVariants, designTokens, ui } from '@sudobility/design';
 import LocalizedLink from '../components/layout/LocalizedLink';
 import { SUPPORTED_LANGUAGES } from '../config/constants';
-import SEOHead from '../components/SEOHead';
+import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
 const LANGUAGE_INFO: Record<string, { label: string; flag: string }> = {

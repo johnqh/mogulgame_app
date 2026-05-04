@@ -3,7 +3,9 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { SudobilityAppWithFirebaseAuth } from '@sudobility/building_blocks/firebase';
 import { LanguageValidator, PerformancePanel } from '@sudobility/components';
 import { variants } from '@sudobility/design';
+import { SEOHeadProvider } from '@sudobility/seo_lib';
 import { isLanguageSupported, CONSTANTS } from './config/constants';
+import { seoHeadConfig } from './config/seo';
 import i18n from './i18n';
 import { useDocumentLanguage } from './hooks/useDocumentLanguage';
 import { AuthProviderWrapper } from './components/providers/AuthProviderWrapper';
@@ -124,7 +126,9 @@ function App() {
       testMode={CONSTANTS.DEV_MODE}
       AuthProviderWrapper={AuthProviderWrapper}
     >
-      <AppRoutes />
+      <SEOHeadProvider config={seoHeadConfig}>
+        <AppRoutes />
+      </SEOHeadProvider>
     </SudobilityAppWithFirebaseAuth>
   );
 }

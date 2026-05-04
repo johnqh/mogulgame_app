@@ -12,7 +12,7 @@ import {
 import { LoginPage as LoginPageComponent } from '@sudobility/building_blocks';
 import { variants, ui } from '@sudobility/design';
 import { CONSTANTS } from '../config/constants';
-import SEOHead from '../components/SEOHead';
+import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
 /**

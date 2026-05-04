@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { MasterDetailLayout } from '@sudobility/components';
 import { textVariants, ui, designTokens } from '@sudobility/design';
 import { useSetPageConfig } from '../hooks/usePageConfig';
-import SEOHead from '../components/SEOHead';
+import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
 const SECTIONS = [
