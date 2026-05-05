@@ -2,7 +2,7 @@
   "name": "@sudobility/mogulgame_app",
   "private": true,
   "license": "BUSL-1.1",
-  "version": "1.0.78",
+  "version": "1.0.79",
   "type": "module",
   "scripts": {
     "dev": "bun run process:static && vite",
@@ -20,6 +20,13 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-alert-dialog": "^1.1.15",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
     "@sudobility/auth-components": "^1.0.10",
     "@sudobility/auth_lib": "^0.0.71",
     "@sudobility/automotive-components": "^2.0.12",
