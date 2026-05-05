@@ -1,32 +1,30 @@
 {
   "app": {
-    "name": "Starter",
-    "tagline": "A template project demonstrating the Sudobility architecture pattern."
+    "name": "MogulGame",
+    "tagline": "A real estate simulation game where you compete with pretend offers on real properties."
   },
   "seo": {
     "home": {
-      "title": "Starter - Full-Stack Template Project | Sudobility",
-      "description": "Explore the Sudobility architecture pattern with shared types, a Hono API, TanStack Query, Zustand stores, and a React web app.",
-      "keywords": ["starter template", "full-stack architecture", "TypeScript", "React", "Hono API", "Sudobility"]
-    },
-    "docs": {
-      "title": "Documentation - Starter | Sudobility",
-      "description": "Learn about the six-package architecture pattern: types, API, client, lib, web app, and mobile app."
+      "title": "MogulGame - Real Estate Simulation Game | Sudobility",
+      "description": "Compete against other players by placing pretend offers on real properties. Browse Zillow and StreetEasy listings, bid strategically, and climb the leaderboard.",
+      "keywords": ["real estate game", "property simulation", "pretend offers", "MogulGame", "Sudobility"]
     },
     "login": {
-      "title": "Sign In - Starter | Sudobility",
-      "description": "Sign in to Starter to manage your history entries."
+      "title": "Sign In - MogulGame | Sudobility",
+      "description": "Sign in to MogulGame to start placing pretend offers on real properties."
     },
     "sitemap": {
-      "title": "Sitemap - Starter | Sudobility",
-      "description": "Browse all pages and supported languages for the Starter application.",
-      "keywords": ["sitemap", "Starter", "Sudobility", "navigation"]
+      "title": "Sitemap - MogulGame | Sudobility",
+      "description": "Browse all pages and supported languages for MogulGame.",
+      "keywords": ["sitemap", "MogulGame", "Sudobility", "navigation"]
     }
   },
   "breadcrumbs": {
     "home": "Home",
-    "docs": "Documentation",
-    "histories": "Histories",
+    "how-to-play": "How to Play",
+    "properties": "Properties",
+    "offers": "My Offers",
+    "leaderboard": "Leaderboard",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "login": "Log In",
@@ -35,42 +33,115 @@
   },
   "nav": {
     "home": "Home",
-    "docs": "Documentation",
-    "histories": "Histories",
+    "howToPlay": "How to Play",
+    "offers": "My Offers",
+    "leaderboard": "Leaderboard",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "login": "Log In",
     "logout": "Log Out"
   },
   "home": {
-    "title": "Starter App",
-    "description": "This is a template project demonstrating the Sudobility architecture pattern. It shows how to build a full-stack application with shared types, a Hono API, TanStack Query hooks, Zustand stores, and a React web app.",
-    "viewDocs": "View Documentation",
-    "viewHistories": "View Histories",
-    "feature1Title": "Shared Types",
-    "feature1Desc": "TypeScript type definitions shared between frontend and backend for type safety across the stack.",
-    "feature2Title": "TanStack Query",
-    "feature2Desc": "Automatic caching, cache invalidation, and background refetching with TanStack Query hooks.",
-    "feature3Title": "Zustand Stores",
-    "feature3Desc": "Lightweight state management with Zustand for offline cache and business logic."
+    "title": "MogulGame",
+    "subtitle": "Search real properties, place pretend offers, and compete to become the top mogul."
   },
-  "docs": {
-    "title": "Documentation"
+  "search": {
+    "placeholder": "Search by city, ZIP code, or address...",
+    "minPrice": "Min price",
+    "maxPrice": "Max price",
+    "beds": "Beds",
+    "button": "Search",
+    "mapView": "Map",
+    "listView": "List",
+    "resultCount": "{{count}} properties found",
+    "showingOf": "Showing {{shown}} of {{total}}",
+    "noResults": "No properties found. Try a different search."
   },
-  "histories": {
-    "title": "Histories",
-    "loginPrompt": "Log in to view and manage your histories.",
-    "add": "Add History",
-    "create": "Create",
-    "empty": "No histories yet. Add your first one!",
-    "detail": "History Detail",
-    "notFound": "History not found.",
-    "datetime": "Date & Time",
-    "value": "Value",
-    "createdAt": "Created At",
-    "yourTotal": "Your Total",
-    "globalTotal": "Global Total",
-    "percentage": "Your Share"
+  "property": {
+    "notFound": "Property not found.",
+    "backToSearch": "Back to search",
+    "beds": "beds",
+    "baths": "baths",
+    "sqft": "sqft",
+    "lotSize": "lot size",
+    "type": "type",
+    "description": "Description",
+    "priceHistory": "Price History",
+    "status": "Status",
+    "source": "Source",
+    "zestimate": "Zestimate",
+    "soldPrice": "Sold Price"
+  },
+  "offers": {
+    "title": "My Offers",
+    "loginPrompt": "Log in to view and manage your offers.",
+    "loginToOffer": "Log in to place an offer on this property.",
+    "placeOffer": "Place Offer",
+    "offerPrice": "Offer Price ($)",
+    "pricePlaceholder": "Enter your offer amount",
+    "submit": "Submit Offer",
+    "balance": "Balance",
+    "maxOffer": "Max offer",
+    "yourOffer": "Your Offer",
+    "placedOn": "Placed on",
+    "manageOffers": "Manage offers",
+    "viewProperty": "View property",
+    "placed": "Placed",
+    "resolved": "Resolved",
+    "invalidPrice": "Please enter a valid offer price.",
+    "createFailed": "Failed to place offer.",
+    "activeOffers": "Active",
+    "totalCommitted": "Committed",
+    "wins": "Wins",
+    "empty": "No offers yet. Browse properties to place your first offer!",
+    "browseProperties": "Browse Properties",
+    "currentOffers": "Current Offers",
+    "pastOffers": "Past Offers",
+    "status": {
+      "active": "Active",
+      "won": "Won",
+      "lost": "Lost",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    }
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "description": "See who's the top real estate mogul. Rankings by balance and wins.",
+    "byBalance": "By Balance",
+    "byWins": "By Wins",
+    "rank": "Rank",
+    "player": "Player",
+    "balance": "Balance",
+    "wins": "Wins",
+    "offers": "Offers",
+    "empty": "No players on the leaderboard yet."
+  },
+  "howToPlay": {
+    "seoTitle": "How to Play - MogulGame | Sudobility",
+    "seoDescription": "Learn how MogulGame works: browse real properties, place pretend offers, and win when properties sell.",
+    "title": "How to Play",
+    "overview": "MogulGame is a real estate simulation game where you compete against other players by placing pretend offers on real properties listed on Zillow and StreetEasy. Start with $1,000,000 in pretend USD and see how far your real estate instincts can take you.",
+    "step1Title": "Sign Up & Get $1M",
+    "step1Desc": "Create a free account and receive $1,000,000 in pretend USD. This is your starting capital to make offers on real properties.",
+    "step2Title": "Browse Real Listings",
+    "step2Desc": "Search properties currently listed for sale on Zillow and StreetEasy. View photos, prices, and neighborhood details on the map.",
+    "step3Title": "Place Your Offer",
+    "step3Desc": "Found a property you like? Place a pretend offer. You can offer up to 5x your current balance. The goal is to bid as low as possible while still beating the eventual sale price.",
+    "step4Title": "Wait for the Sale",
+    "step4Desc": "When the property sells in real life, all pretend offers are automatically evaluated against the actual closing price.",
+    "step5Title": "Win & Earn",
+    "step5Desc": "If your offer qualifies and is the lowest qualifying bid, you win! Earn pretend USD from competing bidders or a solo bonus.",
+    "winningTitle": "How Winners Are Determined",
+    "winningRule1": "Only offers placed before the real closing date are considered.",
+    "winningRule2": "Only offers above the actual closing price qualify. You must bid higher than what the property actually sold for.",
+    "winningRule3": "The lowest qualifying offer wins. Smart moguls find the sweet spot — just above the sale price.",
+    "payoutTitle": "Payout Rules",
+    "payoutRule1": "If there are multiple qualifying offers, the highest losing bidder pays the difference between their offer and the winner's offer to the winner.",
+    "payoutRule2": "If the winner is the only qualifier, they receive a 5% solo bonus on their offer amount.",
+    "exampleTitle": "Example",
+    "exampleText": "A property sells for $1,000,000. Three players bid: $1,010,000 (Player A), $1,030,000 (Player B), and $1,150,000 (Player C). Player A wins with the lowest qualifying bid. Player C (highest loser) pays $1,150,000 - $1,010,000 = $140,000 to Player A.",
+    "startPlaying": "Start Playing"
   },
   "sitemap": {
     "languages": "Languages",
@@ -80,7 +151,9 @@
     "cancel": "Cancel",
     "back": "Back",
     "delete": "Delete",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "no": "No"
   },
   "signInTitle": "Sign In",
   "signInWithEmail": "Sign in with email",

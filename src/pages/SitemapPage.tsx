@@ -73,13 +73,18 @@ export default function SitemapPage() {
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink to="/docs" className={ui.text.linkSubtle}>
-              {t('nav.docs')}
+            <LocalizedLink to="/how-to-play" className={ui.text.linkSubtle}>
+              {t('nav.howToPlay')}
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink to="/histories" className={ui.text.linkSubtle}>
-              {t('nav.histories')}
+            <LocalizedLink to="/leaderboard" className={ui.text.linkSubtle}>
+              {t('nav.leaderboard')}
+            </LocalizedLink>
+          </li>
+          <li>
+            <LocalizedLink to="/offers" className={ui.text.linkSubtle}>
+              {t('nav.offers')}
             </LocalizedLink>
           </li>
           <li>

@@ -29,7 +29,7 @@ export function useFooterConfig(variant: 'full' | 'compact'): FooterConfig {
       companyName: CONSTANTS.COMPANY_NAME,
       companyUrl: '/',
       links: [
-        { label: t('nav.docs'), href: '/docs' },
+        { label: t('nav.howToPlay'), href: '/how-to-play' },
         { label: t('nav.sitemap'), href: '/sitemap' },
       ],
       LinkComponent: linkWrapper,
@@ -39,12 +39,12 @@ export function useFooterConfig(variant: 'full' | 'compact'): FooterConfig {
 
   const linkSections: FooterLinkSection[] = [
     {
-      title: t('nav.docs'),
-      links: [{ label: t('docs.title'), href: '/docs' }],
+      title: t('nav.howToPlay'),
+      links: [{ label: t('howToPlay.title'), href: '/how-to-play' }],
     },
     {
-      title: t('nav.histories'),
-      links: [{ label: t('histories.title'), href: '/histories' }],
+      title: t('nav.leaderboard'),
+      links: [{ label: t('leaderboard.title'), href: '/leaderboard' }],
     },
     {
       title: t('nav.settings'),

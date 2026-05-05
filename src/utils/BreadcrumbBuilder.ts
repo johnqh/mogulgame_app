@@ -59,8 +59,10 @@ export class BreadcrumbBuilder {
   private readonly pathTranslationKeys: Record<string, string> = {
     '': 'breadcrumbs.home',
     '/': 'breadcrumbs.home',
-    '/docs': 'breadcrumbs.docs',
-    '/histories': 'breadcrumbs.histories',
+    '/how-to-play': 'breadcrumbs.how-to-play',
+    '/properties': 'breadcrumbs.properties',
+    '/offers': 'breadcrumbs.offers',
+    '/leaderboard': 'breadcrumbs.leaderboard',
     '/settings': 'breadcrumbs.settings',
     '/sitemap': 'breadcrumbs.sitemap',
     '/login': 'breadcrumbs.login',

@@ -1,6 +1,6 @@
 # MogulGame App
 
-Web application for the MogulGame project.
+Real estate simulation game where users place pretend offers on real properties.
 
 **Package**: `@sudobility/mogulgame_app` (private, BUSL-1.1)
 
@@ -13,6 +13,7 @@ Web application for the MogulGame project.
 - **Routing**: React Router v7
 - **Build**: Vite 6
 - **Styling**: Tailwind CSS 3
+- **Maps**: Google Maps via `@vis.gl/react-google-maps`
 - **i18n**: i18next (16 languages, RTL support)
 - **Auth**: Firebase Auth
 
@@ -24,7 +25,7 @@ src/
 ├── App.tsx                               # Router setup, lazy-loaded routes
 ├── i18n.ts                               # i18next configuration
 ├── config/
-│   ├── constants.ts                      # App constants, supported languages
+│   ├── constants.ts                      # App constants, supported languages, Google Maps key
 │   ├── auth-config.ts                    # Firebase auth configuration
 │   └── initialize.ts                     # App initialization
 ├── context/
@@ -46,13 +47,14 @@ src/
 ├── utils/
 │   └── formatDateTime.ts                 # Locale-aware date/time formatting
 └── pages/
-    ├── HomePage.tsx
-    ├── LoginPage.tsx
-    ├── HistoriesPage.tsx
-    ├── HistoryDetailPage.tsx
-    ├── SettingsPage.tsx
-    ├── DocsPage.tsx
-    └── SitemapPage.tsx
+    ├── HomePage.tsx                      # Property search with Google Maps (map/list toggle)
+    ├── PropertyDetailPage.tsx            # Property detail with photo carousel + sticky offer panel
+    ├── HowToPlayPage.tsx                 # Game rules and explanation
+    ├── OffersPage.tsx                    # User's current and past offers
+    ├── LeaderboardPage.tsx               # Player rankings by balance or wins
+    ├── LoginPage.tsx                     # Firebase auth (email + Google)
+    ├── SettingsPage.tsx                  # Theme and font settings
+    └── SitemapPage.tsx                   # All pages and languages
 ```
 
 ## Commands
@@ -69,7 +71,16 @@ bun run verify         # Run typecheck + lint + format:check (no test suite; rel
 
 ## Routing
 
-Language-prefixed routes: `/:lang/*` (e.g., `/en/histories`, `/ja/settings`).
+Language-prefixed routes: `/:lang/*` (e.g., `/en/offers`, `/ja/leaderboard`).
+
+Main routes:
+- `/` — Property search with Google Maps
+- `/properties/:propertyId` — Property detail with offer panel
+- `/how-to-play` — Game rules
+- `/offers` — My offers (protected)
+- `/leaderboard` — Player rankings
+- `/login` — Authentication
+- `/settings` — User preferences
 
 16 supported languages: en, ar, de, es, fr, it, ja, ko, pt, ru, sv, th, uk, vi, zh, zh-hant.
 
@@ -83,41 +94,44 @@ Uses `@sudobility/building_blocks` for:
 
 ## Environment Variables
 
-| Variable                    | Description          | Default                 |
-| --------------------------- | -------------------- | ----------------------- |
-| `VITE_API_URL`              | Backend API URL      | `http://localhost:8022` |
-| `VITE_FIREBASE_API_KEY`     | Firebase API key     | required                |
-| `VITE_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | required                |
-| `VITE_FIREBASE_PROJECT_ID`  | Firebase project ID  | required                |
-| `VITE_APP_NAME`             | Application name     | `MogulGame`               |
-| `VITE_APP_DOMAIN`           | Application domain   | `localhost`             |
+| Variable                      | Description            | Default                 |
+| ----------------------------- | ---------------------- | ----------------------- |
+| `VITE_API_URL`                | Backend API URL        | `http://localhost:8029` |
+| `VITE_GOOGLE_MAPS_API_KEY`    | Google Maps API key    | required                |
+| `VITE_FIREBASE_API_KEY`       | Firebase API key       | required                |
+| `VITE_FIREBASE_AUTH_DOMAIN`   | Firebase auth domain   | required                |
+| `VITE_FIREBASE_PROJECT_ID`    | Firebase project ID    | required                |
+| `VITE_APP_NAME`               | Application name       | `MogulGame`             |
+| `VITE_APP_DOMAIN`             | Application domain     | `localhost`             |
 
-**Note**: The default API URL in constants is `http://localhost:8022`, matching the API server's default port.
+**Note**: The default API URL in constants is `http://localhost:8029`, matching the API server's default port.
 
 ## Related Projects
 
-- **mogulgame_types** — Shared type definitions; imported transitively via mogulgame_client
-- **mogulgame_client** — API client SDK with TanStack Query hooks; provides data fetching layer
-- **mogulgame_lib** — Business logic library with `useHistoriesManager` hook; primary integration point for this app
-- **mogulgame_api** — Backend server that this app communicates with (both default to port 8022)
-- **mogulgame_app_rn** — React Native counterpart of this web app; shares mogulgame_client, mogulgame_lib, and mogulgame_types
+- **mogulgame_types** — Shared type definitions (Property, PretendOffer, UserProfile, Transaction, Leaderboard)
+- **mogulgame_client** — API client SDK with TanStack Query hooks for properties, offers, user profile, leaderboard
+- **mogulgame_lib** — Business logic: offer validation (5x balance rule), balance calculation, resolution formatting
+- **mogulgame_api** — Backend server with RealtyAPI proxy (Zillow/StreetEasy), offer resolution, leaderboard
+- **mogulgame_app_rn** — React Native counterpart; shares mogulgame_client, mogulgame_lib, and mogulgame_types
 
 Uses `@sudobility/building_blocks` for shared shell components (TopBar, LoginPage, SettingsPage, SudobilityAppWithFirebaseAuth).
 
 ## Coding Patterns
 
-- All routes are language-prefixed: `/:lang/*` (e.g., `/en/histories`, `/ja/settings`) -- never create routes without the language prefix
+- All routes are language-prefixed: `/:lang/*` (e.g., `/en/offers`, `/ja/leaderboard`) -- never create routes without the language prefix
 - Pages are lazy-loaded with `React.lazy()` and wrapped in `<Suspense>` for code splitting
 - 16 languages are supported with RTL support (Arabic) -- use `LocalizedLink` and `useLocalizedNavigate` for navigation
 - `ThemeContext` provides light/dark theme switching throughout the app
 - `ProtectedRoute` component guards authenticated pages -- wrap any page requiring auth with it
 - Vite config deduplicates React and shared dependencies to prevent multiple React instances
 - i18next is configured in `src/i18n.ts` with language detection and fallback to English
+- Google Maps is provided via `APIProvider` from `@vis.gl/react-google-maps`
 
 ## Gotchas
 
-- API URL: `.env` defaults to `localhost:8022` to match the API server (`mogulgame_api`) -- verify `VITE_API_URL` matches your running API if using a different port
+- API URL: `.env` defaults to `localhost:8029` to match the API server (`mogulgame_api`) -- verify `VITE_API_URL` matches your running API if using a different port
 - Vite deduplicates React and shared deps in its config -- if you add new shared dependencies, check if they need deduplication
 - All routes MUST be under the `/:lang/` prefix -- routes without the language prefix will not work correctly
 - Firebase configuration requires all `VITE_FIREBASE_*` environment variables to be set; missing any will break authentication
+- Google Maps requires `VITE_GOOGLE_MAPS_API_KEY` to be set; the map won't render without it
 - `@sudobility/building_blocks` provides shared UI components -- check there before creating duplicate components

@@ -18,7 +18,7 @@ import { analyticsService } from '../config/analytics';
 /**
  * Authentication page supporting email/password sign-in, sign-up,
  * and Google OAuth. Automatically redirects authenticated users
- * to the histories page.
+ * to the home page.
  */
 export default function LoginPage() {
   const { t } = useTranslation('common');
@@ -33,7 +33,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate(`/${lang || 'en'}/histories`, { replace: true });
+      navigate(`/${lang || 'en'}/offers`, { replace: true });
     }
   }, [user, loading, navigate, lang]);
 
@@ -79,7 +79,7 @@ export default function LoginPage() {
         }}
         onSuccess={() => {
           analyticsService.trackEvent('login_success');
-          navigate(`/${lang || 'en'}/histories`, { replace: true });
+          navigate(`/${lang || 'en'}/offers`, { replace: true });
         }}
       />
     </>

@@ -7,7 +7,7 @@ import {
 } from '@sudobility/building_blocks';
 import { AuthAction } from '@sudobility/auth-components';
 import type { ComponentType } from 'react';
-import { DocumentTextIcon, ClockIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, TrophyIcon, TicketIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { useLocalizedNavigate } from '../../hooks/useLocalizedNavigate';
 import { CONSTANTS, SUPPORTED_LANGUAGES, isLanguageSupported } from '../../config/constants';
 import LocalizedLink from './LocalizedLink';
@@ -65,16 +65,22 @@ export function useTopBarConfig(): TopBarConfig {
   const menuItems: MenuItemConfig[] = useMemo(() => {
     const items: MenuItemConfig[] = [
       {
-        id: 'docs',
-        label: t('nav.docs'),
-        icon: DocumentTextIcon,
-        href: '/docs',
+        id: 'how-to-play',
+        label: t('nav.howToPlay'),
+        icon: BookOpenIcon,
+        href: '/how-to-play',
       },
       {
-        id: 'histories',
-        label: t('nav.histories'),
-        icon: ClockIcon,
-        href: '/histories',
+        id: 'leaderboard',
+        label: t('nav.leaderboard'),
+        icon: TrophyIcon,
+        href: '/leaderboard',
+      },
+      {
+        id: 'offers',
+        label: t('nav.offers'),
+        icon: TicketIcon,
+        href: '/offers',
       },
       {
         id: 'settings',

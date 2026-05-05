@@ -1,13 +1,16 @@
 /** Application-wide constants sourced from environment variables with sensible defaults. */
 export const CONSTANTS = {
   // Branding
-  APP_NAME: import.meta.env.VITE_APP_NAME || 'Starter',
+  APP_NAME: import.meta.env.VITE_APP_NAME || 'MogulGame',
   APP_DOMAIN: import.meta.env.VITE_APP_DOMAIN || 'localhost',
   COMPANY_NAME: import.meta.env.VITE_COMPANY_NAME || 'Sudobility',
   SUPPORT_EMAIL: import.meta.env.VITE_SUPPORT_EMAIL || 'support@example.com',
 
   // API
-  API_URL: import.meta.env.VITE_API_URL || 'http://localhost:8022',
+  API_URL: import.meta.env.VITE_API_URL || 'http://localhost:8029',
+
+  // Google Maps
+  GOOGLE_MAPS_API_KEY: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
 
   // Feature flags
   DEV_MODE: import.meta.env.VITE_DEV_MODE === 'true',
@@ -46,8 +49,9 @@ export const CONSTANTS = {
   // Navigation items
   NAV_ITEMS: [
     { label: 'home', href: '/' },
-    { label: 'docs', href: '/docs' },
-    { label: 'histories', href: '/histories', protected: true },
+    { label: 'howToPlay', href: '/how-to-play' },
+    { label: 'leaderboard', href: '/leaderboard' },
+    { label: 'offers', href: '/offers', protected: true },
   ],
 } as const;
 

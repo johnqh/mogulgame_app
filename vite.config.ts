@@ -11,7 +11,7 @@ export default defineConfig({
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
   server: {
-    port: 5128,
+    port: 5038,
   },
   resolve: {
     dedupe: [

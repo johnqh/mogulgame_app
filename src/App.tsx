@@ -14,9 +14,10 @@ import ScreenContainer from './components/layout/ScreenContainer';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
-const DocsPage = lazy(() => import('./pages/DocsPage'));
-const HistoriesPage = lazy(() => import('./pages/HistoriesPage'));
-const HistoryDetailPage = lazy(() => import('./pages/HistoryDetailPage'));
+const HowToPlayPage = lazy(() => import('./pages/HowToPlayPage'));
+const PropertyDetailPage = lazy(() => import('./pages/PropertyDetailPage'));
+const OffersPage = lazy(() => import('./pages/OffersPage'));
+const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const LanguageRedirect = lazy(() => import('./components/layout/LanguageRedirect'));
@@ -85,24 +86,32 @@ function AppRoutes() {
               }
             >
               <Route element={<ScreenContainerLayout />}>
-                <Route index element={<HomePage />} />
-                <Route path="docs" element={<DocsPage />} />
                 <Route
-                  path="histories"
+                  index
                   element={
                     <ErrorBoundary>
-                      <HistoriesPage />
+                      <HomePage />
+                    </ErrorBoundary>
+                  }
+                />
+                <Route path="how-to-play" element={<HowToPlayPage />} />
+                <Route
+                  path="properties/:propertyId"
+                  element={
+                    <ErrorBoundary>
+                      <PropertyDetailPage />
                     </ErrorBoundary>
                   }
                 />
                 <Route
-                  path="histories/:historyId"
+                  path="offers"
                   element={
                     <ErrorBoundary>
-                      <HistoryDetailPage />
+                      <OffersPage />
                     </ErrorBoundary>
                   }
                 />
+                <Route path="leaderboard" element={<LeaderboardPage />} />
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="sitemap" element={<SitemapPage />} />
               </Route>
