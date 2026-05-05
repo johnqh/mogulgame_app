@@ -38,7 +38,9 @@ function ScreenContainerInner({ children }: { children: ReactNode }) {
   const isHomePage = pathParts.length <= 1;
 
   const topBarConfig = useTopBarConfig();
-  const footerConfig = useFooterConfig(isHomePage ? 'full' : 'compact');
+  // Use compact footer when scrollable is false (e.g., map pages) to enable sticky layout
+  const useCompactFooter = !isHomePage || pageConfig.scrollable === false;
+  const footerConfig = useFooterConfig(useCompactFooter ? 'compact' : 'full');
 
   return (
     <AppPageLayout

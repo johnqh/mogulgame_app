@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '@sudobility/building_blocks/firebase';
 import { usePropertySearch } from '@sudobility/mogulgame_client';
@@ -17,6 +17,10 @@ import { useSetPageConfig } from '../hooks/usePageConfig';
 import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 import { CONSTANTS } from '../config/constants';
+
+// Continental US center
+const US_CENTER = { lat: 39.8283, lng: -98.5795 };
+const US_ZOOM = 4;
 
 function formatPrice(price: number | null): string {
   if (price == null) return 'N/A';
@@ -146,16 +150,22 @@ function PropertyMarker({
   );
 }
 
-/** Fits map bounds to property markers */
+/** Fits map bounds to property markers whenever the result set changes */
 function MapBoundsUpdater({ properties }: { properties: Property[] }) {
   const map = useMap();
+  const prevKeyRef = useRef('');
 
   useEffect(() => {
-    if (!map || properties.length === 0) return;
+    if (!map) return;
     const withCoords = properties.filter(
       p => p.address.latitude != null && p.address.longitude != null
     );
     if (withCoords.length === 0) return;
+
+    // Build a key from property IDs to detect actual data changes
+    const key = withCoords.map(p => p.id).join(',');
+    if (key === prevKeyRef.current) return;
+    prevKeyRef.current = key;
 
     const bounds = new google.maps.LatLngBounds();
     for (const p of withCoords) {
@@ -169,47 +179,78 @@ function MapBoundsUpdater({ properties }: { properties: Property[] }) {
 
 type ViewMode = 'map' | 'list';
 
-export default function HomePage() {
+const EMPTY_PROPERTIES: Property[] = [];
+
+/** Inner component rendered inside APIProvider so useMap() works */
+function HomePageInner() {
   const { t } = useTranslation('common');
   const { networkClient, baseUrl } = useApi();
 
-  useSetPageConfig({ scrollable: false, contentPadding: 'none', maxWidth: 'full' });
-
   const [query, setQuery] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams, setSearchParams] = useState<Record<string, string>>({});
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [minBedrooms, setMinBedrooms] = useState('');
+  const [includeSold, setIncludeSold] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('map');
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
+  const [locatingUser, setLocatingUser] = useState(false);
 
-  useEffect(() => {
-    analyticsService.trackPageView('/', 'Home');
-  }, []);
+  const hasSearched = Object.keys(searchParams).length > 0;
 
-  const params: Record<string, string> = {};
-  if (searchQuery) params.query = searchQuery;
-  if (minPrice) params.min_price = minPrice;
-  if (maxPrice) params.max_price = maxPrice;
-  if (minBedrooms) params.min_bedrooms = minBedrooms;
-
-  const { data, isLoading, error } = usePropertySearch(networkClient, baseUrl, params, {
-    enabled: !!searchQuery,
+  const { data, isLoading, error } = usePropertySearch(networkClient, baseUrl, searchParams, {
+    enabled: hasSearched,
   });
+
+  const buildParams = useCallback(
+    (base: Record<string, string>) => {
+      const params = { ...base };
+      if (minPrice) params.min_price = minPrice;
+      if (maxPrice) params.max_price = maxPrice;
+      if (minBedrooms) params.min_bedrooms = minBedrooms;
+      if (!includeSold) params.status = 'for_sale';
+      return params;
+    },
+    [minPrice, maxPrice, minBedrooms, includeSold]
+  );
 
   const handleSearch = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
       if (!query.trim()) return;
       analyticsService.trackButtonClick('search_properties', { query });
-      setSearchQuery(query.trim());
+      setSearchParams(buildParams({ query: query.trim() }));
       setSelectedMarkerId(null);
     },
-    [query]
+    [query, buildParams]
   );
 
-  const properties = data?.properties ?? [];
-  const hasResults = searchQuery && properties.length > 0;
+  const handleCurrentLocation = useCallback(() => {
+    if (!navigator.geolocation) return;
+    setLocatingUser(true);
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        analyticsService.trackButtonClick('current_location', { latitude, longitude });
+        setQuery(t('search.nearMe'));
+        setSearchParams(
+          buildParams({
+            latitude: String(latitude),
+            longitude: String(longitude),
+          })
+        );
+        setSelectedMarkerId(null);
+        setLocatingUser(false);
+      },
+      () => {
+        setLocatingUser(false);
+      }
+    );
+  }, [t, buildParams]);
+
+  const properties = data?.properties ?? EMPTY_PROPERTIES;
+  const hasResults = hasSearched && properties.length > 0;
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
@@ -219,14 +260,23 @@ export default function HomePage() {
       <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
         <form onSubmit={handleSearch} className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex flex-col sm:flex-row gap-2">
-            <div className="flex-1">
+            <div className="flex-1 flex gap-2">
               <input
                 type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder={t('search.placeholder')}
-                className={`w-full px-4 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+                className={`flex-1 px-4 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               />
+              <button
+                type="button"
+                onClick={handleCurrentLocation}
+                disabled={locatingUser}
+                className={`px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} ${ui.states.disabled} flex-shrink-0`}
+                title={t('search.currentLocation')}
+              >
+                {locatingUser ? '...' : '\u{1F4CD}'}
+              </button>
             </div>
             <div className="flex gap-2">
               <input
@@ -256,6 +306,14 @@ export default function HomePage() {
                 <option value="5">5+</option>
               </select>
               <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className={`px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default}`}
+                title={t('search.advancedFilters')}
+              >
+                {showAdvanced ? '\u25B2' : '\u25BC'}
+              </button>
+              <button
                 type="submit"
                 className={`${buttonVariant('primary')} ${designTokens.radius.lg} text-sm px-5`}
               >
@@ -263,11 +321,25 @@ export default function HomePage() {
               </button>
             </div>
           </div>
+          {/* Advanced filters */}
+          {showAdvanced && (
+            <div className="flex items-center gap-4 mt-2 pt-2 border-t border-dashed border-gray-200 dark:border-gray-700">
+              <label className="flex items-center gap-2 text-sm cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={includeSold}
+                  onChange={e => setIncludeSold(e.target.checked)}
+                  className="rounded"
+                />
+                <span className={ui.text.muted}>{t('search.includeSold')}</span>
+              </label>
+            </div>
+          )}
         </form>
       </div>
 
       {/* View toggle + results count */}
-      {(hasResults || isLoading) && (
+      {(hasResults || (hasSearched && isLoading)) && (
         <div
           className={`flex items-center justify-between px-4 py-2 border-b ${ui.border.default} bg-theme-bg-primary max-w-7xl mx-auto w-full`}
         >
@@ -324,68 +396,42 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* No search yet — show welcome + map */}
-        {!searchQuery && !isLoading && (
-          <div className="h-full flex flex-col">
-            <APIProvider apiKey={CONSTANTS.GOOGLE_MAPS_API_KEY}>
-              <div className="flex-1 min-h-0 relative">
-                <Map
-                  defaultCenter={{ lat: 40.7128, lng: -74.006 }}
-                  defaultZoom={11}
-                  gestureHandling="greedy"
-                  disableDefaultUI={false}
-                  mapId="mogulgame-map"
-                  className="w-full h-full"
-                />
-                {/* Welcome overlay */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                  <div
-                    className={`${ui.spacing.card.lg} ${designTokens.radius.xl} bg-theme-bg-primary/90 backdrop-blur shadow-xl pointer-events-auto`}
-                  >
-                    <h1 className={`${textVariants.heading.h2()} mb-2`}>{t('home.title')}</h1>
-                    <p className={`${textVariants.body.md()} ${ui.text.muted} max-w-md`}>
-                      {t('home.subtitle')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </APIProvider>
-          </div>
-        )}
-
         {/* No results */}
-        {searchQuery && data && properties.length === 0 && !isLoading && (
-          <div className="h-full flex items-center justify-center">
-            <p className={`${ui.text.muted}`}>{t('search.noResults')}</p>
+        {hasSearched && data && properties.length === 0 && !isLoading && (
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+            <div
+              className={`px-4 py-2 ${designTokens.radius.lg} bg-theme-bg-primary shadow-lg border ${ui.border.default}`}
+            >
+              <p className={ui.text.muted}>{t('search.noResults')}</p>
+            </div>
           </div>
         )}
 
-        {/* Results: map or list */}
-        {hasResults && viewMode === 'map' && (
-          <APIProvider apiKey={CONSTANTS.GOOGLE_MAPS_API_KEY}>
-            <div className="h-full flex">
-              {/* Map */}
-              <div className="flex-1 min-h-0">
-                <Map
-                  defaultCenter={{ lat: 40.7128, lng: -74.006 }}
-                  defaultZoom={11}
-                  gestureHandling="greedy"
-                  disableDefaultUI={false}
-                  mapId="mogulgame-map"
-                  className="w-full h-full"
-                >
-                  <MapBoundsUpdater properties={properties} />
-                  {properties.map(p => (
-                    <PropertyMarker
-                      key={p.id}
-                      property={p}
-                      isSelected={selectedMarkerId === p.id}
-                      onSelect={setSelectedMarkerId}
-                    />
-                  ))}
-                </Map>
-              </div>
-              {/* Side list (desktop only) */}
+        {/* Map view (always rendered, shows markers when results exist) */}
+        {viewMode === 'map' && (
+          <div className="h-full flex">
+            <div className="flex-1 min-h-0">
+              <Map
+                defaultCenter={US_CENTER}
+                defaultZoom={US_ZOOM}
+                gestureHandling="greedy"
+                disableDefaultUI={false}
+                mapId="mogulgame-map"
+                className="w-full h-full"
+              >
+                <MapBoundsUpdater properties={properties} />
+                {properties.map(p => (
+                  <PropertyMarker
+                    key={p.id}
+                    property={p}
+                    isSelected={selectedMarkerId === p.id}
+                    onSelect={setSelectedMarkerId}
+                  />
+                ))}
+              </Map>
+            </div>
+            {/* Side list (desktop only, when results exist) */}
+            {hasResults && (
               <div className="hidden lg:block w-80 border-l overflow-y-auto bg-theme-bg-primary">
                 <div className="p-3 space-y-3">
                   {properties.map(p => (
@@ -393,11 +439,12 @@ export default function HomePage() {
                   ))}
                 </div>
               </div>
-            </div>
-          </APIProvider>
+            )}
+          </div>
         )}
 
-        {hasResults && viewMode === 'list' && (
+        {/* List view */}
+        {viewMode === 'list' && hasResults && (
           <div className="h-full overflow-y-auto">
             <div className="max-w-7xl mx-auto p-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -413,7 +460,28 @@ export default function HomePage() {
             </div>
           </div>
         )}
+
+        {/* List view but no results yet */}
+        {viewMode === 'list' && !hasResults && !isLoading && (
+          <div className="h-full flex items-center justify-center">
+            <p className={ui.text.muted}>{t('search.placeholder')}</p>
+          </div>
+        )}
       </div>
     </div>
+  );
+}
+
+export default function HomePage() {
+  useSetPageConfig({ scrollable: false, contentPadding: 'none', maxWidth: 'full' });
+
+  useEffect(() => {
+    analyticsService.trackPageView('/', 'Home');
+  }, []);
+
+  return (
+    <APIProvider apiKey={CONSTANTS.GOOGLE_MAPS_API_KEY}>
+      <HomePageInner />
+    </APIProvider>
   );
 }

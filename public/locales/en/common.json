@@ -55,7 +55,11 @@
     "listView": "List",
     "resultCount": "{{count}} properties found",
     "showingOf": "Showing {{shown}} of {{total}}",
-    "noResults": "No properties found. Try a different search."
+    "noResults": "No properties found. Try a different search.",
+    "currentLocation": "Use current location",
+    "nearMe": "Near me",
+    "includeSold": "Include sold properties",
+    "advancedFilters": "Advanced filters"
   },
   "property": {
     "notFound": "Property not found.",
@@ -70,7 +74,22 @@
     "status": "Status",
     "source": "Source",
     "zestimate": "Zestimate",
-    "soldPrice": "Sold Price"
+    "soldPrice": "Sold Price",
+    "soldOn": "Sold On",
+    "listedOn": "Listed On",
+    "pricePerSqft": "$/sqft",
+    "yearBuilt": "built",
+    "stories": "Stories",
+    "garage": "Garage",
+    "heating": "Heating",
+    "cooling": "Cooling",
+    "hoaFee": "HOA Fee",
+    "taxHistory": "Tax History",
+    "propertyHistory": "Property History",
+    "nearbySchools": "Nearby Schools",
+    "noPhotos": "No photos available",
+    "propertyFeatures": "Property Features",
+    "viewOnSource": "View on {{source}}"
   },
   "offers": {
     "title": "My Offers",
