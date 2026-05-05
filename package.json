@@ -2,7 +2,7 @@
   "name": "@sudobility/mogulgame_app",
   "private": true,
   "license": "BUSL-1.1",
-  "version": "1.0.74",
+  "version": "1.0.75",
   "type": "module",
   "scripts": {
     "dev": "bun run process:static && vite",
