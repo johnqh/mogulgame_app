@@ -133,17 +133,27 @@ function PropertyMarker({
         >
           <LocalizedLink
             to={`/properties/${property.id}`}
-            className="block p-1 text-gray-900 no-underline hover:text-blue-600"
+            className="block text-gray-900 no-underline hover:text-blue-600"
           >
-            <p className="font-bold text-sm mb-1">{formatPriceFull(property.price)}</p>
-            <p className="text-xs text-gray-600">
-              {property.address.street}
-              {property.address.unit ? `, ${property.address.unit}` : ''}
-            </p>
-            <p className="text-xs text-gray-600">
-              {property.address.city}, {property.address.state} {property.address.zip}
-            </p>
-            <p className="text-xs text-blue-600 mt-1">View details &rarr;</p>
+            <div className="flex gap-2 items-center">
+              {property.images.length > 0 && (
+                <img
+                  src={property.images[0]}
+                  alt={property.normalized_address}
+                  className="w-12 h-12 object-cover rounded flex-shrink-0"
+                />
+              )}
+              <div className="min-w-0">
+                <p className="font-bold text-sm leading-tight">{formatPriceFull(property.price)}</p>
+                <p className="text-xs text-gray-600 truncate leading-tight">
+                  {property.address.street}
+                  {property.address.unit ? `, ${property.address.unit}` : ''}
+                </p>
+                <p className="text-xs text-gray-600 leading-tight">
+                  {property.address.city}, {property.address.state} {property.address.zip}
+                </p>
+              </div>
+            </div>
           </LocalizedLink>
         </InfoWindow>
       )}
@@ -181,6 +191,7 @@ function MapBoundsUpdater({ properties }: { properties: Property[] }) {
 type ViewMode = 'map' | 'list';
 
 const EMPTY_PROPERTIES: Property[] = [];
+
 /** Inner component rendered inside APIProvider so useMap() works */
 function HomePageInner() {
   const { t } = useTranslation('common');
@@ -198,10 +209,6 @@ function HomePageInner() {
   const urlLat = urlParams.get('lat');
   const urlLng = urlParams.get('lng');
 
-  // Local UI state. queryDraft is keyed to urlKey via the form's key prop,
-  // so it resets when URL params change (browser back/forward).
-  const [queryDraft, setQueryDraft] = useState(query);
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('map');
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
   const [locatingUser, setLocatingUser] = useState(false);
@@ -231,23 +238,23 @@ function HomePageInner() {
   const handleSearch = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!queryDraft.trim()) return;
-      const form = e.currentTarget;
-      const fd = new FormData(form);
-      analyticsService.trackButtonClick('search_properties', { query: queryDraft });
-      const params: Record<string, string> = { q: queryDraft.trim() };
+      const fd = new FormData(e.currentTarget);
+      const q = (fd.get('q') as string)?.trim();
+      if (!q) return;
+      analyticsService.trackButtonClick('search_properties', { query: q });
+      const params: Record<string, string> = { q };
       const mp = fd.get('min_price') as string;
       const xp = fd.get('max_price') as string;
       const mb = fd.get('min_bedrooms') as string;
       const is = fd.get('include_sold');
-      if (mp) params.min_price = mp;
-      if (xp) params.max_price = xp;
-      if (mb) params.min_bedrooms = mb;
+      if (mp && mp !== 'any') params.min_price = mp;
+      if (xp && xp !== 'any') params.max_price = xp;
+      if (mb && mb !== 'any') params.min_bedrooms = mb;
       if (is) params.include_sold = '1';
       setUrlParams(params, { replace: false });
       setSelectedMarkerId(null);
     },
-    [queryDraft, setUrlParams]
+    [setUrlParams]
   );
 
   const handleCurrentLocation = useCallback(() => {
@@ -257,16 +264,11 @@ function HomePageInner() {
       position => {
         const { latitude, longitude } = position.coords;
         analyticsService.trackButtonClick('current_location', { latitude, longitude });
-        setQueryDraft(t('search.nearMe'));
         const params: Record<string, string> = {
-          q: t('search.nearMe'),
+          q: 'Near me',
           lat: String(latitude),
           lng: String(longitude),
         };
-        if (minPrice) params.min_price = minPrice;
-        if (maxPrice) params.max_price = maxPrice;
-        if (minBedrooms) params.min_bedrooms = minBedrooms;
-        if (includeSold) params.include_sold = '1';
         setUrlParams(params, { replace: false });
         setSelectedMarkerId(null);
         setLocatingUser(false);
@@ -275,7 +277,7 @@ function HomePageInner() {
         setLocatingUser(false);
       }
     );
-  }, [t, minPrice, maxPrice, minBedrooms, includeSold, setUrlParams]);
+  }, [setUrlParams]);
 
   const properties = data?.properties ?? EMPTY_PROPERTIES;
   const hasResults = hasSearched && properties.length > 0;
@@ -287,86 +289,106 @@ function HomePageInner() {
       {/* Search bar */}
       <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
         <form key={urlKey} onSubmit={handleSearch} className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
             <div className="flex-1 flex gap-2">
               <input
+                name="q"
                 type="text"
-                value={queryDraft}
-                onChange={e => setQueryDraft(e.target.value)}
+                defaultValue={query}
                 placeholder={t('search.placeholder')}
-                className={`flex-1 px-4 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+                className={`flex-1 h-10 px-4 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               />
               <button
                 type="button"
                 onClick={handleCurrentLocation}
                 disabled={locatingUser}
-                className={`px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} ${ui.states.disabled} flex-shrink-0`}
+                className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} ${ui.states.disabled} flex-shrink-0 flex items-center justify-center`}
                 title={t('search.currentLocation')}
               >
-                {locatingUser ? '...' : '\u{1F4CD}'}
+                {locatingUser ? (
+                  '...'
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4"
+                  >
+                    <circle cx="12" cy="12" r="4" />
+                    <line x1="12" y1="2" x2="12" y2="6" />
+                    <line x1="12" y1="18" x2="12" y2="22" />
+                    <line x1="2" y1="12" x2="6" y2="12" />
+                    <line x1="18" y1="12" x2="22" y2="12" />
+                  </svg>
+                )}
               </button>
             </div>
             <div className="flex gap-2">
-              <input
-                key={`minp-${urlKey}`}
-                name="min_price"
-                type="number"
-                defaultValue={minPrice}
-                placeholder={t('search.minPrice')}
-                className={`w-28 px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
-              />
-              <input
-                key={`maxp-${urlKey}`}
-                name="max_price"
-                type="number"
-                defaultValue={maxPrice}
-                placeholder={t('search.maxPrice')}
-                className={`w-28 px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
-              />
               <select
-                key={`beds-${urlKey}`}
-                name="min_bedrooms"
-                defaultValue={minBedrooms}
-                className={`px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+                name="min_price"
+                defaultValue={minPrice || 'any'}
+                className={`h-10 w-28 px-3 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               >
-                <option value="">{t('search.beds')}</option>
+                <option value="any">{t('search.minPrice')}</option>
+                <option value="100000">$100K</option>
+                <option value="200000">$200K</option>
+                <option value="300000">$300K</option>
+                <option value="500000">$500K</option>
+                <option value="750000">$750K</option>
+                <option value="1000000">$1M</option>
+                <option value="2000000">$2M</option>
+                <option value="5000000">$5M</option>
+              </select>
+              <select
+                name="max_price"
+                defaultValue={maxPrice || 'any'}
+                className={`h-10 w-28 px-3 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+              >
+                <option value="any">{t('search.maxPrice')}</option>
+                <option value="200000">$200K</option>
+                <option value="300000">$300K</option>
+                <option value="500000">$500K</option>
+                <option value="750000">$750K</option>
+                <option value="1000000">$1M</option>
+                <option value="2000000">$2M</option>
+                <option value="5000000">$5M</option>
+                <option value="10000000">$10M</option>
+              </select>
+              <select
+                name="min_bedrooms"
+                defaultValue={minBedrooms || 'any'}
+                className={`h-10 w-24 px-3 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+              >
+                <option value="any">{t('search.beds')}</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
                 <option value="4">4+</option>
                 <option value="5">5+</option>
               </select>
-              <button
-                type="button"
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className={`px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default}`}
-                title={t('search.advancedFilters')}
-              >
-                {showAdvanced ? '\u25B2' : '\u25BC'}
-              </button>
-              <button
-                type="submit"
-                className={`${buttonVariant('primary')} ${designTokens.radius.lg} text-sm px-5`}
-              >
-                {t('search.button')}
-              </button>
-            </div>
-          </div>
-          {/* Advanced filters */}
-          {showAdvanced && (
-            <div className="flex items-center gap-4 mt-2 pt-2 border-t border-dashed border-gray-200 dark:border-gray-700">
-              <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <label className="flex items-center gap-1.5 text-sm cursor-pointer">
                 <input
-                  key={`sold-${urlKey}`}
                   name="include_sold"
                   type="checkbox"
                   defaultChecked={includeSold}
                   className="rounded"
                 />
-                <span className={ui.text.muted}>{t('search.includeSold')}</span>
+                <span className={`${ui.text.muted} whitespace-nowrap`}>
+                  {t('search.includeSold')}
+                </span>
               </label>
+              <button
+                type="submit"
+                className={`h-10 ${buttonVariant('primary')} ${designTokens.radius.lg} text-sm px-5`}
+              >
+                {t('search.button')}
+              </button>
             </div>
-          )}
+          </div>
         </form>
       </div>
 

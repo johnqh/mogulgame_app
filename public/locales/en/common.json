@@ -58,8 +58,8 @@
     "noResults": "No properties found. Try a different search.",
     "currentLocation": "Use current location",
     "nearMe": "Near me",
-    "includeSold": "Include sold properties",
-    "advancedFilters": "Advanced filters"
+    "includeSold": "Include Sold",
+    "advanced": "Advanced"
   },
   "property": {
     "notFound": "Property not found.",
