@@ -2,7 +2,7 @@
   "name": "@sudobility/mogulgame_app",
   "private": true,
   "license": "BUSL-1.1",
-  "version": "1.0.73",
+  "version": "1.0.74",
   "type": "module",
   "scripts": {
     "dev": "bun run process:static && vite",
@@ -50,6 +50,7 @@
     "react-helmet-async": "^2.0.5",
     "react-i18next": "^16.5.4",
     "react-router-dom": "^7.13.0",
+    "swiper": "^12.1.4",
     "tailwind-merge": "^3.4.1"
   },
   "devDependencies": {

@@ -21,6 +21,8 @@ export default defineConfig({
       'react-helmet-async',
       '@sudobility/components',
       '@sudobility/building_blocks',
+      '@sudobility/automotive-components',
+      '@sudobility/design',
     ],
     alias: {
       react: path.resolve(__dirname, 'node_modules/react'),

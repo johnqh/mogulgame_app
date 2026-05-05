@@ -11,7 +11,12 @@ import {
 } from '@sudobility/mogulgame_client';
 import { validateOfferPrice, calculateMaxOffer } from '@sudobility/mogulgame_lib';
 import { Section } from '@sudobility/components';
-import { Carousel } from '@sudobility/automotive-components';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import {
   textVariants,
   buttonVariant,
@@ -150,23 +155,43 @@ export default function PropertyDetailPage() {
 
   return (
     <div className="flex flex-col min-h-0">
-      {/* Photo Carousel */}
-      <Section spacing="none" maxWidth="4xl">
+      {/* Photo Coverflow */}
+      <Section spacing="sm" maxWidth="5xl">
         {property.images.length > 0 ? (
-          <Carousel showArrows showIndicators loop className="w-full h-[300px] md:h-[450px]">
+          <Swiper
+            modules={[EffectCoverflow, Navigation, Pagination]}
+            effect="coverflow"
+            grabCursor
+            centeredSlides
+            slidesPerView="auto"
+            slideToClickedSlide
+            navigation
+            pagination={{ clickable: true }}
+            coverflowEffect={{
+              rotate: 20,
+              stretch: '5%',
+              depth: 150,
+              modifier: 2,
+              slideShadows: true,
+            }}
+            className="w-full"
+            style={{ paddingBottom: '40px' }}
+          >
             {property.images.slice(0, 20).map((img, i) => (
-              <div key={i} className="w-full h-[300px] md:h-[450px] bg-gray-100 dark:bg-gray-800">
-                <img
-                  src={img}
-                  alt={`${property.normalized_address} - ${i + 1}`}
-                  className="w-full h-full object-cover"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                />
-              </div>
+              <SwiperSlide key={i} style={{ width: '85%', maxWidth: '720px' }}>
+                <div className={`${designTokens.radius.lg} overflow-hidden`}>
+                  <img
+                    src={img}
+                    alt={`${property.normalized_address} - ${i + 1}`}
+                    className="w-full aspect-[16/10] object-cover"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
+              </SwiperSlide>
             ))}
-          </Carousel>
+          </Swiper>
         ) : (
-          <div className="w-full h-[300px] md:h-[450px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+          <div className="w-full h-[300px] md:h-[450px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
             <span className={ui.text.muted}>{t('property.noPhotos')}</span>
           </div>
         )}
