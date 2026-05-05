@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { useApi } from '@sudobility/building_blocks/firebase';
 import { usePropertySearch } from '@sudobility/mogulgame_client';
 import {
@@ -180,50 +181,73 @@ function MapBoundsUpdater({ properties }: { properties: Property[] }) {
 type ViewMode = 'map' | 'list';
 
 const EMPTY_PROPERTIES: Property[] = [];
-
 /** Inner component rendered inside APIProvider so useMap() works */
 function HomePageInner() {
   const { t } = useTranslation('common');
   const { networkClient, baseUrl } = useApi();
+  const [urlParams, setUrlParams] = useSearchParams();
 
-  const [query, setQuery] = useState('');
-  const [searchParams, setSearchParams] = useState<Record<string, string>>({});
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [minBedrooms, setMinBedrooms] = useState('');
-  const [includeSold, setIncludeSold] = useState(false);
+  // URL params are the source of truth for search state.
+  // Use a key derived from URL to reset draft inputs on browser back/forward.
+  const urlKey = urlParams.toString();
+  const query = urlParams.get('q') ?? '';
+  const minPrice = urlParams.get('min_price') ?? '';
+  const maxPrice = urlParams.get('max_price') ?? '';
+  const minBedrooms = urlParams.get('min_bedrooms') ?? '';
+  const includeSold = urlParams.get('include_sold') === '1';
+  const urlLat = urlParams.get('lat');
+  const urlLng = urlParams.get('lng');
+
+  // Local UI state. queryDraft is keyed to urlKey via the form's key prop,
+  // so it resets when URL params change (browser back/forward).
+  const [queryDraft, setQueryDraft] = useState(query);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('map');
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
   const [locatingUser, setLocatingUser] = useState(false);
 
-  const hasSearched = Object.keys(searchParams).length > 0;
+  // Build API search params from URL params
+  const searchParams = useMemo(() => {
+    const params: Record<string, string> = {};
+    if (urlLat && urlLng) {
+      params.latitude = urlLat;
+      params.longitude = urlLng;
+    } else if (query) {
+      params.query = query;
+    }
+    if (minPrice) params.min_price = minPrice;
+    if (maxPrice) params.max_price = maxPrice;
+    if (minBedrooms) params.min_bedrooms = minBedrooms;
+    if (!includeSold) params.status = 'for_sale';
+    return params;
+  }, [query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, includeSold]);
+
+  const hasSearched = !!(query || (urlLat && urlLng));
 
   const { data, isLoading, error } = usePropertySearch(networkClient, baseUrl, searchParams, {
     enabled: hasSearched,
   });
 
-  const buildParams = useCallback(
-    (base: Record<string, string>) => {
-      const params = { ...base };
-      if (minPrice) params.min_price = minPrice;
-      if (maxPrice) params.max_price = maxPrice;
-      if (minBedrooms) params.min_bedrooms = minBedrooms;
-      if (!includeSold) params.status = 'for_sale';
-      return params;
-    },
-    [minPrice, maxPrice, minBedrooms, includeSold]
-  );
-
   const handleSearch = useCallback(
-    (e: React.FormEvent) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!query.trim()) return;
-      analyticsService.trackButtonClick('search_properties', { query });
-      setSearchParams(buildParams({ query: query.trim() }));
+      if (!queryDraft.trim()) return;
+      const form = e.currentTarget;
+      const fd = new FormData(form);
+      analyticsService.trackButtonClick('search_properties', { query: queryDraft });
+      const params: Record<string, string> = { q: queryDraft.trim() };
+      const mp = fd.get('min_price') as string;
+      const xp = fd.get('max_price') as string;
+      const mb = fd.get('min_bedrooms') as string;
+      const is = fd.get('include_sold');
+      if (mp) params.min_price = mp;
+      if (xp) params.max_price = xp;
+      if (mb) params.min_bedrooms = mb;
+      if (is) params.include_sold = '1';
+      setUrlParams(params, { replace: false });
       setSelectedMarkerId(null);
     },
-    [query, buildParams]
+    [queryDraft, setUrlParams]
   );
 
   const handleCurrentLocation = useCallback(() => {
@@ -233,13 +257,17 @@ function HomePageInner() {
       position => {
         const { latitude, longitude } = position.coords;
         analyticsService.trackButtonClick('current_location', { latitude, longitude });
-        setQuery(t('search.nearMe'));
-        setSearchParams(
-          buildParams({
-            latitude: String(latitude),
-            longitude: String(longitude),
-          })
-        );
+        setQueryDraft(t('search.nearMe'));
+        const params: Record<string, string> = {
+          q: t('search.nearMe'),
+          lat: String(latitude),
+          lng: String(longitude),
+        };
+        if (minPrice) params.min_price = minPrice;
+        if (maxPrice) params.max_price = maxPrice;
+        if (minBedrooms) params.min_bedrooms = minBedrooms;
+        if (includeSold) params.include_sold = '1';
+        setUrlParams(params, { replace: false });
         setSelectedMarkerId(null);
         setLocatingUser(false);
       },
@@ -247,7 +275,7 @@ function HomePageInner() {
         setLocatingUser(false);
       }
     );
-  }, [t, buildParams]);
+  }, [t, minPrice, maxPrice, minBedrooms, includeSold, setUrlParams]);
 
   const properties = data?.properties ?? EMPTY_PROPERTIES;
   const hasResults = hasSearched && properties.length > 0;
@@ -258,13 +286,13 @@ function HomePageInner() {
 
       {/* Search bar */}
       <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
-        <form onSubmit={handleSearch} className="max-w-7xl mx-auto px-4 py-3">
+        <form key={urlKey} onSubmit={handleSearch} className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="flex-1 flex gap-2">
               <input
                 type="text"
-                value={query}
-                onChange={e => setQuery(e.target.value)}
+                value={queryDraft}
+                onChange={e => setQueryDraft(e.target.value)}
                 placeholder={t('search.placeholder')}
                 className={`flex-1 px-4 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               />
@@ -280,22 +308,25 @@ function HomePageInner() {
             </div>
             <div className="flex gap-2">
               <input
+                key={`minp-${urlKey}`}
+                name="min_price"
                 type="number"
-                value={minPrice}
-                onChange={e => setMinPrice(e.target.value)}
+                defaultValue={minPrice}
                 placeholder={t('search.minPrice')}
                 className={`w-28 px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               />
               <input
+                key={`maxp-${urlKey}`}
+                name="max_price"
                 type="number"
-                value={maxPrice}
-                onChange={e => setMaxPrice(e.target.value)}
+                defaultValue={maxPrice}
                 placeholder={t('search.maxPrice')}
                 className={`w-28 px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               />
               <select
-                value={minBedrooms}
-                onChange={e => setMinBedrooms(e.target.value)}
+                key={`beds-${urlKey}`}
+                name="min_bedrooms"
+                defaultValue={minBedrooms}
                 className={`px-3 py-2.5 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
               >
                 <option value="">{t('search.beds')}</option>
@@ -326,9 +357,10 @@ function HomePageInner() {
             <div className="flex items-center gap-4 mt-2 pt-2 border-t border-dashed border-gray-200 dark:border-gray-700">
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input
+                  key={`sold-${urlKey}`}
+                  name="include_sold"
                   type="checkbox"
-                  checked={includeSold}
-                  onChange={e => setIncludeSold(e.target.checked)}
+                  defaultChecked={includeSold}
                   className="rounded"
                 />
                 <span className={ui.text.muted}>{t('search.includeSold')}</span>

@@ -398,28 +398,38 @@ export default function PropertyDetailPage() {
           </div>
         )}
 
-        {/* Tax History */}
-        {detail?.tax_history && detail.tax_history.length > 0 && (
+        {/* Property Features (structured detail sections) */}
+        {detail?.detail_sections && detail.detail_sections.length > 0 && (
           <div className={`mb-6 pb-6 border-b ${ui.border.default}`}>
-            <h3 className={`${textVariants.heading.h4()} mb-3`}>{t('property.taxHistory')}</h3>
+            <h3 className={`${textVariants.heading.h4()} mb-3`}>
+              {t('property.propertyFeatures')}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {detail.detail_sections.map((section, i) => (
+                <div key={i}>
+                  <p className={`${textVariants.body.sm()} font-medium mb-1`}>{section.category}</p>
+                  <ul className="space-y-0.5">
+                    {section.text.map((item, j) => (
+                      <li key={j} className={`${textVariants.caption.default()} ${ui.text.muted}`}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Price History from API */}
+        {historyData && historyData.entries.length > 0 && (
+          <div className={`mb-6 pb-6 border-b ${ui.border.default}`}>
+            <h3 className={`${textVariants.heading.h4()} mb-3`}>{t('property.priceHistory')}</h3>
             <div
               className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
             >
-              {detail.tax_history.map((tx, i) => (
-                <div
-                  key={i}
-                  className={`flex justify-between items-center py-2 border-b ${ui.border.default} last:border-0`}
-                >
-                  <span className={textVariants.body.sm()}>{tx.year}</span>
-                  <div className="text-right">
-                    <span className={textVariants.body.sm()}>{formatPrice(tx.tax)}</span>
-                    {tx.assessment_total != null && (
-                      <span className={`${textVariants.caption.default()} ${ui.text.muted} ml-2`}>
-                        (assessed: {formatPrice(tx.assessment_total)})
-                      </span>
-                    )}
-                  </div>
-                </div>
+              {historyData.entries.map((entry, i) => (
+                <PriceHistoryRow key={i} entry={entry} locale={i18n.language} />
               ))}
             </div>
           </div>
@@ -456,21 +466,34 @@ export default function PropertyDetailPage() {
           </div>
         )}
 
-        {/* Price History from API */}
-        {historyData && historyData.entries.length > 0 && (
+        {/* Tax History */}
+        {detail?.tax_history && detail.tax_history.length > 0 && (
           <div className={`mb-6 pb-6 border-b ${ui.border.default}`}>
-            <h3 className={`${textVariants.heading.h4()} mb-3`}>{t('property.priceHistory')}</h3>
+            <h3 className={`${textVariants.heading.h4()} mb-3`}>{t('property.taxHistory')}</h3>
             <div
               className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
             >
-              {historyData.entries.map((entry, i) => (
-                <PriceHistoryRow key={i} entry={entry} locale={i18n.language} />
+              {detail.tax_history.map((tx, i) => (
+                <div
+                  key={i}
+                  className={`flex justify-between items-center py-2 border-b ${ui.border.default} last:border-0`}
+                >
+                  <span className={textVariants.body.sm()}>{tx.year}</span>
+                  <div className="text-right">
+                    <span className={textVariants.body.sm()}>{formatPrice(tx.tax)}</span>
+                    {tx.assessment_total != null && (
+                      <span className={`${textVariants.caption.default()} ${ui.text.muted} ml-2`}>
+                        (assessed: {formatPrice(tx.assessment_total)})
+                      </span>
+                    )}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Schools */}
+        {/* Nearby Schools */}
         {detail?.schools && detail.schools.length > 0 && (
           <div className={`mb-6 pb-6 border-b ${ui.border.default}`}>
             <h3 className={`${textVariants.heading.h4()} mb-3`}>{t('property.nearbySchools')}</h3>
@@ -500,29 +523,6 @@ export default function PropertyDetailPage() {
                       </p>
                     </div>
                   )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Detail Sections (structured property features) */}
-        {detail?.detail_sections && detail.detail_sections.length > 0 && (
-          <div className={`mb-6 pb-6 border-b ${ui.border.default}`}>
-            <h3 className={`${textVariants.heading.h4()} mb-3`}>
-              {t('property.propertyFeatures')}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {detail.detail_sections.map((section, i) => (
-                <div key={i}>
-                  <p className={`${textVariants.body.sm()} font-medium mb-1`}>{section.category}</p>
-                  <ul className="space-y-0.5">
-                    {section.text.map((item, j) => (
-                      <li key={j} className={`${textVariants.caption.default()} ${ui.text.muted}`}>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               ))}
             </div>
@@ -594,7 +594,7 @@ export default function PropertyDetailPage() {
                   <input
                     id="offer-price"
                     type="number"
-                    step="1000"
+                    step="any"
                     min="1"
                     value={offerPrice}
                     onChange={e => {

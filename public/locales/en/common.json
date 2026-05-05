@@ -104,7 +104,9 @@
     "yourOffer": "Your Offer",
     "placedOn": "Placed on",
     "manageOffers": "Manage offers",
-    "viewProperty": "View property",
+    "viewProperty": "View Property",
+    "edit": "Edit",
+    "cancelOffer": "Cancel offer",
     "placed": "Placed",
     "resolved": "Resolved",
     "invalidPrice": "Please enter a valid offer price.",
@@ -172,7 +174,8 @@
     "delete": "Delete",
     "loading": "Loading...",
     "confirm": "Confirm",
-    "no": "No"
+    "no": "No",
+    "save": "Save"
   },
   "signInTitle": "Sign In",
   "signInWithEmail": "Sign in with email",
