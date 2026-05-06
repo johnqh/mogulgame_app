@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "Comment commencer avec Starter",
+    "description": "Configurez et explorez le modèle d'architecture Sudobility avec le projet modèle Starter.",
+    "steps": [
+      {
+        "name": "Parcourir la documentation",
+        "text": "Lisez la page de documentation pour comprendre l'architecture en six paquets : types, API, client, lib, application web et application mobile."
+      },
+      {
+        "name": "Créer une entrée d'historique",
+        "text": "Connectez-vous et ajoutez votre première entrée de journal pour voir comment le flux de données complet fonctionne du frontend au backend."
+      },
+      {
+        "name": "Explorez l'API",
+        "text": "Voyez comment l'API Hono avec PostgreSQL et Drizzle ORM gère les opérations CRUD et l'authentification."
+      },
+      {
+        "name": "Personnaliser et étendre",
+        "text": "Utilisez ce modèle comme point de départ pour créer votre propre application en suivant le même patron d'architecture."
+      }
+    ]
+  },
+  "webApp": {
+    "description": "Un projet modèle full-stack illustrant le modèle d'architecture Sudobility avec des types partagés, une API Hono, des hooks TanStack Query, des magasins Zustand et une application web React.",
+    "features": [
+      "Architecture full-stack TypeScript",
+      "Définitions de types partagés entre frontend et backend",
+      "Hooks TanStack Query avec mise en cache automatique",
+      "Gestion d'état Zustand",
+      "authentification Firebase",
+      "prise en charge de l'internationalisation en 16 langues"
+    ]
+  }
+}

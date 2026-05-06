@@ -33,7 +33,7 @@ import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
 function formatPrice(price: number | null): string {
-  if (price == null) return 'N/A';
+  if (price == null) return '';
   return `$${price.toLocaleString()}`;
 }
 
@@ -340,7 +340,7 @@ export default function PropertyDetailPage() {
                 {t('property.hoaFee')}
               </p>
               <p className={`${textVariants.body.md()} font-medium`}>
-                {formatPrice(detail.hoa_fee)}/mo
+                {t('property.hoaPerMonth', { amount: formatPrice(detail.hoa_fee) })}
               </p>
             </div>
           )}
@@ -483,7 +483,7 @@ export default function PropertyDetailPage() {
                     <span className={textVariants.body.sm()}>{formatPrice(tx.tax)}</span>
                     {tx.assessment_total != null && (
                       <span className={`${textVariants.caption.default()} ${ui.text.muted} ml-2`}>
-                        (assessed: {formatPrice(tx.assessment_total)})
+                        ({t('property.assessed', { amount: formatPrice(tx.assessment_total) })})
                       </span>
                     )}
                   </div>
@@ -510,8 +510,9 @@ export default function PropertyDetailPage() {
                         <span className="capitalize">{school.funding_type}</span>
                       )}
                       {school.grades.length > 0 &&
-                        ` · Grades ${school.grades[0]}-${school.grades[school.grades.length - 1]}`}
-                      {school.distance_miles != null && ` · ${school.distance_miles} mi`}
+                        ` · ${t('property.grades', { from: school.grades[0], to: school.grades[school.grades.length - 1] })}`}
+                      {school.distance_miles != null &&
+                        ` · ${t('property.distanceMiles', { miles: school.distance_miles })}`}
                     </p>
                   </div>
                   {school.rating != null && (

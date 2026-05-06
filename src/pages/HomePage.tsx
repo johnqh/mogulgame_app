@@ -13,6 +13,14 @@ import {
 } from '@sudobility/design';
 import type { Property } from '@sudobility/mogulgame_types';
 import { APIProvider, Map, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  Switch,
+} from '@sudobility/components';
 import LocalizedLink from '../components/layout/LocalizedLink';
 import { useSetPageConfig } from '../hooks/usePageConfig';
 import { SEOHead } from '@sudobility/seo_lib';
@@ -23,20 +31,94 @@ import { CONSTANTS } from '../config/constants';
 const US_CENTER = { lat: 39.8283, lng: -98.5795 };
 const US_ZOOM = 4;
 
+// =============================================================================
+// Search History (localStorage)
+// =============================================================================
+
+const SEARCH_HISTORY_KEY = 'mogulgame_search_history';
+const MAX_HISTORY = 10;
+
+interface SearchHistoryEntry {
+  query: string;
+  params: Record<string, string>;
+  timestamp: number;
+}
+
+function getSearchHistory(): SearchHistoryEntry[] {
+  try {
+    const raw = localStorage.getItem(SEARCH_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveSearchToHistory(query: string, params: Record<string, string>) {
+  if (!query.trim()) return;
+  const history = getSearchHistory().filter(h => h.query.toLowerCase() !== query.toLowerCase());
+  history.unshift({ query, params, timestamp: Date.now() });
+  localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(history.slice(0, MAX_HISTORY)));
+}
+
+function clearSearchHistory() {
+  localStorage.removeItem(SEARCH_HISTORY_KEY);
+}
+
+// =============================================================================
+// Welcome Overlay
+// =============================================================================
+
+const WELCOME_SEEN_KEY = 'mogulgame_welcome_seen';
+
+function WelcomeOverlay({ onDismiss }: { onDismiss: () => void }) {
+  const { t } = useTranslation('common');
+
+  return (
+    <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/30">
+      <div
+        className={`mx-4 max-w-lg ${designTokens.radius.xl} bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-2xl border ${ui.border.default} p-6 sm:p-8`}
+      >
+        <h2 className={`${textVariants.heading.h3()} mb-5 text-center`}>{t('welcome.title')}</h2>
+        <div className="space-y-4 mb-6">
+          {[1, 2, 3].map(n => (
+            <div key={n} className="flex gap-3 items-start">
+              <span
+                className={`flex-shrink-0 w-7 h-7 ${designTokens.radius.full} bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 flex items-center justify-center text-sm font-bold`}
+              >
+                {n}
+              </span>
+              <p className={`${textVariants.body.md()} ${ui.text.muted} leading-relaxed`}>
+                {t(`welcome.point${n}`)}
+              </p>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={onDismiss}
+          className={`w-full ${buttonVariant('primary')} ${designTokens.radius.lg} py-3 text-base font-medium`}
+        >
+          {t('welcome.gotIt')}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function formatPrice(price: number | null): string {
-  if (price == null) return 'N/A';
+  if (price == null) return '';
   if (price >= 1_000_000) return `$${(price / 1_000_000).toFixed(1)}M`;
   if (price >= 1_000) return `$${(price / 1_000).toFixed(0)}K`;
   return `$${price.toLocaleString()}`;
 }
 
 function formatPriceFull(price: number | null): string {
-  if (price == null) return 'N/A';
+  if (price == null) return '';
   return `$${price.toLocaleString()}`;
 }
 
 /** Property card for the list view */
 function PropertyCard({ property }: { property: Property }) {
+  const { t } = useTranslation('common');
   const statusColors: Record<string, string> = {
     for_sale: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
     pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
@@ -61,7 +143,7 @@ function PropertyCard({ property }: { property: Property }) {
         </div>
       ) : (
         <div className="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-          <span className={`${ui.text.muted} text-sm`}>No image</span>
+          <span className={`${ui.text.muted} text-sm`}>{t('property.noImage')}</span>
         </div>
       )}
       <div className="p-3">
@@ -81,9 +163,21 @@ function PropertyCard({ property }: { property: Property }) {
           {property.address.state}
         </p>
         <div className={`flex gap-3 text-xs ${ui.text.muted} mt-1`}>
-          {property.bedrooms != null && <span>{property.bedrooms} bd</span>}
-          {property.bathrooms != null && <span>{property.bathrooms} ba</span>}
-          {property.sqft != null && <span>{property.sqft.toLocaleString()} sqft</span>}
+          {property.bedrooms != null && (
+            <span>
+              {property.bedrooms} {t('property.beds')}
+            </span>
+          )}
+          {property.bathrooms != null && (
+            <span>
+              {property.bathrooms} {t('property.baths')}
+            </span>
+          )}
+          {property.sqft != null && (
+            <span>
+              {property.sqft.toLocaleString()} {t('property.sqft')}
+            </span>
+          )}
         </div>
       </div>
     </LocalizedLink>
@@ -192,6 +286,207 @@ type ViewMode = 'map' | 'list';
 
 const EMPTY_PROPERTIES: Property[] = [];
 
+/** Search form with controlled Radix Selects and advanced filter popover.
+ *  Rendered with key={urlKey} so it remounts when URL changes, resetting draft state. */
+function SearchForm({
+  initialQuery,
+  initialMinPrice,
+  initialMaxPrice,
+  initialBedrooms,
+  initialRecentlySold,
+  initialWithOffers,
+  locatingUser,
+  onSearch,
+  onCurrentLocation,
+}: {
+  initialQuery: string;
+  initialMinPrice: string;
+  initialMaxPrice: string;
+  initialBedrooms: string;
+  initialRecentlySold: boolean;
+  initialWithOffers: boolean;
+  locatingUser: boolean;
+  onSearch: (params: Record<string, string>) => void;
+  onCurrentLocation: () => void;
+}) {
+  const { t } = useTranslation('common');
+  const [draftMinPrice, setDraftMinPrice] = useState(initialMinPrice || 'any');
+  const [draftMaxPrice, setDraftMaxPrice] = useState(initialMaxPrice || 'any');
+  const [draftBedrooms, setDraftBedrooms] = useState(initialBedrooms || 'any');
+  const [draftRecentlySold, setDraftRecentlySold] = useState(initialRecentlySold);
+  const [draftWithOffers, setDraftWithOffers] = useState(initialWithOffers);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const advancedRef = useRef<HTMLDivElement>(null);
+
+  // Close advanced dropdown on outside click
+  useEffect(() => {
+    if (!showAdvanced) return;
+    const handler = (e: MouseEvent) => {
+      if (advancedRef.current && !advancedRef.current.contains(e.target as Node)) {
+        setShowAdvanced(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showAdvanced]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const q = (fd.get('q') as string)?.trim();
+
+    if (draftRecentlySold || draftWithOffers) {
+      const params: Record<string, string> = {};
+      if (draftRecentlySold) params.recently_sold = '1';
+      if (draftWithOffers) params.with_offers = '1';
+      if (q) params.q = q;
+      onSearch(params);
+      return;
+    }
+
+    if (!q) return;
+    const params: Record<string, string> = { q };
+    if (draftMinPrice !== 'any') params.min_price = draftMinPrice;
+    if (draftMaxPrice !== 'any') params.max_price = draftMaxPrice;
+    if (draftBedrooms !== 'any') params.min_bedrooms = draftBedrooms;
+    onSearch(params);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-4 py-3">
+      <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+        <div className="flex-1 flex gap-2">
+          <input
+            name="q"
+            type="text"
+            defaultValue={initialQuery}
+            placeholder={t('search.placeholder')}
+            className={`flex-1 h-10 px-4 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+          />
+          <button
+            type="button"
+            onClick={onCurrentLocation}
+            disabled={locatingUser}
+            className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} ${ui.states.disabled} flex-shrink-0 flex items-center justify-center`}
+            title={t('search.currentLocation')}
+          >
+            {locatingUser ? (
+              '...'
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+              </svg>
+            )}
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <Select value={draftMinPrice} onValueChange={setDraftMinPrice}>
+            <SelectTrigger className="h-10 w-28 text-sm">
+              <SelectValue placeholder={t('search.minPrice')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">{t('search.minPrice')}</SelectItem>
+              <SelectItem value="100000">$100K</SelectItem>
+              <SelectItem value="200000">$200K</SelectItem>
+              <SelectItem value="300000">$300K</SelectItem>
+              <SelectItem value="500000">$500K</SelectItem>
+              <SelectItem value="750000">$750K</SelectItem>
+              <SelectItem value="1000000">$1M</SelectItem>
+              <SelectItem value="2000000">$2M</SelectItem>
+              <SelectItem value="5000000">$5M</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={draftMaxPrice} onValueChange={setDraftMaxPrice}>
+            <SelectTrigger className="h-10 w-28 text-sm">
+              <SelectValue placeholder={t('search.maxPrice')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">{t('search.maxPrice')}</SelectItem>
+              <SelectItem value="200000">$200K</SelectItem>
+              <SelectItem value="300000">$300K</SelectItem>
+              <SelectItem value="500000">$500K</SelectItem>
+              <SelectItem value="750000">$750K</SelectItem>
+              <SelectItem value="1000000">$1M</SelectItem>
+              <SelectItem value="2000000">$2M</SelectItem>
+              <SelectItem value="5000000">$5M</SelectItem>
+              <SelectItem value="10000000">$10M</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={draftBedrooms} onValueChange={setDraftBedrooms}>
+            <SelectTrigger className="h-10 w-24 text-sm">
+              <SelectValue placeholder={t('search.beds')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">{t('search.beds')}</SelectItem>
+              <SelectItem value="1">1+</SelectItem>
+              <SelectItem value="2">2+</SelectItem>
+              <SelectItem value="3">3+</SelectItem>
+              <SelectItem value="4">4+</SelectItem>
+              <SelectItem value="5">5+</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="relative" ref={advancedRef}>
+            <button
+              type="button"
+              onClick={() => setShowAdvanced(v => !v)}
+              className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} flex-shrink-0 flex items-center justify-center ${
+                draftRecentlySold || draftWithOffers
+                  ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                  : ''
+              }`}
+              title={t('search.advanced')}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-4 h-4"
+              >
+                <circle cx="12" cy="5" r="2" />
+                <circle cx="12" cy="12" r="2" />
+                <circle cx="12" cy="19" r="2" />
+              </svg>
+            </button>
+            {showAdvanced && (
+              <div
+                className={`absolute right-0 top-full mt-1 ${designTokens.radius.lg} border ${ui.border.default} bg-theme-bg-primary shadow-lg z-50 p-3 space-y-3 min-w-[200px]`}
+              >
+                <label className="flex items-center justify-between gap-3 cursor-pointer">
+                  <span className="text-sm">{t('search.recentlySold')}</span>
+                  <Switch checked={draftRecentlySold} onCheckedChange={setDraftRecentlySold} />
+                </label>
+                <label className="flex items-center justify-between gap-3 cursor-pointer">
+                  <span className="text-sm">{t('search.withOffers')}</span>
+                  <Switch checked={draftWithOffers} onCheckedChange={setDraftWithOffers} />
+                </label>
+              </div>
+            )}
+          </div>
+          <button
+            type="submit"
+            className={`h-10 ${buttonVariant('primary')} ${designTokens.radius.lg} text-sm px-5`}
+          >
+            {t('search.button')}
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+}
+
 /** Inner component rendered inside APIProvider so useMap() works */
 function HomePageInner() {
   const { t } = useTranslation('common');
@@ -205,79 +500,106 @@ function HomePageInner() {
   const minPrice = urlParams.get('min_price') ?? '';
   const maxPrice = urlParams.get('max_price') ?? '';
   const minBedrooms = urlParams.get('min_bedrooms') ?? '';
-  const includeSold = urlParams.get('include_sold') === '1';
+  const recentlySold = urlParams.get('recently_sold') === '1';
+  const withOffers = urlParams.get('with_offers') === '1';
   const urlLat = urlParams.get('lat');
   const urlLng = urlParams.get('lng');
 
   const [viewMode, setViewMode] = useState<ViewMode>('map');
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
   const [locatingUser, setLocatingUser] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(() => !localStorage.getItem(WELCOME_SEEN_KEY));
+  const [searchHistory, setSearchHistory] = useState<SearchHistoryEntry[]>(getSearchHistory);
+
+  // Draft filter state is managed inside SearchFilters (keyed by urlKey to reset on URL change)
+
+  const dismissWelcome = useCallback(() => {
+    setShowWelcome(false);
+    localStorage.setItem(WELCOME_SEEN_KEY, '1');
+  }, []);
 
   // Build API search params from URL params
   const searchParams = useMemo(() => {
     const params: Record<string, string> = {};
-    if (urlLat && urlLng) {
-      params.latitude = urlLat;
-      params.longitude = urlLng;
-    } else if (query) {
-      params.query = query;
+    if (withOffers) {
+      params.has_pretend_offers = 'true';
+    } else if (recentlySold) {
+      params.status = 'sold';
+      params.sold_within_months = '3';
+    } else {
+      if (urlLat && urlLng) {
+        params.latitude = urlLat;
+        params.longitude = urlLng;
+      } else if (query) {
+        params.query = query;
+      }
+      if (minPrice) params.min_price = minPrice;
+      if (maxPrice) params.max_price = maxPrice;
+      if (minBedrooms) params.min_bedrooms = minBedrooms;
+      params.status = 'for_sale';
     }
-    if (minPrice) params.min_price = minPrice;
-    if (maxPrice) params.max_price = maxPrice;
-    if (minBedrooms) params.min_bedrooms = minBedrooms;
-    if (!includeSold) params.status = 'for_sale';
     return params;
-  }, [query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, includeSold]);
+  }, [query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, recentlySold, withOffers]);
 
-  const hasSearched = !!(query || (urlLat && urlLng));
+  const hasSearched = !!(query || (urlLat && urlLng) || recentlySold || withOffers);
 
   const { data, isLoading, error } = usePropertySearch(networkClient, baseUrl, searchParams, {
     enabled: hasSearched,
   });
 
   const handleSearch = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const fd = new FormData(e.currentTarget);
-      const q = (fd.get('q') as string)?.trim();
-      if (!q) return;
-      analyticsService.trackButtonClick('search_properties', { query: q });
-      const params: Record<string, string> = { q };
-      const mp = fd.get('min_price') as string;
-      const xp = fd.get('max_price') as string;
-      const mb = fd.get('min_bedrooms') as string;
-      const is = fd.get('include_sold');
-      if (mp && mp !== 'any') params.min_price = mp;
-      if (xp && xp !== 'any') params.max_price = xp;
-      if (mb && mb !== 'any') params.min_bedrooms = mb;
-      if (is) params.include_sold = '1';
+    (params: Record<string, string>) => {
+      if (showWelcome) dismissWelcome();
+      const q = params.q;
+      if (q && !params.recently_sold && !params.with_offers) {
+        analyticsService.trackButtonClick('search_properties', { query: q });
+        saveSearchToHistory(q, params);
+        setSearchHistory(getSearchHistory());
+      }
       setUrlParams(params, { replace: false });
       setSelectedMarkerId(null);
     },
-    [setUrlParams]
+    [setUrlParams, showWelcome, dismissWelcome]
   );
 
   const handleCurrentLocation = useCallback(() => {
     if (!navigator.geolocation) return;
     setLocatingUser(true);
+    if (showWelcome) dismissWelcome();
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
         analyticsService.trackButtonClick('current_location', { latitude, longitude });
         const params: Record<string, string> = {
-          q: 'Near me',
+          q: t('search.nearMe'),
           lat: String(latitude),
           lng: String(longitude),
         };
         setUrlParams(params, { replace: false });
         setSelectedMarkerId(null);
         setLocatingUser(false);
+        saveSearchToHistory(t('search.nearMe'), params);
+        setSearchHistory(getSearchHistory());
       },
       () => {
         setLocatingUser(false);
       }
     );
-  }, [setUrlParams]);
+  }, [t, setUrlParams, showWelcome, dismissWelcome]);
+
+  const handleHistoryClick = useCallback(
+    (entry: SearchHistoryEntry) => {
+      if (showWelcome) dismissWelcome();
+      setUrlParams(entry.params, { replace: false });
+      setSelectedMarkerId(null);
+    },
+    [setUrlParams, showWelcome, dismissWelcome]
+  );
+
+  const handleClearHistory = useCallback(() => {
+    clearSearchHistory();
+    setSearchHistory([]);
+  }, []);
 
   const properties = data?.properties ?? EMPTY_PROPERTIES;
   const hasResults = hasSearched && properties.length > 0;
@@ -288,109 +610,49 @@ function HomePageInner() {
 
       {/* Search bar */}
       <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
-        <form key={urlKey} onSubmit={handleSearch} className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
-            <div className="flex-1 flex gap-2">
-              <input
-                name="q"
-                type="text"
-                defaultValue={query}
-                placeholder={t('search.placeholder')}
-                className={`flex-1 h-10 px-4 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
-              />
-              <button
-                type="button"
-                onClick={handleCurrentLocation}
-                disabled={locatingUser}
-                className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} ${ui.states.disabled} flex-shrink-0 flex items-center justify-center`}
-                title={t('search.currentLocation')}
-              >
-                {locatingUser ? (
-                  '...'
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-4 h-4"
+        <SearchForm
+          key={urlKey}
+          initialQuery={query}
+          initialMinPrice={minPrice}
+          initialMaxPrice={maxPrice}
+          initialBedrooms={minBedrooms}
+          initialRecentlySold={recentlySold}
+          initialWithOffers={withOffers}
+          locatingUser={locatingUser}
+          onSearch={handleSearch}
+          onCurrentLocation={handleCurrentLocation}
+        />
+      </div>
+
+      {/* Search history chips (show when no active search) */}
+      {!hasSearched && searchHistory.length > 0 && (
+        <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
+          <div className="max-w-7xl mx-auto px-4 py-2">
+            <div className="flex items-center gap-2">
+              <span className={`text-xs ${ui.text.muted} flex-shrink-0`}>
+                {t('search.recentSearches')}
+              </span>
+              <div className="flex gap-1.5 overflow-x-auto min-w-0">
+                {searchHistory.map((entry, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleHistoryClick(entry)}
+                    className={`px-3 py-1 ${designTokens.radius.full} text-xs border ${ui.border.default} ${ui.text.muted} hover:bg-theme-hover-bg ${ui.transition.default} whitespace-nowrap flex-shrink-0`}
                   >
-                    <circle cx="12" cy="12" r="4" />
-                    <line x1="12" y1="2" x2="12" y2="6" />
-                    <line x1="12" y1="18" x2="12" y2="22" />
-                    <line x1="2" y1="12" x2="6" y2="12" />
-                    <line x1="18" y1="12" x2="22" y2="12" />
-                  </svg>
-                )}
-              </button>
-            </div>
-            <div className="flex gap-2">
-              <select
-                name="min_price"
-                defaultValue={minPrice || 'any'}
-                className={`h-10 w-28 px-3 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
-              >
-                <option value="any">{t('search.minPrice')}</option>
-                <option value="100000">$100K</option>
-                <option value="200000">$200K</option>
-                <option value="300000">$300K</option>
-                <option value="500000">$500K</option>
-                <option value="750000">$750K</option>
-                <option value="1000000">$1M</option>
-                <option value="2000000">$2M</option>
-                <option value="5000000">$5M</option>
-              </select>
-              <select
-                name="max_price"
-                defaultValue={maxPrice || 'any'}
-                className={`h-10 w-28 px-3 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
-              >
-                <option value="any">{t('search.maxPrice')}</option>
-                <option value="200000">$200K</option>
-                <option value="300000">$300K</option>
-                <option value="500000">$500K</option>
-                <option value="750000">$750K</option>
-                <option value="1000000">$1M</option>
-                <option value="2000000">$2M</option>
-                <option value="5000000">$5M</option>
-                <option value="10000000">$10M</option>
-              </select>
-              <select
-                name="min_bedrooms"
-                defaultValue={minBedrooms || 'any'}
-                className={`h-10 w-24 px-3 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
-              >
-                <option value="any">{t('search.beds')}</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-                <option value="5">5+</option>
-              </select>
-              <label className="flex items-center gap-1.5 text-sm cursor-pointer">
-                <input
-                  name="include_sold"
-                  type="checkbox"
-                  defaultChecked={includeSold}
-                  className="rounded"
-                />
-                <span className={`${ui.text.muted} whitespace-nowrap`}>
-                  {t('search.includeSold')}
-                </span>
-              </label>
+                    {entry.query}
+                  </button>
+                ))}
+              </div>
               <button
-                type="submit"
-                className={`h-10 ${buttonVariant('primary')} ${designTokens.radius.lg} text-sm px-5`}
+                onClick={handleClearHistory}
+                className={`text-xs ${ui.text.muted} hover:${ui.text.error} ${ui.transition.default} flex-shrink-0`}
               >
-                {t('search.button')}
+                {t('search.clearHistory')}
               </button>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      )}
 
       {/* View toggle + results count */}
       {(hasResults || (hasSearched && isLoading)) && (
@@ -427,6 +689,9 @@ function HomePageInner() {
 
       {/* Main content area */}
       <div className="flex-1 min-h-0 relative">
+        {/* Welcome overlay */}
+        {showWelcome && !hasSearched && <WelcomeOverlay onDismiss={dismissWelcome} />}
+
         {/* Error */}
         {error && (
           <div className="absolute top-4 left-4 right-4 z-10">

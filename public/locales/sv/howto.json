@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "Hur man börjar med Starter",
+    "description": "Konfigurera och utforska arkitekturmönstret Sudobility med startermallprojektet.",
+    "steps": [
+      {
+        "name": "Bläddra bland dokumentationen",
+        "text": "Läs dokumentations sidan för att förstå den sex-paket arkitekturen: typer, API, klient, lib, webbapp och mobilapp."
+      },
+      {
+        "name": "Skapa ett historikinlägg",
+        "text": "Logga in och lägg till din första historikpost för att se hur hela stackens dataflöde fungerar från frontend till backend."
+      },
+      {
+        "name": "Utforska API:et",
+        "text": "Kolla hur Hono API med PostgreSQL och Drizzle ORM hanterar CRUD-operationer och autentisering."
+      },
+      {
+        "name": "Anpassa och utöka",
+        "text": "Använd detta mall som utgångspunkt för att bygga ditt eget program enligt samma arkitekturmönster."
+      }
+    ]
+  },
+  "webApp": {
+    "description": "Ett fullstack-mallprojekt som visar arkitekturmönstret Sudobility med delade typer, ett Hono-API, TanStack Query-hooks, Zustand-lagringar och en React-webbapplikation.",
+    "features": [
+      "Full-stack TypeScript-arkitektur",
+      "Delade typdefinitioner mellan frontend och backend",
+      "TanStack Query-hooks med automatisk cachelagring",
+      "Tillståndstillståndshantering",
+      "Firebase-autentisering",
+      "stöd för internationalisering på 16 språk"
+    ]
+  }
+}

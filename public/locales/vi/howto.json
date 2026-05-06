@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "Làm thế nào để bắt đầu với Starter",
+    "description": "Thiết lập và khám phá mẫu kiến trúc Sudobility với dự án mẫu Starter.",
+    "steps": [
+      {
+        "name": "Duyệt qua tài liệu",
+        "text": "Đọc trang tài liệu để hiểu kiến trúc sáu gói: loại, API, khách hàng, thư viện, ứng dụng web và ứng dụng di động."
+      },
+      {
+        "name": "Tạo một mục nhập lịch sử",
+        "text": "Đăng nhập và thêm mục nhập lịch sử đầu tiên của bạn để xem cách luồng dữ liệu toàn bộ từ frontend đến backend hoạt động."
+      },
+      {
+        "name": "Khám phá API",
+        "text": "Kiểm tra cách API Hono với PostgreSQL và Drizzle ORM xử lý các thao tác CRUD và xác thực."
+      },
+      {
+        "name": "Tùy chỉnh và mở rộng",
+        "text": "Sử dụng mẫu này như một điểm khởi đầu để xây dựng ứng dụng của bạn theo cùng một mẫu kiến trúc."
+      }
+    ]
+  },
+  "webApp": {
+    "description": "Một dự án mẫu full-stack minh họa mẫu kiến trúc Sudobility với các loại chung, API Hono, các hook TanStack Query, các lưu trữ Zustand và ứng dụng web React.",
+    "features": [
+      "Kiến trúc full-stack TypeScript",
+      "Các định nghĩa kiểu chia sẻ giữa frontend và backend",
+      "Các hook TanStack Query với bộ nhớ đệm tự động",
+      "Quản lý trạng thái Zustand",
+      "xác thực Firebase",
+      "hỗ trợ quốc tế hóa cho 16 ngôn ngữ"
+    ]
+  }
+}

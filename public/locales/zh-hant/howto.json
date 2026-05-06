@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "如何開始使用 Starter",
+    "description": "使用啟動模板項目設定並探索Sudobility架構模式。",
+    "steps": [
+      {
+        "name": "瀏覽文件",
+        "text": "閱讀文件頁面以了解六套件架構：類型、API、客戶端、函式庫、網頁應用程式和行動應用程式。"
+      },
+      {
+        "name": "建立歷史記錄",
+        "text": "登入並新增您的第一筆歷史記錄，以了解從前端到後端的完整堆疊資料流程如何運作。"
+      },
+      {
+        "name": "探索 API",
+        "text": "檢查 Hono API 如何使用 PostgreSQL 與 Drizzle ORM 處理 CRUD 操作和身份驗證。"
+      },
+      {
+        "name": "自訂和擴展",
+        "text": "使用此範本作為起點，依相同架構模式建立您自己的應用程式。"
+      }
+    ]
+  },
+  "webApp": {
+    "description": "一個完整的全棧範本專案，展示 Sudobility 架構模式，包含共享類型、Hono API、TanStack Query hooks、Zustand store 和 React 網頁應用程式。",
+    "features": [
+      "全-stack TypeScript 架構",
+      "前端和後端之間的共享類型定義",
+      "TanStack Query 的鈎子函數，支援自動快取",
+      "狀態狀態管理",
+      "Firebase 身份驗證",
+      "16種語言的國際化支援"
+    ]
+  }
+}

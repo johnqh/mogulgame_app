@@ -7,7 +7,13 @@
     "home": {
       "title": "MogulGame - Real Estate Simulation Game | Sudobility",
       "description": "Compete against other players by placing pretend offers on real properties. Browse Zillow and StreetEasy listings, bid strategically, and climb the leaderboard.",
-      "keywords": ["real estate game", "property simulation", "pretend offers", "MogulGame", "Sudobility"]
+      "keywords": [
+        "real estate game",
+        "property simulation",
+        "pretend offers",
+        "MogulGame",
+        "Sudobility"
+      ]
     },
     "login": {
       "title": "Sign In - MogulGame | Sudobility",
@@ -38,6 +44,7 @@
     "leaderboard": "Leaderboard",
     "settings": "Settings",
     "sitemap": "Sitemap",
+    "recentSearches": "Recent Searches",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -59,7 +66,26 @@
     "currentLocation": "Use current location",
     "nearMe": "Near me",
     "includeSold": "Include Sold",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "recentlySold": "Recently Sold",
+    "withOffers": "With Offers",
+    "recentSearches": "Recent:",
+    "clearHistory": "Clear"
+  },
+  "welcome": {
+    "title": "Welcome to MogulGame",
+    "point1": "Search and view any real property for sale in the US.",
+    "point2": "Place a pretend offer on properties to practice your pricing skills.",
+    "point3": "Win if your offer is the lowest above the closing price — beat the buyer with the lowest premium.",
+    "gotIt": "Got It"
+  },
+  "recentSearches": {
+    "title": "Recent Searches",
+    "seoTitle": "Recent Searches - MogulGame | Sudobility",
+    "seoDescription": "See what properties other players are searching for on MogulGame.",
+    "results": "{{count}} results",
+    "empty": "No recent searches yet.",
+    "searchFor": "Search for \"{{query}}\""
   },
   "property": {
     "notFound": "Property not found.",
@@ -89,7 +115,15 @@
     "nearbySchools": "Nearby Schools",
     "noPhotos": "No photos available",
     "propertyFeatures": "Property Features",
-    "viewOnSource": "View on {{source}}"
+    "viewOnSource": "View on {{source}}",
+    "noImage": "No image",
+    "na": "N/A",
+    "bd": "bd",
+    "ba": "ba",
+    "hoaPerMonth": "{{amount}}/mo",
+    "assessed": "assessed: {{amount}}",
+    "grades": "Grades {{from}}-{{to}}",
+    "distanceMiles": "{{miles}} mi"
   },
   "offers": {
     "title": "My Offers",
@@ -118,6 +152,9 @@
     "browseProperties": "Browse Properties",
     "currentOffers": "Current Offers",
     "pastOffers": "Past Offers",
+    "allOffers": "All Offers",
+    "mapView": "Map",
+    "listView": "List",
     "status": {
       "active": "Active",
       "won": "Won",
@@ -175,7 +212,8 @@
     "loading": "Loading...",
     "confirm": "Confirm",
     "no": "No",
-    "save": "Save"
+    "save": "Save",
+    "firebaseNotConfigured": "Firebase not configured"
   },
   "signInTitle": "Sign In",
   "signInWithEmail": "Sign in with email",

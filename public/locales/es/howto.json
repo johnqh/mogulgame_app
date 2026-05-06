@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "Cómo empezar con Starter",
+    "description": "Configure y explore el patrón de arquitectura Sudobility con el proyecto de plantilla de inicio.",
+    "steps": [
+      {
+        "name": "Examinar la documentación",
+        "text": "Lea la página de documentación para comprender la arquitectura de seis paquetes: tipos, API, cliente, lib, aplicación web y aplicación móvil."
+      },
+      {
+        "name": "Crear una entrada de historial",
+        "text": "Inicie sesión y agregue su primera entrada de historial para ver cómo funciona el flujo de datos completo de frontend a backend."
+      },
+      {
+        "name": "Explora la API",
+        "text": "Compruebe cómo la API Hono con PostgreSQL y Drizzle ORM maneja las operaciones CRUD y la autenticación."
+      },
+      {
+        "name": "Personalizar y ampliar",
+        "text": "Utilice esta plantilla como punto de partida para crear su propia aplicación siguiendo el mismo patrón de arquitectura."
+      }
+    ]
+  },
+  "webApp": {
+    "description": "Un proyecto de plantilla de pila completa que muestra el patrón arquitectónico Sudobility con tipos compartidos, una API Hono, ganchos de TanStack Query, almacenes de Zustand y una aplicación web de React.",
+    "features": [
+      "Arquitectura de pila completa con TypeScript",
+      "Definiciones de tipos compartidos entre frontend y backend",
+      "Hooks de TanStack Query con almacenamiento en caché automático",
+      "Gestión de estado Zustand",
+      "autenticación de Firebase",
+      "soporte de internacionalización de 16 idiomas"
+    ]
+  }
+}

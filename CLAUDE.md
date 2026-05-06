@@ -74,6 +74,7 @@ bun run verify         # Run typecheck + lint + format:check (no test suite; rel
 Language-prefixed routes: `/:lang/*` (e.g., `/en/offers`, `/ja/leaderboard`).
 
 Main routes:
+
 - `/` — Property search with Google Maps
 - `/properties/:propertyId` — Property detail with offer panel
 - `/how-to-play` — Game rules
@@ -94,15 +95,15 @@ Uses `@sudobility/building_blocks` for:
 
 ## Environment Variables
 
-| Variable                      | Description            | Default                 |
-| ----------------------------- | ---------------------- | ----------------------- |
-| `VITE_API_URL`                | Backend API URL        | `http://localhost:8029` |
-| `VITE_GOOGLE_MAPS_API_KEY`    | Google Maps API key    | required                |
-| `VITE_FIREBASE_API_KEY`       | Firebase API key       | required                |
-| `VITE_FIREBASE_AUTH_DOMAIN`   | Firebase auth domain   | required                |
-| `VITE_FIREBASE_PROJECT_ID`    | Firebase project ID    | required                |
-| `VITE_APP_NAME`               | Application name       | `MogulGame`             |
-| `VITE_APP_DOMAIN`             | Application domain     | `localhost`             |
+| Variable                    | Description          | Default                 |
+| --------------------------- | -------------------- | ----------------------- |
+| `VITE_API_URL`              | Backend API URL      | `http://localhost:8029` |
+| `VITE_GOOGLE_MAPS_API_KEY`  | Google Maps API key  | required                |
+| `VITE_FIREBASE_API_KEY`     | Firebase API key     | required                |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | required                |
+| `VITE_FIREBASE_PROJECT_ID`  | Firebase project ID  | required                |
+| `VITE_APP_NAME`             | Application name     | `MogulGame`             |
+| `VITE_APP_DOMAIN`           | Application domain   | `localhost`             |
 
 **Note**: The default API URL in constants is `http://localhost:8029`, matching the API server's default port.
 

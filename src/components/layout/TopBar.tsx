@@ -7,7 +7,13 @@ import {
 } from '@sudobility/building_blocks';
 import { AuthAction } from '@sudobility/auth-components';
 import type { ComponentType } from 'react';
-import { BookOpenIcon, TrophyIcon, TicketIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import {
+  BookOpenIcon,
+  TrophyIcon,
+  TicketIcon,
+  Cog6ToothIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
 import { useLocalizedNavigate } from '../../hooks/useLocalizedNavigate';
 import { CONSTANTS, SUPPORTED_LANGUAGES, isLanguageSupported } from '../../config/constants';
 import LocalizedLink from './LocalizedLink';
@@ -81,6 +87,12 @@ export function useTopBarConfig(): TopBarConfig {
         label: t('nav.offers'),
         icon: TicketIcon,
         href: '/offers',
+      },
+      {
+        id: 'recent-searches',
+        label: t('nav.recentSearches'),
+        icon: MagnifyingGlassIcon,
+        href: '/recent-searches',
       },
       {
         id: 'settings',

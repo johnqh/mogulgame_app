@@ -3,151 +3,151 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- Homepage -->
   <url>
-    <loc>https://mogulgame.com/en</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://mogulgame.app/en</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.com/en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.com/ar" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.com/de" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.com/es" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.com/fr" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.com/it" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.com/ja" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.com/ko" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.com/pt" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.com/ru" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.com/sv" />
-    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.com/th" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.com/uk" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.com/vi" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.com/zh" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.com/zh-hant" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.com/en" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.app/en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.app/ar" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.app/de" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.app/es" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.app/fr" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.app/it" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.app/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.app/ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.app/pt" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.app/ru" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.app/sv" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.app/th" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.app/uk" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.app/vi" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.app/zh" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.app/zh-hant" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.app/en" />
   </url>
 
   <!-- Docs page -->
   <url>
-    <loc>https://mogulgame.com/en/docs</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://mogulgame.app/en/docs</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.com/en/docs" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.com/ar/docs" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.com/de/docs" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.com/es/docs" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.com/fr/docs" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.com/it/docs" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.com/ja/docs" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.com/ko/docs" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.com/pt/docs" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.com/ru/docs" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.com/sv/docs" />
-    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.com/th/docs" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.com/uk/docs" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.com/vi/docs" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.com/zh/docs" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.com/zh-hant/docs" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.com/en/docs" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.app/en/docs" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.app/ar/docs" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.app/de/docs" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.app/es/docs" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.app/fr/docs" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.app/it/docs" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.app/ja/docs" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.app/ko/docs" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.app/pt/docs" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.app/ru/docs" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.app/sv/docs" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.app/th/docs" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.app/uk/docs" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.app/vi/docs" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.app/zh/docs" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.app/zh-hant/docs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.app/en/docs" />
   </url>
 
   <!-- Histories page -->
   <url>
-    <loc>https://mogulgame.com/en/histories</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://mogulgame.app/en/histories</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.com/en/histories" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.com/ar/histories" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.com/de/histories" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.com/es/histories" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.com/fr/histories" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.com/it/histories" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.com/ja/histories" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.com/ko/histories" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.com/pt/histories" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.com/ru/histories" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.com/sv/histories" />
-    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.com/th/histories" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.com/uk/histories" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.com/vi/histories" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.com/zh/histories" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.com/zh-hant/histories" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.com/en/histories" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.app/en/histories" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.app/ar/histories" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.app/de/histories" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.app/es/histories" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.app/fr/histories" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.app/it/histories" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.app/ja/histories" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.app/ko/histories" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.app/pt/histories" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.app/ru/histories" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.app/sv/histories" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.app/th/histories" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.app/uk/histories" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.app/vi/histories" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.app/zh/histories" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.app/zh-hant/histories" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.app/en/histories" />
   </url>
 
   <!-- Login page -->
   <url>
-    <loc>https://mogulgame.com/en/login</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://mogulgame.app/en/login</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.com/en/login" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.com/ar/login" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.com/de/login" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.com/es/login" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.com/fr/login" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.com/it/login" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.com/ja/login" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.com/ko/login" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.com/pt/login" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.com/ru/login" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.com/sv/login" />
-    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.com/th/login" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.com/uk/login" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.com/vi/login" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.com/zh/login" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.com/zh-hant/login" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.com/en/login" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.app/en/login" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.app/ar/login" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.app/de/login" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.app/es/login" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.app/fr/login" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.app/it/login" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.app/ja/login" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.app/ko/login" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.app/pt/login" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.app/ru/login" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.app/sv/login" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.app/th/login" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.app/uk/login" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.app/vi/login" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.app/zh/login" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.app/zh-hant/login" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.app/en/login" />
   </url>
 
   <!-- Settings page -->
   <url>
-    <loc>https://mogulgame.com/en/settings</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://mogulgame.app/en/settings</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.com/en/settings" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.com/ar/settings" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.com/de/settings" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.com/es/settings" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.com/fr/settings" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.com/it/settings" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.com/ja/settings" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.com/ko/settings" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.com/pt/settings" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.com/ru/settings" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.com/sv/settings" />
-    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.com/th/settings" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.com/uk/settings" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.com/vi/settings" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.com/zh/settings" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.com/zh-hant/settings" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.com/en/settings" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.app/en/settings" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.app/ar/settings" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.app/de/settings" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.app/es/settings" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.app/fr/settings" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.app/it/settings" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.app/ja/settings" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.app/ko/settings" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.app/pt/settings" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.app/ru/settings" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.app/sv/settings" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.app/th/settings" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.app/uk/settings" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.app/vi/settings" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.app/zh/settings" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.app/zh-hant/settings" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.app/en/settings" />
   </url>
 
   <!-- HTML Sitemap -->
   <url>
-    <loc>https://mogulgame.com/en/sitemap</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://mogulgame.app/en/sitemap</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.com/en/sitemap" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.com/ar/sitemap" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.com/de/sitemap" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.com/es/sitemap" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.com/fr/sitemap" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.com/it/sitemap" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.com/ja/sitemap" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.com/ko/sitemap" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.com/pt/sitemap" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.com/ru/sitemap" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.com/sv/sitemap" />
-    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.com/th/sitemap" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.com/uk/sitemap" />
-    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.com/vi/sitemap" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.com/zh/sitemap" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.com/zh-hant/sitemap" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.com/en/sitemap" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mogulgame.app/en/sitemap" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mogulgame.app/ar/sitemap" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mogulgame.app/de/sitemap" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mogulgame.app/es/sitemap" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mogulgame.app/fr/sitemap" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mogulgame.app/it/sitemap" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://mogulgame.app/ja/sitemap" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://mogulgame.app/ko/sitemap" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://mogulgame.app/pt/sitemap" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mogulgame.app/ru/sitemap" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://mogulgame.app/sv/sitemap" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://mogulgame.app/th/sitemap" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mogulgame.app/uk/sitemap" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://mogulgame.app/vi/sitemap" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mogulgame.app/zh/sitemap" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://mogulgame.app/zh-hant/sitemap" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mogulgame.app/en/sitemap" />
   </url>
 </urlset>

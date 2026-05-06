@@ -1,0 +1,35 @@
+{
+  "home": {
+    "name": "So beginnen Sie mit Starter",
+    "description": "Richten Sie das Sudobility-Architekturmuster mit dem Starter-Vorlagenprojekt ein und erkunden Sie es.",
+    "steps": [
+      {
+        "name": "Dokumentation durchsuchen",
+        "text": "Lesen Sie die Dokumentationsseite, um die Sechs-Paket-Architektur zu verstehen: Typen, API, Client, Bibliothek, Web-App und Mobile-App."
+      },
+      {
+        "name": "Erstellen Sie einen Historie-Eintrag",
+        "text": "Melden Sie sich an und fügen Sie Ihre erste Historie hinzu, um zu sehen, wie der vollständige Datenfluss von der Frontend- zur Backend-Plattform funktioniert."
+      },
+      {
+        "name": "API erkunden",
+        "text": "Überprüfen Sie, wie die Hono-API mit PostgreSQL und Drizzle ORM CRUD-Operationen und die Authentifizierung behandelt."
+      },
+      {
+        "name": "Anpassen und erweitern",
+        "text": "Verwenden Sie diese Vorlage als Ausgangspunkt, um Ihre eigene Anwendung gemäß dem gleichen Architekturmuster zu erstellen."
+      }
+    ]
+  },
+  "webApp": {
+    "description": "Ein Full-Stack-Vorlagenprojekt, das das Sudobility-Architekturmuster mit geteilten Typen, einer Hono-API, TanStack-Query-Hooks, Zustand-Stores und einer React-Webanwendung demonstriert.",
+    "features": [
+      "Full-Stack-Struktur mit TypeScript",
+      "Geteilte Typdefinitionen zwischen Frontend und Backend",
+      "TanStack Query-Hooks mit automatischem Caching",
+      "Zustand-Statusverwaltung",
+      "Firebase-Authentifizierung",
+      "16-Sprachen-Internationalisierungsunterstützung"
+    ]
+  }
+}

@@ -53,7 +53,7 @@ export default function LoginPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-theme-bg-primary">
         <p role="alert" className={ui.text.error}>
-          Firebase not configured
+          {t('common.firebaseNotConfigured')}
         </p>
       </div>
     );
