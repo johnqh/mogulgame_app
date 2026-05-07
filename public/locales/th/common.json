@@ -36,6 +36,7 @@
     "howToPlay": "วิธีการเล่น",
     "offers": "ข้อเสนอของฉัน",
     "leaderboard": "ตารางผู้นำ",
+    "popular": "ยอดนิยม",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "การค้นหาล่าสุด",
@@ -80,6 +81,16 @@
     "results": "{{count}} ผลลัพธ์",
     "empty": "ไม่มีการค้นหาล่าสุด",
     "searchFor": "ค้นหา \"{{query}}\""
+  },
+  "popular": {
+    "title": "อสังหาริมทรัพย์ยอดนิยม",
+    "byPopularity": "ยอดเข้าชมสูงสุด",
+    "byRecent": "ล่าสุด",
+    "views": "{{count}} ครั้ง",
+    "empty": "ยังไม่มีอสังหาริมทรัพย์ที่ถูกเข้าชม",
+    "page": "หน้า {{page}} จาก {{total}}",
+    "prev": "ก่อนหน้า",
+    "next": "ถัดไป"
   },
   "property": {
     "notFound": "ไม่พบสิ่งของที่ต้องการ",

@@ -42,6 +42,7 @@
     "howToPlay": "Как играть",
     "offers": "Мои предложения",
     "leaderboard": "Таблица лидеров",
+    "popular": "Популярные",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Недавние поиски",
@@ -86,6 +87,16 @@
     "results": "{{count}} результатов",
     "empty": "Нет недавних поисков.",
     "searchFor": "Искать \"{{query}}\""
+  },
+  "popular": {
+    "title": "Популярная недвижимость",
+    "byPopularity": "По просмотрам",
+    "byRecent": "Недавние",
+    "views": "{{count}} просмотров",
+    "empty": "Нет просмотренной недвижимости.",
+    "page": "Страница {{page}} из {{total}}",
+    "prev": "Назад",
+    "next": "Далее"
   },
   "property": {
     "notFound": "Недвижимость не найдена.",

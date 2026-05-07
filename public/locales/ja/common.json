@@ -42,6 +42,7 @@
     "howToPlay": "プレイ方法",
     "offers": "私のオファー",
     "leaderboard": "ランクイング",
+    "popular": "人気",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "最近の検索",
@@ -86,6 +87,16 @@
     "results": "{{count}}件の結果",
     "empty": "最近の検索はありません。",
     "searchFor": "「{{query}}」を検索"
+  },
+  "popular": {
+    "title": "人気の物件",
+    "byPopularity": "閲覧数順",
+    "byRecent": "新着順",
+    "views": "{{count}}回閲覧",
+    "empty": "まだ閲覧された物件はありません。",
+    "page": "{{total}}ページ中{{page}}ページ",
+    "prev": "前へ",
+    "next": "次へ"
   },
   "property": {
     "notFound": "物件が見つかりません。",

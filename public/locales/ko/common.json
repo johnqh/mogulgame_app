@@ -36,6 +36,7 @@
     "howToPlay": "게임 방법",
     "offers": "내 오퍼",
     "leaderboard": "랭킹",
+    "popular": "인기",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "최근 검색",
@@ -80,6 +81,16 @@
     "results": "{{count}}개 결과",
     "empty": "최근 검색이 없습니다.",
     "searchFor": "\"{{query}}\" 검색"
+  },
+  "popular": {
+    "title": "인기 부동산",
+    "byPopularity": "조회수순",
+    "byRecent": "최신순",
+    "views": "{{count}}회 조회",
+    "empty": "아직 조회된 부동산이 없습니다.",
+    "page": "{{total}}페이지 중 {{page}}페이지",
+    "prev": "이전",
+    "next": "다음"
   },
   "property": {
     "notFound": "부동산을 찾을 수 없습니다.",

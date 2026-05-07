@@ -36,6 +36,7 @@
     "howToPlay": "如何遊玩",
     "offers": "我的優惠",
     "leaderboard": "排行榜",
+    "popular": "熱門",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "最近搜尋",
@@ -80,6 +81,16 @@
     "results": "{{count}} 個結果",
     "empty": "還沒有最近的搜尋。",
     "searchFor": "搜尋 \"{{query}}\""
+  },
+  "popular": {
+    "title": "熱門房產",
+    "byPopularity": "最多瀏覽",
+    "byRecent": "最近",
+    "views": "{{count}} 次瀏覽",
+    "empty": "還沒有被瀏覽的房產。",
+    "page": "第 {{page}} 頁，共 {{total}} 頁",
+    "prev": "上一頁",
+    "next": "下一頁"
   },
   "property": {
     "notFound": "未找到該物業。",

@@ -42,6 +42,7 @@
     "howToPlay": "Cách chơi",
     "offers": "Ưu đãi của tôi",
     "leaderboard": "Bảng xếp hạng",
+    "popular": "Phổ biến",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Tìm kiếm gần đây",
@@ -86,6 +87,16 @@
     "results": "{{count}} kết quả",
     "empty": "Chưa có tìm kiếm gần đây.",
     "searchFor": "Tìm kiếm \"{{query}}\""
+  },
+  "popular": {
+    "title": "Bất động sản phổ biến",
+    "byPopularity": "Xem nhiều nhất",
+    "byRecent": "Gần đây",
+    "views": "{{count}} lượt xem",
+    "empty": "Chưa có bất động sản nào được xem.",
+    "page": "Trang {{page}} / {{total}}",
+    "prev": "Trước",
+    "next": "Sau"
   },
   "property": {
     "notFound": "Không tìm thấy tài sản.",

@@ -42,6 +42,7 @@
     "howToPlay": "Como Jogar",
     "offers": "Minhas ofertas",
     "leaderboard": "Classificação",
+    "popular": "Popular",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Pesquisas recentes",
@@ -86,6 +87,16 @@
     "results": "{{count}} resultados",
     "empty": "Nenhuma pesquisa recente.",
     "searchFor": "Pesquisar \"{{query}}\""
+  },
+  "popular": {
+    "title": "Imóveis populares",
+    "byPopularity": "Mais vistos",
+    "byRecent": "Recentes",
+    "views": "{{count}} visualizações",
+    "empty": "Nenhum imóvel visualizado ainda.",
+    "page": "Página {{page}} de {{total}}",
+    "prev": "Anterior",
+    "next": "Próximo"
   },
   "property": {
     "notFound": "Imóvel não encontrado.",

@@ -14,6 +14,7 @@ import {
 import type { Property } from '@sudobility/mogulgame_types';
 import { APIProvider, Map, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import {
+  Section,
   Select,
   SelectTrigger,
   SelectContent,
@@ -227,7 +228,7 @@ function PropertyMarker({
         >
           <LocalizedLink
             to={`/properties/${property.id}`}
-            className="block text-gray-900 no-underline hover:text-blue-600"
+            className="block text-gray-900 no-underline hover:text-blue-600 pt-2 pr-6"
           >
             <div className="flex gap-2 items-center">
               {property.images.length > 0 && (
@@ -536,7 +537,6 @@ function HomePageInner() {
       if (minPrice) params.min_price = minPrice;
       if (maxPrice) params.max_price = maxPrice;
       if (minBedrooms) params.min_bedrooms = minBedrooms;
-      params.status = 'for_sale';
     }
     return params;
   }, [query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, recentlySold, withOffers]);
@@ -688,7 +688,7 @@ function HomePageInner() {
       )}
 
       {/* Main content area */}
-      <div className="flex-1 min-h-0 relative">
+      <Section spacing="none" className="flex-1 min-h-0 relative" containerClassName="h-full">
         {/* Welcome overlay */}
         {showWelcome && !hasSearched && <WelcomeOverlay onDismiss={dismissWelcome} />}
 
@@ -786,7 +786,7 @@ function HomePageInner() {
             <p className={ui.text.muted}>{t('search.placeholder')}</p>
           </div>
         )}
-      </div>
+      </Section>
     </div>
   );
 }

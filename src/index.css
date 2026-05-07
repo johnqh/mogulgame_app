@@ -72,3 +72,22 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Compact Google Maps InfoWindow - reduce header chrome space */
+.gm-style-iw-chr {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.gm-style-iw-chr .gm-ui-hover-effect {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.gm-style-iw-chr .gm-ui-hover-effect span {
+  width: 16px !important;
+  height: 16px !important;
+  margin: 6px !important;
+}

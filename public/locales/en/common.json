@@ -42,9 +42,11 @@
     "howToPlay": "How to Play",
     "offers": "My Offers",
     "leaderboard": "Leaderboard",
+    "popular": "Popular",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Recent Searches",
+    "mySearches": "My Searches",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -86,6 +88,21 @@
     "results": "{{count}} results",
     "empty": "No recent searches yet.",
     "searchFor": "Search for \"{{query}}\""
+  },
+  "mySearches": {
+    "title": "My Searches",
+    "loginPrompt": "Log in to view your search history.",
+    "empty": "You haven't searched for any properties yet."
+  },
+  "popular": {
+    "title": "Popular Properties",
+    "byPopularity": "Most Viewed",
+    "byRecent": "Recent",
+    "views": "{{count}} views",
+    "empty": "No properties viewed yet.",
+    "page": "Page {{page}} of {{total}}",
+    "prev": "Previous",
+    "next": "Next"
   },
   "property": {
     "notFound": "Property not found.",

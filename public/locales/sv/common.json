@@ -42,6 +42,7 @@
     "howToPlay": "Så här spelar du",
     "offers": "Mina erbjudanden",
     "leaderboard": "Ranking",
+    "popular": "Populära",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Senaste sökningar",
@@ -86,6 +87,16 @@
     "results": "{{count}} resultat",
     "empty": "Inga senaste sökningar.",
     "searchFor": "Sök efter \"{{query}}\""
+  },
+  "popular": {
+    "title": "Populära fastigheter",
+    "byPopularity": "Mest visade",
+    "byRecent": "Senaste",
+    "views": "{{count}} visningar",
+    "empty": "Inga fastigheter visade ännu.",
+    "page": "Sida {{page}} av {{total}}",
+    "prev": "Föregående",
+    "next": "Nästa"
   },
   "property": {
     "notFound": "Fastigheten hittades inte.",

@@ -42,6 +42,7 @@
     "howToPlay": "Come giocare",
     "offers": "I miei offerte",
     "leaderboard": "Classifica",
+    "popular": "Popolari",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Ricerche recenti",
@@ -86,6 +87,16 @@
     "results": "{{count}} risultati",
     "empty": "Nessuna ricerca recente.",
     "searchFor": "Cerca \"{{query}}\""
+  },
+  "popular": {
+    "title": "Proprietà popolari",
+    "byPopularity": "Più viste",
+    "byRecent": "Recenti",
+    "views": "{{count}} visualizzazioni",
+    "empty": "Nessuna proprietà visualizzata.",
+    "page": "Pagina {{page}} di {{total}}",
+    "prev": "Precedente",
+    "next": "Successivo"
   },
   "property": {
     "notFound": "Proprietà non trovata.",

@@ -15,7 +15,7 @@ export default function HowToPlayPage() {
   }, []);
 
   return (
-    <Section spacing="md" maxWidth="3xl">
+    <Section spacing="md">
       <SEOHead title={t('howToPlay.seoTitle')} description={t('howToPlay.seoDescription')} />
 
       <h1 className={`${textVariants.heading.h2()} mb-8`}>{t('howToPlay.title')}</h1>

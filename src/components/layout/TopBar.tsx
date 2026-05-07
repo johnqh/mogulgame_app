@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   type MenuItemConfig,
+  type AuthMenuItem,
   type AuthActionProps,
   type TopBarConfig,
 } from '@sudobility/building_blocks';
@@ -13,6 +14,7 @@ import {
   TicketIcon,
   Cog6ToothIcon,
   MagnifyingGlassIcon,
+  FireIcon,
 } from '@heroicons/react/24/outline';
 import { useLocalizedNavigate } from '../../hooks/useLocalizedNavigate';
 import { CONSTANTS, SUPPORTED_LANGUAGES, isLanguageSupported } from '../../config/constants';
@@ -68,8 +70,8 @@ export function useTopBarConfig(): TopBarConfig {
     []
   );
 
-  const menuItems: MenuItemConfig[] = useMemo(() => {
-    const items: MenuItemConfig[] = [
+  const menuItems: MenuItemConfig[] = useMemo(
+    () => [
       {
         id: 'how-to-play',
         label: t('nav.howToPlay'),
@@ -83,16 +85,10 @@ export function useTopBarConfig(): TopBarConfig {
         href: '/leaderboard',
       },
       {
-        id: 'offers',
-        label: t('nav.offers'),
-        icon: TicketIcon,
-        href: '/offers',
-      },
-      {
-        id: 'recent-searches',
-        label: t('nav.recentSearches'),
-        icon: MagnifyingGlassIcon,
-        href: '/recent-searches',
+        id: 'popular',
+        label: t('nav.popular'),
+        icon: FireIcon,
+        href: '/popular',
       },
       {
         id: 'settings',
@@ -100,9 +96,27 @@ export function useTopBarConfig(): TopBarConfig {
         icon: Cog6ToothIcon,
         href: '/settings',
       },
-    ];
-    return items;
-  }, [t]);
+    ],
+    [t]
+  );
+
+  const authMenuItems: AuthMenuItem[] = useMemo(
+    () => [
+      {
+        id: 'offers',
+        label: t('nav.offers'),
+        icon: <TicketIcon className="w-4 h-4" />,
+        onClick: () => navigate('/offers'),
+      },
+      {
+        id: 'my-searches',
+        label: t('nav.mySearches'),
+        icon: <MagnifyingGlassIcon className="w-4 h-4" />,
+        onClick: () => navigate('/my-searches'),
+      },
+    ],
+    [t, navigate]
+  );
 
   const handleLanguageChange = (newLang: string) => {
     if (isLanguageSupported(newLang)) {
@@ -124,7 +138,7 @@ export function useTopBarConfig(): TopBarConfig {
     LinkComponent: linkWrapper,
     AuthActionComponent: AuthAction as ComponentType<AuthActionProps>,
     onLoginClick: () => navigate('/login'),
-    authenticatedMenuItems: [],
+    authenticatedMenuItems: authMenuItems,
     sticky: true,
   };
 }

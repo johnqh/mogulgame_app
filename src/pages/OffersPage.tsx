@@ -448,7 +448,7 @@ function OffersPageInner() {
       <SEOHead title={t('offers.title')} description="" noIndex />
 
       {/* Stats + Controls */}
-      <div className={`${viewMode === 'map' ? '' : 'max-w-4xl mx-auto w-full'} px-4 pt-4`}>
+      <Section spacing="sm">
         <h1 className={`${textVariants.heading.h3()} mb-4`}>{t('offers.title')}</h1>
 
         {/* Stats */}
@@ -533,19 +533,17 @@ function OffersPageInner() {
             </div>
           </div>
         )}
-      </div>
 
-      {/* Error */}
-      {error && (
-        <div className={`${viewMode === 'map' ? '' : 'max-w-4xl mx-auto w-full'} px-4`}>
+        {/* Error */}
+        {error && (
           <div
             role="alert"
             className={`mb-4 p-3 ${colors.component.alert.error.base} ${colors.component.alert.error.dark} ${designTokens.radius.lg} text-sm`}
           >
             {error}
           </div>
-        </div>
-      )}
+        )}
+      </Section>
 
       {/* Loading */}
       {isLoading && offers.length === 0 && (
@@ -609,7 +607,7 @@ function OffersPageInner() {
 
       {/* List View */}
       {viewMode === 'list' && filteredOffers.length > 0 && (
-        <div className="max-w-4xl mx-auto w-full px-4 pb-4">
+        <Section spacing="sm">
           <div className="space-y-3">
             {filteredOffers.map(offer => (
               <OfferCard
@@ -624,7 +622,7 @@ function OffersPageInner() {
               />
             ))}
           </div>
-        </div>
+        </Section>
       )}
 
       {/* List view but filtered to empty */}

@@ -11,6 +11,7 @@ import {
 } from '@sudobility/mogulgame_client';
 import { validateOfferPrice, calculateMaxOffer } from '@sudobility/mogulgame_lib';
 import { Section } from '@sudobility/components';
+import { APIProvider, Map as GoogleMap, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -31,6 +32,7 @@ import { useLocalizedNavigate } from '../hooks/useLocalizedNavigate';
 import { formatDateTime } from '../utils/formatDateTime';
 import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
+import { CONSTANTS } from '../config/constants';
 
 function formatPrice(price: number | null): string {
   if (price == null) return '';
@@ -82,7 +84,13 @@ export default function PropertyDetailPage() {
   const { profile } = useUserProfile(networkClient, baseUrl, token ?? null, { enabled: !!user });
 
   const [offerPrice, setOfferPrice] = useState('');
+  const [offerPriceInitialized, setOfferPriceInitialized] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  if (!offerPriceInitialized && property?.price != null) {
+    setOfferPrice(String(property.price));
+    setOfferPriceInitialized(true);
+  }
 
   useEffect(() => {
     analyticsService.trackPageView(`/properties/${propertyId}`, 'PropertyDetail');
@@ -156,7 +164,7 @@ export default function PropertyDetailPage() {
   return (
     <div className="flex flex-col min-h-0">
       {/* Photo Coverflow */}
-      <Section spacing="sm" maxWidth="5xl">
+      <Section spacing="sm">
         {property.images.length > 0 ? (
           <Swiper
             modules={[EffectCoverflow, Navigation, Pagination]}
@@ -199,8 +207,42 @@ export default function PropertyDetailPage() {
 
       <SEOHead title={property.normalized_address} description="" noIndex />
 
+      {/* Map Banner */}
+      {property.address.latitude != null && property.address.longitude != null && (
+        <Section spacing="none" className="mb-2">
+          <div className={`h-[200px] sm:h-[250px] ${designTokens.radius.lg} overflow-hidden`}>
+            <APIProvider apiKey={CONSTANTS.GOOGLE_MAPS_API_KEY}>
+              <GoogleMap
+                defaultCenter={{
+                  lat: property.address.latitude,
+                  lng: property.address.longitude,
+                }}
+                defaultZoom={15}
+                gestureHandling="cooperative"
+                disableDefaultUI
+                mapId="mogulgame-property-detail"
+                className="w-full h-full"
+              >
+                <AdvancedMarker
+                  position={{
+                    lat: property.address.latitude,
+                    lng: property.address.longitude,
+                  }}
+                >
+                  <div
+                    className={`px-2 py-1 ${designTokens.radius.md} text-xs font-bold shadow-lg bg-blue-600 text-white`}
+                  >
+                    {formatPrice(property.price)}
+                  </div>
+                </AdvancedMarker>
+              </GoogleMap>
+            </APIProvider>
+          </div>
+        </Section>
+      )}
+
       {/* Content */}
-      <Section spacing="md" maxWidth="4xl">
+      <Section spacing="md">
         {/* Back link */}
         <button
           onClick={() => navigate('/')}
@@ -549,7 +591,7 @@ export default function PropertyDetailPage() {
       <div
         className={`sticky bottom-0 border-t ${ui.border.default} bg-theme-bg-primary shadow-[0_-2px_10px_rgba(0,0,0,0.1)]`}
       >
-        <Section spacing="none" maxWidth="4xl">
+        <Section spacing="none">
           <div className="py-3">
             {!user ? (
               <div className="flex items-center justify-between">

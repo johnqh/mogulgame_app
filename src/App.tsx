@@ -19,8 +19,10 @@ const PropertyDetailPage = lazy(() => import('./pages/PropertyDetailPage'));
 const OffersPage = lazy(() => import('./pages/OffersPage'));
 const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const PopularPage = lazy(() => import('./pages/PopularPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const RecentSearchesPage = lazy(() => import('./pages/RecentSearchesPage'));
+const MySearchesPage = lazy(() => import('./pages/MySearchesPage'));
 const LanguageRedirect = lazy(() => import('./components/layout/LanguageRedirect'));
 
 /**
@@ -113,7 +115,9 @@ function AppRoutes() {
                   }
                 />
                 <Route path="leaderboard" element={<LeaderboardPage />} />
+                <Route path="popular" element={<PopularPage />} />
                 <Route path="recent-searches" element={<RecentSearchesPage />} />
+                <Route path="my-searches" element={<MySearchesPage />} />
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="sitemap" element={<SitemapPage />} />
               </Route>

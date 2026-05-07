@@ -42,6 +42,7 @@
     "howToPlay": "Як грати",
     "offers": "Мої пропозиції",
     "leaderboard": "Таблиця лідерів",
+    "popular": "Популярні",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Нещодавні пошуки",
@@ -86,6 +87,16 @@
     "results": "{{count}} результатів",
     "empty": "Немає нещодавніх пошуків.",
     "searchFor": "Шукати \"{{query}}\""
+  },
+  "popular": {
+    "title": "Популярна нерухомість",
+    "byPopularity": "За переглядами",
+    "byRecent": "Нещодавні",
+    "views": "{{count}} переглядів",
+    "empty": "Немає переглянутої нерухомості.",
+    "page": "Сторінка {{page}} з {{total}}",
+    "prev": "Назад",
+    "next": "Далі"
   },
   "property": {
     "notFound": "Нерухомість не знайдено.",

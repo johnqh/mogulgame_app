@@ -36,6 +36,7 @@
     "howToPlay": "كيفية اللعب",
     "offers": "عروضي",
     "leaderboard": "لوحة الصدارة",
+    "popular": "شائع",
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "عمليات البحث الأخيرة",
@@ -80,6 +81,16 @@
     "results": "{{count}} نتيجة",
     "empty": "لا توجد عمليات بحث حديثة.",
     "searchFor": "ابحث عن \"{{query}}\""
+  },
+  "popular": {
+    "title": "العقارات الشائعة",
+    "byPopularity": "الأكثر مشاهدة",
+    "byRecent": "الأحدث",
+    "views": "{{count}} مشاهدة",
+    "empty": "لا توجد عقارات تمت مشاهدتها بعد.",
+    "page": "صفحة {{page}} من {{total}}",
+    "prev": "السابق",
+    "next": "التالي"
   },
   "property": {
     "notFound": "لم يتم العثور على العقار.",
