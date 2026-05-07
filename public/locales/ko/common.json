@@ -40,6 +40,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "최근 검색",
+    "mySearches": "내 검색",
+    "myFavorites": "내 즐겨찾기",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -82,15 +84,28 @@
     "empty": "최근 검색이 없습니다.",
     "searchFor": "\"{{query}}\" 검색"
   },
+  "mySearches": {
+    "title": "내 검색",
+    "loginPrompt": "검색 기록을 보려면 로그인하세요.",
+    "empty": "아직 어떤 부동산도 검색하지 않았습니다."
+  },
   "popular": {
     "title": "인기 부동산",
+    "seoTitle": "인기 부동산 - MogulGame | Sudobility",
+    "seoDescription": "MogulGame에서 가장 많이 본 인기 부동산을 확인하세요.",
     "byPopularity": "조회수순",
     "byRecent": "최신순",
     "views": "{{count}}회 조회",
     "empty": "아직 조회된 부동산이 없습니다.",
     "page": "{{total}}페이지 중 {{page}}페이지",
     "prev": "이전",
-    "next": "다음"
+    "next": "다음",
+    "byFavorites": "즐겨찾기순"
+  },
+  "favorites": {
+    "title": "내 즐겨찾기",
+    "loginPrompt": "로그인하여 좋아하는 부동산을 저장하세요.",
+    "empty": "즐겨찾기가 없습니다. 부동산을 둘러보고 하트를 탭하세요!"
   },
   "property": {
     "notFound": "부동산을 찾을 수 없습니다.",
@@ -204,7 +219,33 @@
     "payoutRule2": "승자가 유일한 자격자인 경우, 그들은 제안 금액에 대해 5%의 솔로 보너스를 받습니다.",
     "exampleTitle": "예시",
     "exampleText": "자산이 1,000,000달러에 판매됩니다. 세 명의 플레이어가 입찰했습니다: 플레이어 A가 1,010,000달러, 플레이어 B가 1,030,000달러, 플레이어 C가 1,150,000달러를 제시했습니다. 플레이어 A가 가장 낮은 합격 입찰로 승리했습니다. 플레이어 C(가장 높은 패배자)는 1,150,000달러 - 1,010,000달러 = 140,000달러를 플레이어 A에게 지불합니다.",
-    "startPlaying": "게임 시작"
+    "startPlaying": "게임 시작",
+    "whyPlayPrompt": "왜 부동산 가격 책정 연습이 중요한지 궁금하신가요?",
+    "whyPlayLink": "MogulGame이 어떻게 도움이 되는지 알아보세요"
+  },
+  "whyPlay": {
+    "seoTitle": "왜 MogulGame을 플레이하나요 - 위험 없이 부동산 가격 책정 연습 | Sudobility",
+    "seoDescription": "인생 최대의 구매를 하기 전에 부동산 가격 책정에 대한 자신감을 키우세요.",
+    "heroTitle": "왜 부동산 가격 책정을 연습해야 할까?",
+    "heroSubtitle": "주택은 대부분의 사람들이 하는 가장 큰 구매입니다. MogulGame을 통해 위험 없이 실제 부동산의 가격 책정을 연습할 수 있습니다.",
+    "stakesTitle": "위험은 현실적",
+    "stakesP1": "주식 시장에서는 1달러로도 투자를 시작할 수 있습니다. 부동산에서는 최소 수십만 달러의 투자가 필요합니다.",
+    "stakesP2": "첫 구매자는 주택 구매의 24%에 불과합니다. 많은 사람들이 부동산의 진정한 가치를 확신하지 못해 구매를 미루고 있습니다.",
+    "stakesP3": "MogulGame이 이를 바꿉니다. 실제 매물과 실제 성약 가격으로 연습하면, 숙련된 투자자들이 수년에 걸쳐 쌓는 가격 직관을 기를 수 있습니다.",
+    "paperTradingTitle": "부동산 모의 거래",
+    "paperTradingP1": "월스트리트에서 모든 신입 트레이더는 시뮬레이터로 시작합니다. Webull 같은 플랫폼은 위험 없이 연습할 수 있는 100만 달러의 가상 자금을 제공합니다.",
+    "paperTradingP2": "MogulGame은 같은 검증된 개념을 부동산에 적용합니다. 100만 달러의 가상 자금으로 시작하여 실제 부동산에 제안을 합니다.",
+    "paperTradingP3": "하지만 주식 시장과 달리 — 잘못된 거래로 50달러 손실을 보는 것과 달리 — 잘못된 부동산 결정은 수만 달러의 비용이 들 수 있습니다. 그래서 MogulGame으로 연습하는 것이 더욱 가치 있습니다.",
+    "realLearningTitle": "진짜 부동산, 진짜 학습",
+    "realLearningP1": "MogulGame의 모든 부동산은 미국 시장의 실제 매물입니다.",
+    "realLearningP2": "플레이어들에게 화면 너머로 나가길 권장합니다: 오픈 하우스 방문, 동네 탐방, 부동산 에이전트와 대화.",
+    "realLearningP3": "실제 조사와 MogulGame의 가격 피드백을 결합하면, 어떤 교과서보다 빠르게 배울 수 있습니다.",
+    "instinctsTitle": "가격 감각 키우기",
+    "instinctsP1": "왜 어떤 집은 호가보다 5만 달러 높게 팔리고 다른 집은 몇 달째 시장에 남아 있을까요?",
+    "instinctsP2": "게임은 정확성을 보상합니다: 성약 가격보다 가장 낮은 제안이 승리합니다.",
+    "instinctsP3": "시간이 지나면서, 부동산의 실제 가치에 대한 감각을 키우게 됩니다. 그 자신감은 값을 매길 수 없습니다.",
+    "howToPlayLink": "MogulGame 플레이 방법 배우기",
+    "cta": "지금 연습 시작"
   },
   "sitemap": {
     "languages": "Languages",

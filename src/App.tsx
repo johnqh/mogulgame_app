@@ -15,10 +15,12 @@ import ScreenContainer from './components/layout/ScreenContainer';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const HowToPlayPage = lazy(() => import('./pages/HowToPlayPage'));
+const WhyPlayPage = lazy(() => import('./pages/WhyPlayPage'));
 const PropertyDetailPage = lazy(() => import('./pages/PropertyDetailPage'));
 const OffersPage = lazy(() => import('./pages/OffersPage'));
 const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const MyFavoritesPage = lazy(() => import('./pages/MyFavoritesPage'));
 const PopularPage = lazy(() => import('./pages/PopularPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const RecentSearchesPage = lazy(() => import('./pages/RecentSearchesPage'));
@@ -98,6 +100,7 @@ function AppRoutes() {
                   }
                 />
                 <Route path="how-to-play" element={<HowToPlayPage />} />
+                <Route path="why-play" element={<WhyPlayPage />} />
                 <Route
                   path="properties/:propertyId"
                   element={
@@ -118,6 +121,7 @@ function AppRoutes() {
                 <Route path="popular" element={<PopularPage />} />
                 <Route path="recent-searches" element={<RecentSearchesPage />} />
                 <Route path="my-searches" element={<MySearchesPage />} />
+                <Route path="my-favorites" element={<MyFavoritesPage />} />
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="sitemap" element={<SitemapPage />} />
               </Route>

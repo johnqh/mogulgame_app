@@ -40,6 +40,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "最近搜尋",
+    "mySearches": "我的搜尋",
+    "myFavorites": "我的收藏",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -82,15 +84,28 @@
     "empty": "還沒有最近的搜尋。",
     "searchFor": "搜尋 \"{{query}}\""
   },
+  "mySearches": {
+    "title": "我的搜尋",
+    "loginPrompt": "登入以查看您的搜尋歷史。",
+    "empty": "您還沒有搜尋過任何物業。"
+  },
   "popular": {
     "title": "熱門房產",
+    "seoTitle": "熱門房產 - MogulGame | Sudobility",
+    "seoDescription": "探索MogulGame上瀏覽量最高的熱門房產。",
     "byPopularity": "最多瀏覽",
     "byRecent": "最近",
     "views": "{{count}} 次瀏覽",
     "empty": "還沒有被瀏覽的房產。",
     "page": "第 {{page}} 頁，共 {{total}} 頁",
     "prev": "上一頁",
-    "next": "下一頁"
+    "next": "下一頁",
+    "byFavorites": "最多收藏"
+  },
+  "favorites": {
+    "title": "我的收藏",
+    "loginPrompt": "登入以儲存您喜愛的房產。",
+    "empty": "還沒有收藏。瀏覽房產並點擊心形圖標來收藏！"
   },
   "property": {
     "notFound": "未找到該物業。",
@@ -204,7 +219,33 @@
     "payoutRule2": "如果獲勝者是唯一符合資格者，他們將在其出價金額上獲得5%的單人獎金。",
     "exampleTitle": "範例",
     "exampleText": "一項物業以100萬美元出售。三位玩家出價：101萬美元（玩家A）、103萬美元（玩家B）和115萬美元（玩家C）。玩家A以最低合格出價獲勝。玩家C（最高落敗者）需支付115萬美元 - 101萬美元 = 14萬美元給玩家A。",
-    "startPlaying": "開始遊戲"
+    "startPlaying": "開始遊戲",
+    "whyPlayPrompt": "想知道為什麼練習房產定價很重要？",
+    "whyPlayLink": "了解MogulGame如何幫助您"
+  },
+  "whyPlay": {
+    "seoTitle": "為什麼玩MogulGame - 零風險練習房產定價 | Sudobility",
+    "seoDescription": "在人生最大的一筆購買之前，建立房產定價的信心。",
+    "heroTitle": "為什麼要練習房產定價？",
+    "heroSubtitle": "房子是大多數人一生中最大的一筆購買。MogulGame讓您零風險地練習真實房產定價。",
+    "stakesTitle": "風險是真實的",
+    "stakesP1": "在股票市場，您可以從1美元開始投資。在房地產領域，最低投入是數十萬美元。",
+    "stakesP2": "首次購房者僅佔購房總數的24%。許多人因為對房產的真實價值缺乏信心而推遲購買。",
+    "stakesP3": "MogulGame改變了這一點。透過使用真實房源和真實成交價進行練習，您可以培養出資深投資者需要數年才能建立的定價直覺。",
+    "paperTradingTitle": "房產模擬交易",
+    "paperTradingP1": "在華爾街，每位新交易員都從模擬器開始。Webull等平台為您提供100萬美元虛擬資金，讓您零風險練習。",
+    "paperTradingP2": "MogulGame將同樣經過驗證的概念應用於房地產。您從100萬美元虛擬資金開始，對真實房產出價。",
+    "paperTradingP3": "但與股票市場不同——一次糟糕的交易可能只損失50美元——一次糟糕的房產決策可能損失數萬美元。這就是為什麼用MogulGame練習更加有價值。",
+    "realLearningTitle": "真實房產，真實學習",
+    "realLearningP1": "MogulGame上的每處房產都是來自美國市場的真實房源。",
+    "realLearningP2": "我們鼓勵玩家走出螢幕：參觀開放日、走訪社區、與房產經紀人交流。",
+    "realLearningP3": "當您將實地調研與MogulGame的定價回饋結合時，學習速度超過任何教科書。",
+    "instinctsTitle": "培養定價直覺",
+    "instinctsP1": "是什麼讓一棟房子以高出要價5萬美元成交，而另一棟在市場上掛了數月？",
+    "instinctsP2": "遊戲獎勵精準：高於成交價的最低出價獲勝。",
+    "instinctsP3": "隨著時間推移，您將培養出對房產真實價值的感覺。這種自信是無價的。",
+    "howToPlayLink": "了解如何玩MogulGame",
+    "cta": "立即開始練習"
   },
   "sitemap": {
     "languages": "Languages",

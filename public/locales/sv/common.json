@@ -46,6 +46,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Senaste sökningar",
+    "mySearches": "Mina sökningar",
+    "myFavorites": "Mina favoriter",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -88,15 +90,28 @@
     "empty": "Inga senaste sökningar.",
     "searchFor": "Sök efter \"{{query}}\""
   },
+  "mySearches": {
+    "title": "Mina sökningar",
+    "loginPrompt": "Logga in för att se din sökhistorik.",
+    "empty": "Du har ännu inte sökt efter några fastigheter."
+  },
   "popular": {
     "title": "Populära fastigheter",
+    "seoTitle": "Populära fastigheter - MogulGame | Sudobility",
+    "seoDescription": "Upptäck de mest visade och trendande fastigheterna på MogulGame.",
     "byPopularity": "Mest visade",
     "byRecent": "Senaste",
     "views": "{{count}} visningar",
     "empty": "Inga fastigheter visade ännu.",
     "page": "Sida {{page}} av {{total}}",
     "prev": "Föregående",
-    "next": "Nästa"
+    "next": "Nästa",
+    "byFavorites": "Mest favoriserade"
+  },
+  "favorites": {
+    "title": "Mina favoriter",
+    "loginPrompt": "Logga in för att spara dina favoritfastigheter.",
+    "empty": "Inga favoriter ännu. Bläddra bland fastigheter och tryck på hjärtat!"
   },
   "property": {
     "notFound": "Fastigheten hittades inte.",
@@ -210,7 +225,33 @@
     "payoutRule2": "Om vinnaren är den enda kvalificerade, får de en 5-procentig solobonus på sitt erbjudandebelopp.",
     "exampleTitle": "Exempel",
     "exampleText": "Ett fastighetsobjekt säljs för 1 000 000 dollar. Tre spelare budar: 1 010 000 dollar (Spelare A), 1 030 000 dollar (Spelare B) och 1 150 000 dollar (Spelare C). Spelare A vinner med det lägsta godkända budet. Spelare C (högsta förlorare) betalar 1 150 000 dollar - 1 010 000 dollar = 140 000 dollar till Spelare A.",
-    "startPlaying": "Börja spela"
+    "startPlaying": "Börja spela",
+    "whyPlayPrompt": "Undrar du varför det är viktigt att öva fastighetsprissättning?",
+    "whyPlayLink": "Lär dig hur MogulGame kan hjälpa dig"
+  },
+  "whyPlay": {
+    "seoTitle": "Varför spela MogulGame - Öva fastighetsprissättning riskfritt | Sudobility",
+    "seoDescription": "Bygg självförtroende i fastighetsprissättning innan ditt livs största köp.",
+    "heroTitle": "Varför öva fastighetsprissättning?",
+    "heroSubtitle": "Ett hem är det största köpet de flesta människor gör. MogulGame låter dig öva prissättning av verkliga fastigheter riskfritt.",
+    "stakesTitle": "Insatserna är verkliga",
+    "stakesP1": "På aktiemarknaden kan du börja investera med så lite som 1 dollar. I fastigheter är minimiåtagandet hundratusentals dollar.",
+    "stakesP2": "Förstagångsköpare utgjorde bara 24% av bostadsköpen. Många skjuter upp köpet för att de inte känner sig säkra på vad en fastighet faktiskt är värd.",
+    "stakesP3": "MogulGame ändrar det. Genom att öva med riktiga annonser och riktiga slutpriser utvecklar du den prisinstinkt som erfarna investerare behöver år för att bygga upp.",
+    "paperTradingTitle": "Pappershandel för fastigheter",
+    "paperTradingP1": "På Wall Street börjar varje ny handlare med en simulator. Plattformar som Webull ger dig 1 000 000 dollar i virtuella pengar för att öva riskfritt.",
+    "paperTradingP2": "MogulGame tillämpar samma beprövade koncept på fastigheter. Du börjar med 1 000 000 fiktiva dollar och lägger bud på verkliga fastigheter.",
+    "paperTradingP3": "Men till skillnad från aktiemarknaden — där en dålig affär kanske kostar dig 50 dollar — kan ett dåligt fastighetsbeslut kosta tiotusentals. Därför är övning med MogulGame ännu mer värdefullt.",
+    "realLearningTitle": "Riktiga fastigheter, riktig inlärning",
+    "realLearningP1": "Varje fastighet på MogulGame är en riktig annons från den amerikanska marknaden.",
+    "realLearningP2": "Vi uppmuntrar spelare att gå bortom skärmen: besöka visningar, promenera i områden, prata med fastighetsmäklare.",
+    "realLearningP3": "När du kombinerar verklig forskning med MogulGames prisfeedback lär du dig snabbare än någon lärobok.",
+    "instinctsTitle": "Bygg din prisinstinkt",
+    "instinctsP1": "Vad gör att ett hus säljs för 50 000 dollar över utgångspriset medan ett annat står på marknaden i månader?",
+    "instinctsP2": "Spelet belönar precision: det lägsta budet över slutpriset vinner.",
+    "instinctsP3": "Med tiden utvecklar du en känsla för vad fastigheter faktiskt är värda. Det självförtroendet är ovärderligt.",
+    "howToPlayLink": "Lär dig hur man spelar MogulGame",
+    "cta": "Börja öva nu"
   },
   "sitemap": {
     "languages": "Languages",

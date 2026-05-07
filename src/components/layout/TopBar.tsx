@@ -15,6 +15,7 @@ import {
   Cog6ToothIcon,
   MagnifyingGlassIcon,
   FireIcon,
+  HeartIcon,
 } from '@heroicons/react/24/outline';
 import { useLocalizedNavigate } from '../../hooks/useLocalizedNavigate';
 import { CONSTANTS, SUPPORTED_LANGUAGES, isLanguageSupported } from '../../config/constants';
@@ -107,6 +108,12 @@ export function useTopBarConfig(): TopBarConfig {
         label: t('nav.offers'),
         icon: <TicketIcon className="w-4 h-4" />,
         onClick: () => navigate('/offers'),
+      },
+      {
+        id: 'my-favorites',
+        label: t('nav.myFavorites'),
+        icon: <HeartIcon className="w-4 h-4" />,
+        onClick: () => navigate('/my-favorites'),
       },
       {
         id: 'my-searches',

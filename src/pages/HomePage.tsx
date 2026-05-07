@@ -2,7 +2,9 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { useApi } from '@sudobility/building_blocks/firebase';
+import { useAuthStatus } from '@sudobility/auth-components';
 import { usePropertySearch } from '@sudobility/mogulgame_client';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   textVariants,
   buttonVariant,
@@ -23,6 +25,7 @@ import {
   Switch,
 } from '@sudobility/components';
 import LocalizedLink from '../components/layout/LocalizedLink';
+import { FavoriteButton } from '../components/FavoriteButton';
 import { useSetPageConfig } from '../hooks/usePageConfig';
 import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
@@ -118,7 +121,15 @@ function formatPriceFull(price: number | null): string {
 }
 
 /** Property card for the list view */
-function PropertyCard({ property }: { property: Property }) {
+function PropertyCard({
+  property,
+  isFavorited,
+  onToggleFavorite,
+}: {
+  property: Property;
+  isFavorited?: boolean;
+  onToggleFavorite?: () => Promise<void>;
+}) {
   const { t } = useTranslation('common');
   const statusColors: Record<string, string> = {
     for_sale: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
@@ -129,59 +140,73 @@ function PropertyCard({ property }: { property: Property }) {
   };
 
   return (
-    <LocalizedLink
-      to={`/properties/${property.id}`}
-      className={`block ${designTokens.radius.lg} border ${ui.border.default} overflow-hidden hover:bg-theme-hover-bg ${ui.transition.default}`}
+    <div
+      className={`relative ${designTokens.radius.lg} border ${ui.border.default} overflow-hidden`}
     >
-      {property.images.length > 0 ? (
-        <div className="h-40 bg-gray-100 dark:bg-gray-800 overflow-hidden">
-          <img
-            src={property.images[0]}
-            alt={property.normalized_address}
-            className="w-full h-full object-cover"
-            loading="lazy"
+      <LocalizedLink
+        to={`/properties/${property.id}`}
+        className={`block hover:bg-theme-hover-bg ${ui.transition.default}`}
+      >
+        {property.images.length > 0 ? (
+          <div className="h-40 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+            <img
+              src={property.images[0]}
+              alt={property.normalized_address}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div className="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <span className={`${ui.text.muted} text-sm`}>{t('property.noImage')}</span>
+          </div>
+        )}
+        <div className="p-3">
+          <div className="flex items-start justify-between gap-2 mb-1">
+            <p className={`${textVariants.heading.h5()} text-base`}>
+              {formatPriceFull(property.price)}
+            </p>
+            <span
+              className={`text-xs px-2 py-0.5 ${designTokens.radius.full} font-medium whitespace-nowrap ${statusColors[property.listing_status] ?? statusColors.unknown}`}
+            >
+              {property.listing_status.replace('_', ' ')}
+            </span>
+          </div>
+          <p className={`${textVariants.body.sm()} ${ui.text.muted} line-clamp-1`}>
+            {property.address.street}
+            {property.address.unit ? `, ${property.address.unit}` : ''}, {property.address.city},{' '}
+            {property.address.state}
+          </p>
+          <div className={`flex gap-3 text-xs ${ui.text.muted} mt-1`}>
+            {property.bedrooms != null && (
+              <span>
+                {property.bedrooms} {t('property.beds')}
+              </span>
+            )}
+            {property.bathrooms != null && (
+              <span>
+                {property.bathrooms} {t('property.baths')}
+              </span>
+            )}
+            {property.sqft != null && (
+              <span>
+                {property.sqft.toLocaleString()} {t('property.sqft')}
+              </span>
+            )}
+          </div>
+        </div>
+      </LocalizedLink>
+      {onToggleFavorite && (
+        <div className="absolute top-2 right-2">
+          <FavoriteButton
+            isFavorited={isFavorited ?? false}
+            onToggle={onToggleFavorite}
+            size="sm"
+            className="bg-white/80 dark:bg-gray-900/80 rounded-full p-1"
           />
         </div>
-      ) : (
-        <div className="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-          <span className={`${ui.text.muted} text-sm`}>{t('property.noImage')}</span>
-        </div>
       )}
-      <div className="p-3">
-        <div className="flex items-start justify-between gap-2 mb-1">
-          <p className={`${textVariants.heading.h5()} text-base`}>
-            {formatPriceFull(property.price)}
-          </p>
-          <span
-            className={`text-xs px-2 py-0.5 ${designTokens.radius.full} font-medium whitespace-nowrap ${statusColors[property.listing_status] ?? statusColors.unknown}`}
-          >
-            {property.listing_status.replace('_', ' ')}
-          </span>
-        </div>
-        <p className={`${textVariants.body.sm()} ${ui.text.muted} line-clamp-1`}>
-          {property.address.street}
-          {property.address.unit ? `, ${property.address.unit}` : ''}, {property.address.city},{' '}
-          {property.address.state}
-        </p>
-        <div className={`flex gap-3 text-xs ${ui.text.muted} mt-1`}>
-          {property.bedrooms != null && (
-            <span>
-              {property.bedrooms} {t('property.beds')}
-            </span>
-          )}
-          {property.bathrooms != null && (
-            <span>
-              {property.bathrooms} {t('property.baths')}
-            </span>
-          )}
-          {property.sqft != null && (
-            <span>
-              {property.sqft.toLocaleString()} {t('property.sqft')}
-            </span>
-          )}
-        </div>
-      </div>
-    </LocalizedLink>
+    </div>
   );
 }
 
@@ -604,6 +629,68 @@ function HomePageInner() {
   const properties = data?.properties ?? EMPTY_PROPERTIES;
   const hasResults = hasSearched && properties.length > 0;
 
+  // Favorites
+  const { user } = useAuthStatus();
+  const { token } = useApi();
+  const queryClient = useQueryClient();
+  const authHeaders = useMemo(
+    (): Record<string, string> => (token ? { Authorization: `Bearer ${token}` } : {}),
+    [token]
+  );
+
+  const propertyIds = useMemo(() => properties.map(p => p.id), [properties]);
+  const idsKey = propertyIds.join(',');
+
+  const { data: favCheckData } = useQuery({
+    queryKey: ['mogulgame', 'favorites', 'check', idsKey],
+    queryFn: async () => {
+      const response = await networkClient.get(
+        `${baseUrl}/api/v1/favorites/check?property_ids=${idsKey}`,
+        { headers: authHeaders }
+      );
+      const body = response.data as {
+        success: boolean;
+        data?: { favorites: Record<string, boolean> };
+      };
+      if (!body.success || !body.data) return {};
+      return body.data.favorites;
+    },
+    enabled: !!user && !!token && propertyIds.length > 0,
+    staleTime: 60_000,
+  });
+
+  const favoriteMutation = useMutation({
+    mutationFn: async ({
+      propertyId,
+      isFavorited,
+    }: {
+      propertyId: string;
+      isFavorited: boolean;
+    }) => {
+      if (isFavorited) {
+        return networkClient.delete(`${baseUrl}/api/v1/favorites/${propertyId}`, {
+          headers: authHeaders,
+        });
+      }
+      return networkClient.post(
+        `${baseUrl}/api/v1/favorites/${propertyId}`,
+        {},
+        { headers: authHeaders }
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['mogulgame', 'favorites'] });
+    },
+  });
+
+  const handleToggleFavorite = useCallback(
+    async (propertyId: string) => {
+      const isFavorited = favCheckData?.[propertyId] ?? false;
+      await favoriteMutation.mutateAsync({ propertyId, isFavorited });
+    },
+    [favCheckData, favoriteMutation]
+  );
+
   return (
     <div className="flex flex-col flex-1 min-h-0">
       <SEOHead title={t('seo.home.title')} description={t('seo.home.description')} />
@@ -754,7 +841,12 @@ function HomePageInner() {
               <div className="hidden lg:block w-80 border-l overflow-y-auto bg-theme-bg-primary">
                 <div className="p-3 space-y-3">
                   {properties.map(p => (
-                    <PropertyCard key={p.id} property={p} />
+                    <PropertyCard
+                      key={p.id}
+                      property={p}
+                      isFavorited={favCheckData?.[p.id] ?? false}
+                      onToggleFavorite={() => handleToggleFavorite(p.id)}
+                    />
                   ))}
                 </div>
               </div>
@@ -768,7 +860,12 @@ function HomePageInner() {
             <div className="max-w-7xl mx-auto p-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {properties.map(p => (
-                  <PropertyCard key={p.id} property={p} />
+                  <PropertyCard
+                    key={p.id}
+                    property={p}
+                    isFavorited={favCheckData?.[p.id] ?? false}
+                    onToggleFavorite={() => handleToggleFavorite(p.id)}
+                  />
                 ))}
               </div>
               {data?.has_more && (

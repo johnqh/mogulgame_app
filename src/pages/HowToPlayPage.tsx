@@ -16,7 +16,17 @@ export default function HowToPlayPage() {
 
   return (
     <Section spacing="md">
-      <SEOHead title={t('howToPlay.seoTitle')} description={t('howToPlay.seoDescription')} />
+      <SEOHead
+        title={t('howToPlay.seoTitle')}
+        description={t('howToPlay.seoDescription')}
+        keywords={[
+          'how to play',
+          'real estate game rules',
+          'pretend offers',
+          'property bidding',
+          'MogulGame',
+        ]}
+      />
 
       <h1 className={`${textVariants.heading.h2()} mb-8`}>{t('howToPlay.title')}</h1>
 
@@ -86,6 +96,19 @@ export default function HowToPlayPage() {
       >
         <h2 className={`${textVariants.heading.h4()} mb-3`}>{t('howToPlay.exampleTitle')}</h2>
         <p className={`${textVariants.body.sm()} leading-relaxed`}>{t('howToPlay.exampleText')}</p>
+      </div>
+
+      {/* Why Play link */}
+      <div
+        className={`mb-10 text-center ${ui.spacing.card.md} ${designTokens.radius.lg} bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800`}
+      >
+        <p className={`${textVariants.heading.h4()} mb-4`}>{t('howToPlay.whyPlayPrompt')}</p>
+        <LocalizedLink
+          to="/why-play"
+          className={`${buttonVariant('primary')} ${designTokens.radius.lg} px-6 py-2.5 ${ui.transition.default}`}
+        >
+          {t('howToPlay.whyPlayLink')} &rarr;
+        </LocalizedLink>
       </div>
 
       {/* CTA */}

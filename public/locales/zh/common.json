@@ -40,6 +40,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "最近搜索",
+    "mySearches": "我的搜索",
+    "myFavorites": "我的收藏",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -82,15 +84,28 @@
     "empty": "还没有最近的搜索。",
     "searchFor": "搜索 \"{{query}}\""
   },
+  "mySearches": {
+    "title": "我的搜索",
+    "loginPrompt": "登录以查看您的搜索历史记录。",
+    "empty": "您还没有搜索过任何房产。"
+  },
   "popular": {
     "title": "热门房产",
+    "seoTitle": "热门房产 - MogulGame | Sudobility",
+    "seoDescription": "发现MogulGame上浏览量最高的热门房产。",
     "byPopularity": "最多浏览",
     "byRecent": "最近",
     "views": "{{count}} 次浏览",
     "empty": "还没有被浏览的房产。",
     "page": "第 {{page}} 页，共 {{total}} 页",
     "prev": "上一页",
-    "next": "下一页"
+    "next": "下一页",
+    "byFavorites": "最多收藏"
+  },
+  "favorites": {
+    "title": "我的收藏",
+    "loginPrompt": "登录以保存您喜爱的房产。",
+    "empty": "还没有收藏。浏览房产并点击心形图标来收藏！"
   },
   "property": {
     "notFound": "未找到该物业。",
@@ -204,7 +219,33 @@
     "payoutRule2": "如果获胜者是唯一符合条件的选手，他们将在其报价金额上获得5%的独赢奖金。",
     "exampleTitle": "示例",
     "exampleText": "一个资产以100万美元的价格出售。三位玩家出价：101万美元（玩家A）、103万美元（玩家B）和115万美元（玩家C）。玩家A以最低合格出价获胜。玩家C（最高失败者）支付115万美元 - 101万美元 = 14万美元给玩家A。",
-    "startPlaying": "开始游戏"
+    "startPlaying": "开始游戏",
+    "whyPlayPrompt": "想知道为什么练习房产定价很重要？",
+    "whyPlayLink": "了解MogulGame如何帮助您"
+  },
+  "whyPlay": {
+    "seoTitle": "为什么玩MogulGame - 零风险练习房产定价 | Sudobility",
+    "seoDescription": "在人生最大的一笔购买之前，建立房产定价的信心。",
+    "heroTitle": "为什么要练习房产定价？",
+    "heroSubtitle": "房子是大多数人一生中最大的一笔购买。MogulGame让您零风险地练习真实房产定价。",
+    "stakesTitle": "风险是真实的",
+    "stakesP1": "在股票市场，您可以从1美元开始投资。在房地产领域，最低投入是数十万美元。",
+    "stakesP2": "首次购房者仅占购房总数的24%。很多人因为对房产的真实价值缺乏信心而推迟购买。",
+    "stakesP3": "MogulGame改变了这一点。通过使用真实房源和真实成交价进行练习，您可以培养出资深投资者需要数年才能建立的定价直觉。",
+    "paperTradingTitle": "房产模拟交易",
+    "paperTradingP1": "在华尔街，每位新交易员都从模拟器开始。Webull等平台为您提供100万美元虚拟资金，让您零风险练习。",
+    "paperTradingP2": "MogulGame将同样经过验证的概念应用于房地产。您从100万美元虚拟资金开始，对真实房产出价。",
+    "paperTradingP3": "但与股票市场不同——一次糟糕的交易可能只损失50美元——一次糟糕的房产决策可能损失数万美元。这就是为什么用MogulGame练习更加有价值。",
+    "realLearningTitle": "真实房产，真实学习",
+    "realLearningP1": "MogulGame上的每处房产都是来自美国市场的真实房源。",
+    "realLearningP2": "我们鼓励玩家走出屏幕：参观开放日、走访社区、与房产经纪人交流。",
+    "realLearningP3": "当您将实地调研与MogulGame的定价反馈结合时，学习速度超过任何教科书。",
+    "instinctsTitle": "培养定价直觉",
+    "instinctsP1": "是什么让一栋房子以高出要价5万美元成交，而另一栋在市场上挂了数月？",
+    "instinctsP2": "游戏奖励精准：高于成交价的最低出价获胜。",
+    "instinctsP3": "随着时间推移，您将培养出对房产真实价值的感觉。这种自信是无价的。",
+    "howToPlayLink": "了解如何玩MogulGame",
+    "cta": "立即开始练习"
   },
   "sitemap": {
     "languages": "Languages",

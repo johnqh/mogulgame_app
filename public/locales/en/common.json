@@ -47,6 +47,7 @@
     "sitemap": "Sitemap",
     "recentSearches": "Recent Searches",
     "mySearches": "My Searches",
+    "myFavorites": "My Favorites",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -96,13 +97,21 @@
   },
   "popular": {
     "title": "Popular Properties",
+    "seoTitle": "Popular Properties - MogulGame | Sudobility",
+    "seoDescription": "Discover the most viewed and trending properties on MogulGame. See what other players are looking at and place your pretend offers.",
     "byPopularity": "Most Viewed",
     "byRecent": "Recent",
     "views": "{{count}} views",
     "empty": "No properties viewed yet.",
     "page": "Page {{page}} of {{total}}",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "byFavorites": "Most Favorited"
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "loginPrompt": "Log in to save your favorite properties.",
+    "empty": "No favorites yet. Browse properties and tap the heart to save them!"
   },
   "property": {
     "notFound": "Property not found.",
@@ -216,7 +225,33 @@
     "payoutRule2": "If the winner is the only qualifier, they receive a 5% solo bonus on their offer amount.",
     "exampleTitle": "Example",
     "exampleText": "A property sells for $1,000,000. Three players bid: $1,010,000 (Player A), $1,030,000 (Player B), and $1,150,000 (Player C). Player A wins with the lowest qualifying bid. Player C (highest loser) pays $1,150,000 - $1,010,000 = $140,000 to Player A.",
-    "startPlaying": "Start Playing"
+    "startPlaying": "Start Playing",
+    "whyPlayPrompt": "Wondering why practicing real estate pricing matters?",
+    "whyPlayLink": "Learn why MogulGame can help you"
+  },
+  "whyPlay": {
+    "seoTitle": "Why Play MogulGame - Practice Real Estate Pricing Risk-Free | Sudobility",
+    "seoDescription": "Build confidence in real estate pricing before making the biggest purchase of your life. MogulGame is paper trading for real estate — practice offers on real properties risk-free.",
+    "heroTitle": "Why Practice Real Estate Pricing?",
+    "heroSubtitle": "A home is the biggest purchase most people ever make. MogulGame lets you practice pricing real properties risk-free — so when it's time to make a real offer, you'll know exactly what to bid.",
+    "stakesTitle": "The Stakes Are Real",
+    "stakesP1": "In the stock market, you can start investing with as little as $1. In real estate, the minimum commitment is hundreds of thousands of dollars. There's no room for trial and error when the stakes are this high.",
+    "stakesP2": "First-time buyers made up just 24% of home purchases in recent years, with the median age rising to 38. Many people delay buying simply because they don't feel confident enough to make an offer — they're unsure what a property is actually worth.",
+    "stakesP3": "MogulGame changes that. By practicing with real listings and real closing prices, you develop the pricing intuition that takes seasoned investors years to build.",
+    "paperTradingTitle": "Paper Trading for Real Estate",
+    "paperTradingP1": "On Wall Street, every new trader starts with a simulator. Platforms like Webull give you $1,000,000 in virtual cash to practice trading stocks, options, and futures — risk-free. It's how millions of investors build confidence before putting in real money.",
+    "paperTradingP2": "MogulGame applies the same proven concept to real estate. You start with $1,000,000 in pretend USD and place offers on real properties listed for sale across the United States. When those properties sell in real life, your offers are evaluated against the actual closing price.",
+    "paperTradingP3": "But unlike the stock market — where a bad trade might cost you $50 — a bad real estate decision can cost tens of thousands. That's why practicing with MogulGame is even more valuable.",
+    "realLearningTitle": "Real Properties, Real Learning",
+    "realLearningP1": "Every property on MogulGame is a real listing from the US market. You can see actual photos, prices, neighborhood details, and property history — just like you would on Zillow or Realtor.com.",
+    "realLearningP2": "We encourage players to go beyond the screen: visit open houses, walk the neighborhoods, talk to real estate agents. Understanding a property's true value means seeing it in person — the noise levels, natural light, finishes, and neighborhood feel that photos can't capture.",
+    "realLearningP3": "When you combine real-world research with MogulGame's pricing feedback, you learn faster than any textbook or course could teach you. You'll know within weeks whether your pricing instincts are accurate — or need calibration.",
+    "instinctsTitle": "Build Your Pricing Instincts",
+    "instinctsP1": "What makes one home sell for $50,000 above asking while another sits on the market for months? Pricing is driven by location, comparable sales, property condition, and market timing. MogulGame teaches you to read these signals.",
+    "instinctsP2": "The game rewards precision: the lowest offer above the closing price wins. This trains you to find the sweet spot — close enough to the real value that you'd beat the actual buyer, but not so high that you overpay.",
+    "instinctsP3": "Over time, you'll develop a feel for what properties are actually worth versus what they're listed for. That confidence is invaluable when you're ready to make your first — or next — real offer.",
+    "howToPlayLink": "Learn how to play MogulGame",
+    "cta": "Start Practicing Now"
   },
   "sitemap": {
     "languages": "Languages",

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStatus } from '@sudobility/auth-components';
@@ -33,6 +33,9 @@ import { formatDateTime } from '../utils/formatDateTime';
 import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 import { CONSTANTS } from '../config/constants';
+import { FavoriteButton } from '../components/FavoriteButton';
+import { BreadcrumbBuilder } from '../utils/BreadcrumbBuilder';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 function formatPrice(price: number | null): string {
   if (price == null) return '';
@@ -83,6 +86,57 @@ export default function PropertyDetailPage() {
   } = useOffers(networkClient, baseUrl, token ?? null, { enabled: !!user });
   const { profile } = useUserProfile(networkClient, baseUrl, token ?? null, { enabled: !!user });
 
+  // Favorites
+  const queryClient = useQueryClient();
+  const authHeaders = useMemo(
+    (): Record<string, string> => (token ? { Authorization: `Bearer ${token}` } : {}),
+    [token]
+  );
+
+  const { data: favCheckData } = useQuery({
+    queryKey: ['mogulgame', 'favorites', 'check', propertyId],
+    queryFn: async () => {
+      const response = await networkClient.get(
+        `${baseUrl}/api/v1/favorites/check?property_ids=${propertyId}`,
+        { headers: authHeaders }
+      );
+      const body = response.data as {
+        success: boolean;
+        data?: { favorites: Record<string, boolean> };
+      };
+      if (!body.success || !body.data) return {};
+      return body.data.favorites;
+    },
+    enabled: !!user && !!token && !!propertyId,
+    staleTime: 60_000,
+  });
+
+  const isFavorited = favCheckData?.[propertyId ?? ''] ?? false;
+
+  const favoriteMutation = useMutation({
+    mutationFn: async () => {
+      if (isFavorited) {
+        return networkClient.delete(`${baseUrl}/api/v1/favorites/${propertyId}`, {
+          headers: authHeaders,
+        });
+      }
+      return networkClient.post(
+        `${baseUrl}/api/v1/favorites/${propertyId}`,
+        {},
+        {
+          headers: authHeaders,
+        }
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['mogulgame', 'favorites'] });
+    },
+  });
+
+  const handleToggleFavorite = useCallback(async () => {
+    await favoriteMutation.mutateAsync();
+  }, [favoriteMutation]);
+
   const [offerPrice, setOfferPrice] = useState('');
   const [offerPriceInitialized, setOfferPriceInitialized] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -95,6 +149,16 @@ export default function PropertyDetailPage() {
   useEffect(() => {
     analyticsService.trackPageView(`/properties/${propertyId}`, 'PropertyDetail');
   }, [propertyId]);
+
+  // Set breadcrumb to street address
+  useEffect(() => {
+    if (property?.address.street) {
+      const builder = BreadcrumbBuilder.getInstance();
+      const path = `/properties/${propertyId}`;
+      builder.setDynamicTitle(path, property.address.street);
+      return () => builder.clearDynamicTitle(path);
+    }
+  }, [property?.address.street, propertyId]);
 
   const existingOffer = offers.find(o => o.property_id === propertyId && o.status === 'active');
 
@@ -205,7 +269,46 @@ export default function PropertyDetailPage() {
         )}
       </Section>
 
-      <SEOHead title={property.normalized_address} description="" noIndex />
+      <SEOHead
+        title={`${formatPrice(property.price)} - ${property.normalized_address}`}
+        description={[
+          property.address.street,
+          property.address.city,
+          property.address.state,
+          property.price ? formatPrice(property.price) : null,
+          property.bedrooms != null ? `${property.bedrooms} beds` : null,
+          property.bathrooms != null ? `${property.bathrooms} baths` : null,
+          property.sqft != null ? `${property.sqft.toLocaleString()} sqft` : null,
+        ]
+          .filter(Boolean)
+          .join(' | ')}
+        keywords={[
+          property.address.city,
+          property.address.state,
+          'real estate',
+          'property',
+          property.property_type ?? '',
+          'pretend offer',
+          'MogulGame',
+        ].filter(Boolean)}
+        ogType="article"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'RealEstateListing',
+          name: property.normalized_address,
+          description: property.description ?? undefined,
+          url: property.url ?? undefined,
+          image: property.images[0] ?? undefined,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: property.address.street,
+            addressLocality: property.address.city,
+            addressRegion: property.address.state,
+            postalCode: property.address.zip,
+          },
+          ...(property.price ? { price: property.price, priceCurrency: 'USD' } : {}),
+        }}
+      />
 
       {/* Map Banner */}
       {property.address.latitude != null && property.address.longitude != null && (
@@ -253,7 +356,10 @@ export default function PropertyDetailPage() {
 
         {/* Address & price */}
         <div className="mb-6">
-          <h1 className={`${textVariants.heading.h2()} mb-1`}>{formatPrice(property.price)}</h1>
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className={textVariants.heading.h2()}>{formatPrice(property.price)}</h1>
+            <FavoriteButton isFavorited={isFavorited} onToggle={handleToggleFavorite} />
+          </div>
           <p className={`${textVariants.body.lg()} ${ui.text.muted}`}>
             {property.address.street}
             {property.address.unit ? `, ${property.address.unit}` : ''}

@@ -46,6 +46,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "最近の検索",
+    "mySearches": "マイサーチ",
+    "myFavorites": "お気に入り",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -88,15 +90,28 @@
     "empty": "最近の検索はありません。",
     "searchFor": "「{{query}}」を検索"
   },
+  "mySearches": {
+    "title": "マイサーチ",
+    "loginPrompt": "ログインして、検索履歴を表示します。",
+    "empty": "まだ物件を検索していません。"
+  },
   "popular": {
     "title": "人気の物件",
+    "seoTitle": "人気の物件 - MogulGame | Sudobility",
+    "seoDescription": "MogulGameで最も閲覧されている注目の物件を発見しましょう。",
     "byPopularity": "閲覧数順",
     "byRecent": "新着順",
     "views": "{{count}}回閲覧",
     "empty": "まだ閲覧された物件はありません。",
     "page": "{{total}}ページ中{{page}}ページ",
     "prev": "前へ",
-    "next": "次へ"
+    "next": "次へ",
+    "byFavorites": "お気に入り順"
+  },
+  "favorites": {
+    "title": "お気に入り",
+    "loginPrompt": "ログインしてお気に入りの物件を保存しましょう。",
+    "empty": "お気に入りはまだありません。物件を見つけてハートをタップ！"
   },
   "property": {
     "notFound": "物件が見つかりません。",
@@ -210,7 +225,33 @@
     "payoutRule2": "優勝者が唯一の合格者である場合、そのオファー金額に対して5%の単独ボーナスが支給されます。",
     "exampleTitle": "例",
     "exampleText": "財産は100万ドルで売却されます。3人のプレイヤーが入札しました：101万ドル（プレイヤーA）、103万ドル（プレイヤーB）、115万ドル（プレイヤーC）。プレイヤーAが最低の適格入札で勝利しました。プレイヤーC（最高の敗者）は115万ドル - 101万ドル = 14万ドルをプレイヤーAに支払います。",
-    "startPlaying": "プレイを開始"
+    "startPlaying": "プレイを開始",
+    "whyPlayPrompt": "なぜ不動産価格の練習が重要なのか気になりますか？",
+    "whyPlayLink": "MogulGameがどう役立つか学びましょう"
+  },
+  "whyPlay": {
+    "seoTitle": "なぜMogulGameをプレイするのか - リスクなしで不動産価格を練習 | Sudobility",
+    "seoDescription": "人生最大の買い物をする前に、不動産価格設定の自信をつけましょう。",
+    "heroTitle": "なぜ不動産価格の練習が必要？",
+    "heroSubtitle": "住宅はほとんどの人にとって人生最大の買い物です。MogulGameでは、リスクなしで実際の物件の価格設定を練習できます。",
+    "stakesTitle": "リスクは本物",
+    "stakesP1": "株式市場ではわずか1ドルから投資を始められます。不動産では、最低でも数十万ドルの投資が必要です。",
+    "stakesP2": "初めての購入者は住宅購入のわずか24%に過ぎません。多くの人が物件の本当の価値がわからないため、購入を先延ばしにしています。",
+    "stakesP3": "MogulGameがそれを変えます。実際の物件リストと成約価格で練習することで、経験豊富な投資家が何年もかけて身につける価格感覚を養えます。",
+    "paperTradingTitle": "不動産のペーパートレード",
+    "paperTradingP1": "ウォール街では、すべての新人トレーダーはシミュレーターから始めます。Webullのようなプラットフォームは、リスクなしで練習できる100万ドルの仮想資金を提供します。",
+    "paperTradingP2": "MogulGameは同じ実証済みのコンセプトを不動産に適用します。100万ドルの仮想資金で始めて、実際の物件にオファーを出します。",
+    "paperTradingP3": "しかし株式市場と違い — 悪い取引で50ドルの損失で済むところ — 不動産の判断ミスは数万ドルのコストになりえます。だからこそMogulGameでの練習はさらに価値があるのです。",
+    "realLearningTitle": "本物の物件、本物の学び",
+    "realLearningP1": "MogulGameのすべての物件は、米国市場の実際のリスティングです。",
+    "realLearningP2": "プレイヤーには画面の向こう側へ出かけることを勧めています：オープンハウスを訪問し、近所を歩き、不動産エージェントと話しましょう。",
+    "realLearningP3": "実地調査とMogulGameの価格フィードバックを組み合わせれば、どんな教科書よりも速く学べます。",
+    "instinctsTitle": "価格感覚を磨く",
+    "instinctsP1": "なぜある家が希望価格より5万ドル高く売れる一方で、別の家は何ヶ月も市場に残るのでしょうか？",
+    "instinctsP2": "ゲームは精度を報酬にします：成約価格を上回る最低のオファーが勝ちます。",
+    "instinctsP3": "時間が経つにつれ、物件の本当の価値に対する感覚が身につきます。その自信は計り知れない価値があります。",
+    "howToPlayLink": "MogulGameの遊び方を学ぶ",
+    "cta": "今すぐ練習を始める"
   },
   "sitemap": {
     "languages": "Languages",

@@ -46,6 +46,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Ricerche recenti",
+    "mySearches": "Le mie ricerche",
+    "myFavorites": "I miei preferiti",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -88,15 +90,28 @@
     "empty": "Nessuna ricerca recente.",
     "searchFor": "Cerca \"{{query}}\""
   },
+  "mySearches": {
+    "title": "Le mie ricerche",
+    "loginPrompt": "Accedi per visualizzare la cronologia delle tue ricerche.",
+    "empty": "Non hai ancora cercato alcuna proprietà."
+  },
   "popular": {
     "title": "Proprietà popolari",
+    "seoTitle": "Proprietà popolari - MogulGame | Sudobility",
+    "seoDescription": "Scopri le proprietà più viste e di tendenza su MogulGame.",
     "byPopularity": "Più viste",
     "byRecent": "Recenti",
     "views": "{{count}} visualizzazioni",
     "empty": "Nessuna proprietà visualizzata.",
     "page": "Pagina {{page}} di {{total}}",
     "prev": "Precedente",
-    "next": "Successivo"
+    "next": "Successivo",
+    "byFavorites": "Più preferiti"
+  },
+  "favorites": {
+    "title": "I miei preferiti",
+    "loginPrompt": "Accedi per salvare le tue proprietà preferite.",
+    "empty": "Nessun preferito. Sfoglia le proprietà e tocca il cuore per salvarle!"
   },
   "property": {
     "notFound": "Proprietà non trovata.",
@@ -210,7 +225,33 @@
     "payoutRule2": "Se il vincitore è l'unico qualificato, riceverà un bonus solista del 5% sull'importo dell'offerta.",
     "exampleTitle": "Esempio",
     "exampleText": "Una proprietà viene venduta per 1.000.000 di dollari. Tre giocatori offrono: 1.010.000 dollari (Giocatore A), 1.030.000 dollari (Giocatore B) e 1.150.000 dollari (Giocatore C). Il Giocatore A vince con l'offerta più bassa valida. Il Giocatore C (il massimo perdente) paga 1.150.000 - 1.010.000 = 140.000 dollari al Giocatore A.",
-    "startPlaying": "Inizia a giocare"
+    "startPlaying": "Inizia a giocare",
+    "whyPlayPrompt": "Ti chiedi perché praticare i prezzi immobiliari è importante?",
+    "whyPlayLink": "Scopri come MogulGame può aiutarti"
+  },
+  "whyPlay": {
+    "seoTitle": "Perché giocare a MogulGame - Pratica i prezzi immobiliari senza rischi | Sudobility",
+    "seoDescription": "Acquisisci fiducia nella valutazione immobiliare prima del più grande acquisto della tua vita.",
+    "heroTitle": "Perché praticare i prezzi immobiliari?",
+    "heroSubtitle": "Una casa è il più grande acquisto che la maggior parte delle persone fa. MogulGame ti permette di praticare la valutazione di proprietà reali senza rischi.",
+    "stakesTitle": "La posta in gioco è reale",
+    "stakesP1": "Nel mercato azionario, puoi iniziare a investire con appena 1 dollaro. Nell'immobiliare, l'impegno minimo è di centinaia di migliaia di dollari.",
+    "stakesP2": "Gli acquirenti alla prima esperienza rappresentavano solo il 24% degli acquisti immobiliari. Molte persone ritardano l'acquisto perché non si sentono abbastanza sicure del valore reale di una proprietà.",
+    "stakesP3": "MogulGame cambia questo. Praticando con annunci reali e prezzi di chiusura reali, sviluppi l'intuizione sui prezzi che agli investitori esperti richiede anni per costruire.",
+    "paperTradingTitle": "Paper trading per l'immobiliare",
+    "paperTradingP1": "A Wall Street, ogni nuovo trader inizia con un simulatore. Piattaforme come Webull ti danno 1.000.000 di dollari in denaro virtuale per praticare senza rischi.",
+    "paperTradingP2": "MogulGame applica lo stesso concetto collaudato all'immobiliare. Inizi con 1.000.000 di dollari fittizi e fai offerte su proprietà reali.",
+    "paperTradingP3": "Ma a differenza del mercato azionario — dove una cattiva operazione può costarti 50 dollari — una cattiva decisione immobiliare può costare decine di migliaia. Per questo praticare con MogulGame è ancora più prezioso.",
+    "realLearningTitle": "Proprietà reali, apprendimento reale",
+    "realLearningP1": "Ogni proprietà su MogulGame è un annuncio reale del mercato statunitense.",
+    "realLearningP2": "Incoraggiamo i giocatori ad andare oltre lo schermo: visitare open house, esplorare i quartieri, parlare con gli agenti immobiliari.",
+    "realLearningP3": "Quando combini la ricerca sul campo con il feedback sui prezzi di MogulGame, impari più velocemente di qualsiasi libro di testo.",
+    "instinctsTitle": "Sviluppa il tuo istinto sui prezzi",
+    "instinctsP1": "Cosa fa vendere una casa a 50.000 dollari sopra il prezzo richiesto mentre un'altra resta sul mercato per mesi?",
+    "instinctsP2": "Il gioco premia la precisione: l'offerta più bassa sopra il prezzo di chiusura vince.",
+    "instinctsP3": "Con il tempo, svilupperai un senso di quanto valgono realmente le proprietà. Quella fiducia è inestimabile.",
+    "howToPlayLink": "Scopri come giocare a MogulGame",
+    "cta": "Inizia a praticare"
   },
   "sitemap": {
     "languages": "Languages",

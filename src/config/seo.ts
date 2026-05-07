@@ -8,6 +8,6 @@ export const seoHeadConfig: SEOHeadConfig = {
   twitterHandle: CONSTANTS.TWITTER_HANDLE || undefined,
   supportedLanguages: SUPPORTED_LANGUAGES as unknown as string[],
   defaultLanguage: 'en',
-  applicationCategory: 'DeveloperApplication',
-  applicationSubCategory: 'Project Template',
+  applicationCategory: 'GameApplication',
+  applicationSubCategory: 'Real Estate Simulation',
 };

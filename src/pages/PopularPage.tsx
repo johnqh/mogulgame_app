@@ -32,7 +32,7 @@ interface PropertyViewsResponse {
   has_more: boolean;
 }
 
-type SortBy = 'popularity' | 'recent';
+type SortBy = 'popularity' | 'recent' | 'favorites';
 
 export default function PopularPage() {
   const { t } = useTranslation('common');
@@ -76,7 +76,11 @@ export default function PopularPage() {
 
   return (
     <Section spacing="md">
-      <SEOHead title={t('popular.title')} description={t('popular.title')} />
+      <SEOHead
+        title={t('popular.seoTitle')}
+        description={t('popular.seoDescription')}
+        keywords={['popular properties', 'most viewed homes', 'trending real estate', 'MogulGame']}
+      />
 
       <div className="flex items-center justify-between mb-6">
         <h1 className={textVariants.heading.h3()}>{t('popular.title')}</h1>
@@ -106,6 +110,19 @@ export default function PopularPage() {
             }`}
           >
             {t('popular.byRecent')}
+          </button>
+          <button
+            onClick={() => {
+              handleSortChange('favorites');
+              analyticsService.trackButtonClick('popular_sort', { sortBy: 'favorites' });
+            }}
+            className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
+              sortBy === 'favorites'
+                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                : `${ui.text.muted} hover:bg-theme-hover-bg`
+            }`}
+          >
+            {t('popular.byFavorites')}
           </button>
         </div>
       </div>

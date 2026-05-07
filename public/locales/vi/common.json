@@ -46,6 +46,8 @@
     "settings": "Settings",
     "sitemap": "Sitemap",
     "recentSearches": "Tìm kiếm gần đây",
+    "mySearches": "Tìm kiếm của tôi",
+    "myFavorites": "Yêu thích",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -88,15 +90,28 @@
     "empty": "Chưa có tìm kiếm gần đây.",
     "searchFor": "Tìm kiếm \"{{query}}\""
   },
+  "mySearches": {
+    "title": "Tìm kiếm của tôi",
+    "loginPrompt": "Đăng nhập để xem lịch sử tìm kiếm của bạn",
+    "empty": "Bạn chưa từng tìm kiếm bất kỳ bất động sản nào."
+  },
   "popular": {
     "title": "Bất động sản phổ biến",
+    "seoTitle": "Bất động sản phổ biến - MogulGame | Sudobility",
+    "seoDescription": "Khám phá những bất động sản được xem nhiều nhất và đang hot trên MogulGame.",
     "byPopularity": "Xem nhiều nhất",
     "byRecent": "Gần đây",
     "views": "{{count}} lượt xem",
     "empty": "Chưa có bất động sản nào được xem.",
     "page": "Trang {{page}} / {{total}}",
     "prev": "Trước",
-    "next": "Sau"
+    "next": "Sau",
+    "byFavorites": "Nhiều yêu thích nhất"
+  },
+  "favorites": {
+    "title": "Yêu thích",
+    "loginPrompt": "Đăng nhập để lưu bất động sản yêu thích.",
+    "empty": "Chưa có yêu thích. Duyệt bất động sản và nhấn vào trái tim!"
   },
   "property": {
     "notFound": "Không tìm thấy tài sản.",
@@ -210,7 +225,33 @@
     "payoutRule2": "Nếu người chiến thắng là người duy nhất đủ điều kiện, họ sẽ nhận được khoản thưởng riêng 5% trên số tiền đề xuất.",
     "exampleTitle": "Ví dụ",
     "exampleText": "Một tài sản được bán với giá 1.000.000 đô la. Ba người chơi đặt giá thầu: 1.010.000 đô la (người chơi A), 1.030.000 đô la (người chơi B) và 1.150.000 đô la (người chơi C). Người chơi A thắng với mức giá thầu thấp nhất hợp lệ. Người chơi C (người thua cao nhất) phải trả cho người chơi A số tiền là 1.150.000 đô la - 1.010.000 đô la = 140.000 đô la.",
-    "startPlaying": "Bắt đầu chơi"
+    "startPlaying": "Bắt đầu chơi",
+    "whyPlayPrompt": "Bạn đang thắc mắc tại sao luyện định giá bất động sản lại quan trọng?",
+    "whyPlayLink": "Tìm hiểu MogulGame có thể giúp bạn như thế nào"
+  },
+  "whyPlay": {
+    "seoTitle": "Tại sao chơi MogulGame - Luyện định giá bất động sản không rủi ro | Sudobility",
+    "seoDescription": "Xây dựng sự tự tin trong định giá bất động sản trước giao dịch lớn nhất đời bạn.",
+    "heroTitle": "Tại sao phải luyện định giá bất động sản?",
+    "heroSubtitle": "Nhà là giao dịch lớn nhất mà hầu hết mọi người thực hiện. MogulGame cho phép bạn luyện định giá bất động sản thật không rủi ro.",
+    "stakesTitle": "Rủi ro là thật",
+    "stakesP1": "Trên thị trường chứng khoán, bạn có thể bắt đầu đầu tư chỉ với 1 đô la. Trong bất động sản, mức cam kết tối thiểu là hàng trăm nghìn đô la.",
+    "stakesP2": "Người mua lần đầu chỉ chiếm 24% giao dịch mua nhà. Nhiều người trì hoãn mua vì không tự tin đánh giá giá trị thực của bất động sản.",
+    "stakesP3": "MogulGame thay đổi điều đó. Bằng cách luyện tập với danh sách thật và giá đóng thật, bạn phát triển trực giác định giá mà các nhà đầu tư dày dạn mất nhiều năm để xây dựng.",
+    "paperTradingTitle": "Giao dịch giả lập cho bất động sản",
+    "paperTradingP1": "Ở Phố Wall, mọi nhà giao dịch mới đều bắt đầu với trình mô phỏng. Nền tảng như Webull cho bạn 1.000.000 đô la tiền ảo để luyện tập không rủi ro.",
+    "paperTradingP2": "MogulGame áp dụng cùng khái niệm đã được chứng minh cho bất động sản. Bạn bắt đầu với 1.000.000 đô la giả và đặt giá trên bất động sản thật.",
+    "paperTradingP3": "Nhưng không giống thị trường chứng khoán — nơi một giao dịch tệ có thể mất 50 đô la — một quyết định bất động sản sai có thể tốn hàng chục nghìn. Đó là lý do luyện tập với MogulGame còn giá trị hơn.",
+    "realLearningTitle": "Bất động sản thật, học hỏi thật",
+    "realLearningP1": "Mỗi bất động sản trên MogulGame là một danh sách thật từ thị trường Mỹ.",
+    "realLearningP2": "Chúng tôi khuyến khích người chơi vượt ra ngoài màn hình: thăm nhà mẫu, đi bộ quanh khu phố, nói chuyện với các môi giới bất động sản.",
+    "realLearningP3": "Khi bạn kết hợp nghiên cứu thực tế với phản hồi giá từ MogulGame, bạn học nhanh hơn bất kỳ sách giáo khoa nào.",
+    "instinctsTitle": "Xây dựng bản năng định giá",
+    "instinctsP1": "Điều gì khiến một ngôi nhà bán cao hơn giá niêm yết 50.000 đô la trong khi ngôi nhà khác nằm trên thị trường hàng tháng?",
+    "instinctsP2": "Trò chơi thưởng cho sự chính xác: đề nghị thấp nhất trên giá đóng sẽ thắng.",
+    "instinctsP3": "Theo thời gian, bạn sẽ phát triển cảm nhận về giá trị thực của bất động sản. Sự tự tin đó là vô giá.",
+    "howToPlayLink": "Tìm hiểu cách chơi MogulGame",
+    "cta": "Bắt đầu luyện tập"
   },
   "sitemap": {
     "languages": "Languages",
