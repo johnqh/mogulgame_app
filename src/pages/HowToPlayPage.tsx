@@ -26,6 +26,17 @@ export default function HowToPlayPage() {
           'property bidding',
           'MogulGame',
         ]}
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: t('howToPlay.title'),
+          description: t('howToPlay.overview'),
+          step: [1, 2, 3, 4, 5].map(n => ({
+            '@type': 'HowToStep',
+            name: t(`howToPlay.step${n}Title`),
+            text: t(`howToPlay.step${n}Desc`),
+          })),
+        }}
       />
 
       <h1 className={`${textVariants.heading.h2()} mb-8`}>{t('howToPlay.title')}</h1>

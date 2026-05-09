@@ -24,7 +24,11 @@ export default function LeaderboardPage() {
 
   return (
     <Section spacing="md">
-      <SEOHead title={t('leaderboard.title')} description={t('leaderboard.description')} />
+      <SEOHead
+        title={t('leaderboard.title')}
+        description={t('leaderboard.description')}
+        keywords={['leaderboard', 'top players', 'real estate mogul', 'rankings', 'MogulGame']}
+      />
       <div className="flex items-center justify-between mb-6">
         <h1 className={textVariants.heading.h3()}>{t('leaderboard.title')}</h1>
         <div className="flex gap-1">

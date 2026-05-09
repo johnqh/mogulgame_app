@@ -106,7 +106,9 @@
     "page": "Page {{page}} of {{total}}",
     "prev": "Previous",
     "next": "Next",
-    "byFavorites": "Most Favorited"
+    "byFavorites": "Most Favorited",
+    "byOffers": "With Offers",
+    "offerCount": "{{count}} offers"
   },
   "favorites": {
     "title": "My Favorites",

@@ -14,18 +14,18 @@
         "@radix-ui/react-switch": "^1.2.6",
         "@radix-ui/react-tabs": "^1.1.13",
         "@sudobility/auth-components": "^1.0.10",
-        "@sudobility/auth_lib": "^0.0.75",
+        "@sudobility/auth_lib": "^0.0.76",
         "@sudobility/automotive-components": "^2.0.12",
-        "@sudobility/building_blocks": "^0.0.235",
+        "@sudobility/building_blocks": "^0.0.236",
         "@sudobility/components": "^5.0.65",
         "@sudobility/design": "^1.1.30",
         "@sudobility/devops-components": "^2.0.19",
-        "@sudobility/di": "^1.5.55",
-        "@sudobility/di_web": "^0.1.178",
+        "@sudobility/di": "^1.5.56",
+        "@sudobility/di_web": "^0.1.179",
         "@sudobility/entity_client": "^0.0.36",
-        "@sudobility/mogulgame_client": "^0.0.26",
-        "@sudobility/mogulgame_lib": "^0.0.24",
-        "@sudobility/mogulgame_types": "^0.0.18",
+        "@sudobility/mogulgame_client": "^0.0.27",
+        "@sudobility/mogulgame_lib": "^0.0.25",
+        "@sudobility/mogulgame_types": "^0.0.19",
         "@sudobility/seo_lib": "^0.0.20",
         "@sudobility/subscription-components": "^1.0.31",
         "@sudobility/subscription_lib": "^0.0.43",
@@ -452,11 +452,11 @@
 
     "@sudobility/auth-components": ["@sudobility/auth-components@1.0.10", "", { "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "4.52.5", "@rollup/rollup-linux-x64-musl": "4.52.5" }, "peerDependencies": { "@heroicons/react": "^2.2.0", "@sudobility/components": "^5.0.7", "@sudobility/design": "^1.1.18", "firebase": "^10.0.0 || ^11.0.0 || ^12.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-7GBHWW60Kpvi2Ho+jU+M4vy/ex778x/euDalxxLsflkxSIBwyrY1i8iOgJhqFl8hpYJsGejhxC4K4LBDJFbiDQ=="],
 
-    "@sudobility/auth_lib": ["@sudobility/auth_lib@0.0.75", "", { "peerDependencies": { "@react-native-firebase/app": ">=18.0.0", "@react-native-firebase/auth": ">=18.0.0", "@sudobility/di": "^1.5.55", "@sudobility/types": "^1.9.62", "@tanstack/react-query": "^5.0.0", "firebase": "^12.7.0", "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@react-native-firebase/app", "@react-native-firebase/auth", "firebase"] }, "sha512-bJNhN5oILMMt7UjYLzEEAGqZ8XkTwCkUMJXzeDY5TAiHSf8dt60cOx0lxSBhz4gz7joq2l0GRoVHTtsLLjqVWw=="],
+    "@sudobility/auth_lib": ["@sudobility/auth_lib@0.0.76", "", { "peerDependencies": { "@react-native-firebase/app": ">=18.0.0", "@react-native-firebase/auth": ">=18.0.0", "@sudobility/di": "^1.5.56", "@sudobility/types": "^1.9.62", "@tanstack/react-query": "^5.0.0", "firebase": "^12.7.0", "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@react-native-firebase/app", "@react-native-firebase/auth", "firebase"] }, "sha512-2LmhDkUjq+IyuUlIbDPfnQrohAs16gZKRTdPOkL2H/wZvbAKBuSgaUT0Lz2wGCzfUrdrgZAa7ExSOxfgHfbLxg=="],
 
     "@sudobility/automotive-components": ["@sudobility/automotive-components@2.0.12", "", { "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "4.52.5", "@rollup/rollup-linux-x64-musl": "4.52.5" }, "peerDependencies": { "@heroicons/react": "^2.2.0", "@sudobility/components": "^5.0.7", "@sudobility/design": "^1.1.18", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-UuX7pyul3dN61PEdzE2NBM9VJT8qTAHTswtLPEPhScPax0RpAbdfog0lwV9AWYocAItJZwpLVuNITmp0AGpuzQ=="],
 
-    "@sudobility/building_blocks": ["@sudobility/building_blocks@0.0.235", "", { "peerDependencies": { "@heroicons/react": "^2.0.0", "@sudobility/components": "^5.0.65", "@sudobility/design": "^1.1.30", "@tanstack/react-query": "^5.0.0", "class-variance-authority": "^0.7.0", "clsx": "^2.0.0", "firebase": "^11.0.0 || ^12.0.0", "i18next": "^23.0.0 || ^24.0.0 || ^25.0.0", "i18next-browser-languagedetector": "^8.0.0", "i18next-http-backend": "^3.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0", "react-helmet-async": "^2.0.0", "react-i18next": "^14.0.0 || ^15.0.0 || ^16.0.0", "react-router-dom": "^6.0.0 || ^7.0.0", "tailwind-merge": "^2.0.0 || ^3.0.0" }, "optionalPeers": ["firebase", "i18next-browser-languagedetector", "i18next-http-backend"] }, "sha512-az9c0EFfSZVLemeEHMRiIukBmX8clIIMxXvS6HiUVGL/H98rJdK7cZa2bKe+KyoSzR/5iWPzXcG7bGOTk7T0VQ=="],
+    "@sudobility/building_blocks": ["@sudobility/building_blocks@0.0.236", "", { "peerDependencies": { "@heroicons/react": "^2.0.0", "@sudobility/components": "^5.0.65", "@sudobility/design": "^1.1.30", "@tanstack/react-query": "^5.0.0", "class-variance-authority": "^0.7.0", "clsx": "^2.0.0", "firebase": "^11.0.0 || ^12.0.0", "i18next": "^23.0.0 || ^24.0.0 || ^25.0.0", "i18next-browser-languagedetector": "^8.0.0", "i18next-http-backend": "^3.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0", "react-helmet-async": "^2.0.0", "react-i18next": "^14.0.0 || ^15.0.0 || ^16.0.0", "react-router-dom": "^6.0.0 || ^7.0.0", "tailwind-merge": "^2.0.0 || ^3.0.0" }, "optionalPeers": ["firebase", "i18next-browser-languagedetector", "i18next-http-backend"] }, "sha512-UMJR90kr9w0Q7edqOc4Ztl+gNixZSED/teoGIiMtd13GykyoVna6IWmoNt0veyjEOL5DeVXymiFbCP6AGVhs0A=="],
 
     "@sudobility/components": ["@sudobility/components@5.0.65", "", { "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "4.52.5", "@rollup/rollup-linux-x64-musl": "4.52.5" }, "peerDependencies": { "@heroicons/react": ">=2.0.0", "@radix-ui/react-alert-dialog": ">=1.0.0", "@radix-ui/react-dialog": ">=1.0.0", "@radix-ui/react-label": ">=2.0.0", "@radix-ui/react-select": ">=2.0.0", "@radix-ui/react-slot": ">=1.0.0", "@radix-ui/react-switch": ">=1.0.0", "@radix-ui/react-tabs": ">=1.0.0", "@sudobility/design": "^1.1.30", "@sudobility/types": "^1.9.62", "class-variance-authority": ">=0.7.0", "clsx": ">=2.0.0", "i18next": ">=23.0.0", "react": ">=18.0.0", "react-dom": ">=18.0.0", "react-i18next": ">=14.0.0", "react-router-dom": ">=6.0.0", "tailwind-merge": ">=2.0.0", "web-vitals": ">=3.0.0" } }, "sha512-YuxXyp0rmSUNH8I0z011YH8N3gVPvs78/C63CubEkgb62a19cwTFueZtsrOItL3DFvS4MEeY/CwZz09Qt/Lx4Q=="],
 
@@ -464,17 +464,17 @@
 
     "@sudobility/devops-components": ["@sudobility/devops-components@2.0.19", "", { "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "4.52.5", "@rollup/rollup-linux-x64-musl": "4.52.5" }, "peerDependencies": { "@sudobility/components": "^5.0.7", "@sudobility/design": "^1.1.18", "@sudobility/di": "^1.5.20", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@sudobility/di"] }, "sha512-dnQQiO6YKo71w7NBL+4n6c4OgL+sgrs48Ycdo0+jImEljJVLu0hixxlGpNKfjxvFi8aHf/+p4I7dq05xthTbSg=="],
 
-    "@sudobility/di": ["@sudobility/di@1.5.55", "", { "peerDependencies": { "@notifee/react-native": ">=7.0.0", "@react-native-async-storage/async-storage": ">=1.19.0", "@react-native-community/netinfo": ">=9.0.0", "@react-native-firebase/analytics": ">=18.0.0", "@react-native-firebase/app": ">=18.0.0", "@react-native-firebase/messaging": ">=18.0.0", "@react-native-firebase/remote-config": ">=18.0.0", "@sudobility/types": "^1.9.62", "firebase": ">=11.0.0", "react": ">=18.0.0", "react-native": ">=0.70.0" }, "optionalPeers": ["@notifee/react-native", "@react-native-async-storage/async-storage", "@react-native-community/netinfo", "@react-native-firebase/analytics", "@react-native-firebase/app", "@react-native-firebase/messaging", "@react-native-firebase/remote-config", "firebase", "react-native"] }, "sha512-aTIk/YL3uD3neWvotzmInBwrcwnPf5AWoYs6A6jeDBxrc8yLxUDzDWHz7wnE5no2CoLmvf0olGT2lK4jSztbSQ=="],
+    "@sudobility/di": ["@sudobility/di@1.5.56", "", { "peerDependencies": { "@notifee/react-native": ">=7.0.0", "@react-native-async-storage/async-storage": ">=1.19.0", "@react-native-community/netinfo": ">=9.0.0", "@react-native-firebase/analytics": ">=18.0.0", "@react-native-firebase/app": ">=18.0.0", "@react-native-firebase/messaging": ">=18.0.0", "@react-native-firebase/remote-config": ">=18.0.0", "@sudobility/types": "^1.9.62", "firebase": ">=11.0.0", "react": ">=18.0.0", "react-native": ">=0.70.0" }, "optionalPeers": ["@notifee/react-native", "@react-native-async-storage/async-storage", "@react-native-community/netinfo", "@react-native-firebase/analytics", "@react-native-firebase/app", "@react-native-firebase/messaging", "@react-native-firebase/remote-config", "firebase", "react-native"] }, "sha512-AoE8QVHZcoiwG26nqSoP53Ph2yjtac5xfAThA6oSlkeE8j/IVWPvkhA1pGW5DJhEEL16Npsl7g7Fev335wz+0A=="],
 
-    "@sudobility/di_web": ["@sudobility/di_web@0.1.178", "", { "peerDependencies": { "@sudobility/components": "^5.0.65", "@sudobility/di": "^1.5.55", "@sudobility/types": "^1.9.62", "react": "^18.0.0 || ^19.0.0", "vite": "^5.0.0 || ^6.0.0 || ^7.0.0" }, "optionalPeers": ["vite"] }, "sha512-YrHwFEWzmkhBVpaDWeWTao46ziLaeSm+yjnVoBFmUY2eUnuOLH0rzbYyV7iQZZHz7SqAgmPOxc/FLyuMBv5L+w=="],
+    "@sudobility/di_web": ["@sudobility/di_web@0.1.179", "", { "peerDependencies": { "@sudobility/components": "^5.0.65", "@sudobility/di": "^1.5.56", "@sudobility/types": "^1.9.62", "react": "^18.0.0 || ^19.0.0", "vite": "^5.0.0 || ^6.0.0 || ^7.0.0" }, "optionalPeers": ["vite"] }, "sha512-i/dTdtPzGRQOuBuy14h2bFAmBSJB5fm+Qia8PhbKnrj4SYtsEow0pNm9QMQ4lYPgE+KM2kYhqC1sw6uG5QaRoA=="],
 
     "@sudobility/entity_client": ["@sudobility/entity_client@0.0.36", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": "^5.0.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-ksYFQnC4t/SqGasf5ImYrxD2L/kSxnFkex1KOGUchd8NXi9M9RUQB2AwvYuF1JpgXpk5JF/ueJohU9IVpVatwA=="],
 
-    "@sudobility/mogulgame_client": ["@sudobility/mogulgame_client@0.0.26", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-4JJtj+ulACKlzS2mSqUa+QcWEyEnN3FoGWXY4r6+4wYJS2tqI0iIJ34f5EI7FNK3DmUi2G7TzAj7dFjEuTlkxQ=="],
+    "@sudobility/mogulgame_client": ["@sudobility/mogulgame_client@0.0.27", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-RmThffw18KbpXePL8WQkJp7LMmfOgWgqTRHm5+XxazWSBOKKEmjxcTGlRIn4/aZZEIsabzG4o8L8yJO7gGFHEA=="],
 
-    "@sudobility/mogulgame_lib": ["@sudobility/mogulgame_lib@0.0.24", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0", "zustand": ">=5.0.0" } }, "sha512-WYTLDARkH1HcQnmb2mozXbhEsY7XFsipn+YNXtT17GZYtUjQGhTZaMrgGTlw73cZCJlvUWLxYLe97giVwm6kuA=="],
+    "@sudobility/mogulgame_lib": ["@sudobility/mogulgame_lib@0.0.25", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0", "zustand": ">=5.0.0" } }, "sha512-RfYsDZzpT3gCa8pxpq0hcw3VcV3W52PHbh2bqQoeIkCN4t7lO9qrGWD/rJdL6xDDhUr/typoFkXfYBiwYev7Pg=="],
 
-    "@sudobility/mogulgame_types": ["@sudobility/mogulgame_types@0.0.18", "", { "peerDependencies": { "@sudobility/types": "^1.9.62" } }, "sha512-F53GXyB21L32bzqutyecWes7cw2RDglrhaN3HHdiVP1u8akSXiU0Tikg0B5LQU4Nlzm8+7B5400v6z6UPM6hTA=="],
+    "@sudobility/mogulgame_types": ["@sudobility/mogulgame_types@0.0.19", "", { "peerDependencies": { "@sudobility/types": "^1.9.62" } }, "sha512-QEvIJRFztCSigNil9Cwsr2ZBW/oVTgZ0YQpDbnE6Gwjm6qGl52jFRluhCkMH3OxIk58HecSWdEibZVoo6Vmoig=="],
 
     "@sudobility/seo_lib": ["@sudobility/seo_lib@0.0.20", "", { "peerDependencies": { "i18next": ">=23.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0", "react-helmet-async": ">=2.0.0", "react-i18next": ">=14.0.0", "react-router-dom": ">=6.0.0" }, "optionalPeers": ["i18next", "react-i18next", "react-router-dom"] }, "sha512-Q55uqo31vLQ4rnW9kpeqzSxddtn/Gwgt9BA900NsZNXgaWJdJJ3jZHC/I+dh4Ei21oi+IvsbbHxpwJBlM01EfQ=="],
 

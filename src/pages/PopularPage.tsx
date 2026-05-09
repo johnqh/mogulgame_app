@@ -21,6 +21,7 @@ interface PropertyView {
   address: string;
   image_url: string | null;
   view_count: number;
+  offer_count?: number;
   last_viewed_at: string;
 }
 
@@ -32,7 +33,7 @@ interface PropertyViewsResponse {
   has_more: boolean;
 }
 
-type SortBy = 'popularity' | 'recent' | 'favorites';
+type SortBy = 'popularity' | 'recent' | 'favorites' | 'with_offers';
 
 export default function PopularPage() {
   const { t } = useTranslation('common');
@@ -124,6 +125,19 @@ export default function PopularPage() {
           >
             {t('popular.byFavorites')}
           </button>
+          <button
+            onClick={() => {
+              handleSortChange('with_offers');
+              analyticsService.trackButtonClick('popular_sort', { sortBy: 'with_offers' });
+            }}
+            className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
+              sortBy === 'with_offers'
+                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                : `${ui.text.muted} hover:bg-theme-hover-bg`
+            }`}
+          >
+            {t('popular.byOffers')}
+          </button>
         </div>
       </div>
 
@@ -183,7 +197,9 @@ export default function PopularPage() {
                   {view.address}
                 </p>
                 <p className={`${textVariants.caption.default()} ${ui.text.muted} mt-1`}>
-                  {t('popular.views', { count: view.view_count })}
+                  {sortBy === 'with_offers' && view.offer_count != null
+                    ? t('popular.offerCount', { count: view.offer_count })
+                    : t('popular.views', { count: view.view_count })}
                 </p>
               </div>
             </LocalizedLink>

@@ -3,22 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{VITE_APP_NAME}}</title>
-    <meta name="description" content="{{VITE_APP_NAME}} by {{VITE_COMPANY_NAME}}" />
+    <title>{{VITE_APP_NAME}} - Real Estate Simulation Game | Practice Property Pricing Risk-Free</title>
+    <meta name="description" content="Compete against other players by placing pretend offers on real US properties. Practice real estate pricing, build confidence, and climb the leaderboard. Free to play." />
+    <meta name="keywords" content="real estate game, property simulation, pretend offers, home buying practice, real estate pricing, first time home buyer, MogulGame" />
     <link rel="canonical" href="https://{{VITE_APP_DOMAIN}}/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="{{VITE_APP_NAME}}" />
-    <meta property="og:title" content="{{VITE_APP_NAME}}" />
-    <meta property="og:description" content="{{VITE_APP_NAME}} by {{VITE_COMPANY_NAME}}" />
+    <meta property="og:title" content="{{VITE_APP_NAME}} - Practice Real Estate Pricing Risk-Free" />
+    <meta property="og:description" content="Compete against other players by placing pretend offers on real US properties. Build your pricing instincts before making the biggest purchase of your life." />
     <meta property="og:url" content="https://{{VITE_APP_DOMAIN}}/" />
     <meta property="og:image" content="https://{{VITE_APP_DOMAIN}}/og-image.png" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="{{VITE_APP_NAME}}" />
-    <meta name="twitter:description" content="{{VITE_APP_NAME}} by {{VITE_COMPANY_NAME}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{VITE_APP_NAME}} - Real Estate Simulation Game" />
+    <meta name="twitter:description" content="Place pretend offers on real properties. Practice pricing, compete with others, and build confidence for your first home purchase." />
     <meta name="twitter:image" content="https://{{VITE_APP_DOMAIN}}/og-image.png" />
 
     <!-- Favicons -->
@@ -26,6 +27,30 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "{{VITE_APP_NAME}}",
+      "url": "https://{{VITE_APP_DOMAIN}}",
+      "description": "A real estate simulation game where you compete with pretend offers on real properties listed for sale in the United States.",
+      "applicationCategory": "GameApplication",
+      "applicationSubCategory": "Real Estate Simulation",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{VITE_COMPANY_NAME}}",
+        "url": "https://{{VITE_APP_DOMAIN}}"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
