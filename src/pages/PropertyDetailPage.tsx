@@ -81,7 +81,9 @@ export default function PropertyDetailPage() {
   const {
     offers,
     createOffer,
+    updateOffer,
     isCreating,
+    isUpdating,
     error: offersError,
   } = useOffers(networkClient, baseUrl, token ?? null, { enabled: !!user });
   const { profile } = useUserProfile(networkClient, baseUrl, token ?? null, { enabled: !!user });
@@ -140,6 +142,8 @@ export default function PropertyDetailPage() {
   const [offerPrice, setOfferPrice] = useState('');
   const [offerPriceInitialized, setOfferPriceInitialized] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [editingOffer, setEditingOffer] = useState(false);
+  const [editOfferPrice, setEditOfferPrice] = useState('');
 
   if (!offerPriceInitialized && property?.price != null) {
     setOfferPrice(String(property.price));
@@ -188,6 +192,35 @@ export default function PropertyDetailPage() {
     } catch (err) {
       const message = err instanceof Error ? err.message : t('offers.createFailed');
       analyticsService.trackError(message, 'create_offer_error');
+      setSubmitError(message);
+    }
+  };
+
+  const handleUpdateOffer = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitError(null);
+
+    const price = Number(editOfferPrice);
+    if (!existingOffer || Number.isNaN(price) || price <= 0) {
+      setSubmitError(t('offers.invalidPrice'));
+      return;
+    }
+
+    if (profile) {
+      const validationError = validateOfferPrice(price, profile.pretend_usd_balance);
+      if (validationError) {
+        setSubmitError(validationError);
+        return;
+      }
+    }
+
+    try {
+      analyticsService.trackButtonClick('update_offer', { propertyId, offerPrice: price });
+      await updateOffer(existingOffer.id, { offer_price: price });
+      setEditingOffer(false);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('offers.updateFailed');
+      analyticsService.trackError(message, 'update_offer_error');
       setSubmitError(message);
     }
   };
@@ -270,18 +303,17 @@ export default function PropertyDetailPage() {
       </Section>
 
       <SEOHead
-        title={`${formatPrice(property.price)} - ${property.normalized_address}`}
+        title={`${property.normalized_address} - ${formatPrice(property.price)}`}
         description={[
-          property.address.street,
-          property.address.city,
-          property.address.state,
-          property.price ? formatPrice(property.price) : null,
+          `${property.normalized_address} listed at ${formatPrice(property.price)}.`,
           property.bedrooms != null ? `${property.bedrooms} beds` : null,
           property.bathrooms != null ? `${property.bathrooms} baths` : null,
           property.sqft != null ? `${property.sqft.toLocaleString()} sqft` : null,
+          property.description ? property.description.slice(0, 120) : null,
         ]
           .filter(Boolean)
           .join(' | ')}
+        ogImage={property.images[0]}
         keywords={[
           property.address.city,
           property.address.state,
@@ -710,22 +742,75 @@ export default function PropertyDetailPage() {
                 </LocalizedLink>
               </div>
             ) : existingOffer ? (
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className={`${textVariants.body.sm()} font-medium`}>
-                    {t('offers.yourOffer')}: {formatPrice(existingOffer.offer_price)}
-                  </p>
-                  <p className={`${textVariants.caption.default()} ${ui.text.muted}`}>
-                    {t('offers.placedOn')} {formatDateTime(existingOffer.created_at, i18n.language)}
-                  </p>
+              editingOffer ? (
+                <form onSubmit={handleUpdateOffer} className="flex items-end gap-3">
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <label htmlFor="edit-offer-price" className={textVariants.label.default()}>
+                        {t('offers.updateOffer')}
+                      </label>
+                      {profile && (
+                        <span className={`${textVariants.caption.default()} ${ui.text.muted}`}>
+                          {t('offers.balance')}: {formatPrice(profile.pretend_usd_balance)} |{' '}
+                          {t('offers.maxOffer')}: {formatPrice(maxOffer)}
+                        </span>
+                      )}
+                    </div>
+                    <input
+                      id="edit-offer-price"
+                      type="number"
+                      step="1000"
+                      min="1"
+                      value={editOfferPrice}
+                      onChange={e => {
+                        setEditOfferPrice(e.target.value);
+                        setSubmitError(null);
+                      }}
+                      className={`w-full px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary`}
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isUpdating}
+                    className={`${buttonVariant('primary')} ${designTokens.radius.lg} text-sm px-6 py-2 ${ui.states.disabled}`}
+                  >
+                    {isUpdating ? t('common.loading') : t('offers.update')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingOffer(false);
+                      setSubmitError(null);
+                    }}
+                    className={`${buttonVariant('outline')} ${designTokens.radius.lg} text-sm px-4 py-2`}
+                  >
+                    {t('common.cancel')}
+                  </button>
+                </form>
+              ) : (
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className={`${textVariants.body.sm()} font-medium`}>
+                      {t('offers.yourOffer')}: {formatPrice(existingOffer.offer_price)}
+                    </p>
+                    <p className={`${textVariants.caption.default()} ${ui.text.muted}`}>
+                      {t('offers.placedOn')}{' '}
+                      {formatDateTime(existingOffer.created_at, i18n.language)}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setEditOfferPrice(String(existingOffer.offer_price));
+                      setEditingOffer(true);
+                      setSubmitError(null);
+                    }}
+                    className={`${buttonVariant('outline')} ${designTokens.radius.lg} text-sm`}
+                  >
+                    {t('offers.modifyOffer')}
+                  </button>
                 </div>
-                <LocalizedLink
-                  to="/offers"
-                  className={`${buttonVariant('outline')} ${designTokens.radius.lg} text-sm`}
-                >
-                  {t('offers.manageOffers')}
-                </LocalizedLink>
-              </div>
+              )
             ) : (
               <form onSubmit={handleSubmitOffer} className="flex items-end gap-3">
                 <div className="flex-1">
@@ -743,7 +828,7 @@ export default function PropertyDetailPage() {
                   <input
                     id="offer-price"
                     type="number"
-                    step="any"
+                    step="1000"
                     min="1"
                     value={offerPrice}
                     onChange={e => {
