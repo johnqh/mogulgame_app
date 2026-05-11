@@ -476,17 +476,18 @@ function SearchForm({
     <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-4 py-3">
       <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
         <div className="flex-1 flex gap-2">
-          <select
-            value={country}
-            onChange={e => onCountryChange(e.target.value as CountryCode)}
-            className={`h-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary px-2 py-2 text-sm flex-shrink-0`}
-          >
-            {COUNTRY_OPTIONS.map(c => (
-              <option key={c.code} value={c.code}>
-                {c.flag} {c.code}
-              </option>
-            ))}
-          </select>
+          <Select value={country} onValueChange={v => onCountryChange(v as CountryCode)}>
+            <SelectTrigger className="h-10 w-24 text-sm flex-shrink-0">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {COUNTRY_OPTIONS.map(c => (
+                <SelectItem key={c.code} value={c.code}>
+                  {c.flag} {c.code}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <input
             name="q"
             type="text"
