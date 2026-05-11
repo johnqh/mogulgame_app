@@ -24,7 +24,7 @@
         "@sudobility/di_web": "^0.1.180",
         "@sudobility/entity_client": "^0.0.36",
         "@sudobility/mogulgame_client": "^0.0.30",
-        "@sudobility/mogulgame_lib": "^0.0.27",
+        "@sudobility/mogulgame_lib": "^0.0.28",
         "@sudobility/mogulgame_types": "^0.0.21",
         "@sudobility/seo_lib": "^0.0.21",
         "@sudobility/subscription-components": "^1.0.31",
@@ -472,7 +472,7 @@
 
     "@sudobility/mogulgame_client": ["@sudobility/mogulgame_client@0.0.30", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-ITcs0TSHd9eYwKvVviWRqKfh0qPzBqDQ9tFAjNUEe7/Q4e+dDMs8Uv/5O628i9FFEqZc38+fgpNrKoTC6vL8Eg=="],
 
-    "@sudobility/mogulgame_lib": ["@sudobility/mogulgame_lib@0.0.27", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0", "zustand": ">=5.0.0" } }, "sha512-uPoNn10Y4g12DgBK+bXVoO+ybwfFyf2cdKBRwuvuji4V6c7L5ub/6EAPjyfWRhtsquMPQDgKoHg2hNWEVB+mnw=="],
+    "@sudobility/mogulgame_lib": ["@sudobility/mogulgame_lib@0.0.28", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0", "zustand": ">=5.0.0" } }, "sha512-V6TYWoZm2QRvW84X/GnUbuh8Y0EmKUhKLAxH7v4vP9r+xErN7WlIvHxVDpIu8lUADdEEXqpkgqO5rKvv5DrwfQ=="],
 
     "@sudobility/mogulgame_types": ["@sudobility/mogulgame_types@0.0.21", "", { "peerDependencies": { "@sudobility/types": "^1.9.62" } }, "sha512-pnRvXgvDneyke0WW4qWrfUpVO0Urr0W3tKI48NjpvDh+2wshgKH8FnP69oImll89/Q2BEFPXSZ37xg63frCBfQ=="],
 
