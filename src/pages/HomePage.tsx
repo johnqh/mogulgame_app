@@ -350,10 +350,32 @@ function PropertyMarker({
 }
 
 /** Fits map bounds to property markers whenever the result set changes */
-function MapBoundsUpdater({ properties }: { properties: Property[] }) {
+function MapBoundsUpdater({
+  properties,
+  country,
+}: {
+  properties: Property[];
+  country: CountryCode;
+}) {
   const map = useMap();
   const prevKeyRef = useRef('');
+  const prevCountryRef = useRef(country);
 
+  // Pan to country center when country changes and there are no results
+  useEffect(() => {
+    if (!map) return;
+    if (country === prevCountryRef.current) return;
+    prevCountryRef.current = country;
+    prevKeyRef.current = ''; // reset so next search results will fit bounds
+
+    const opt = COUNTRY_OPTIONS.find(c => c.code === country);
+    if (opt) {
+      map.panTo(opt.center);
+      map.setZoom(opt.zoom);
+    }
+  }, [map, country]);
+
+  // Fit bounds when search results change
   useEffect(() => {
     if (!map) return;
     const withCoords = properties.filter(
@@ -923,7 +945,7 @@ function HomePageInner() {
                 mapId="mogulgame-map"
                 className="w-full h-full"
               >
-                <MapBoundsUpdater properties={properties} />
+                <MapBoundsUpdater properties={properties} country={country} />
                 {properties.map(p => (
                   <PropertyMarker
                     key={p.id}
