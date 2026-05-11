@@ -4,19 +4,33 @@ import { useApi } from '@sudobility/building_blocks/firebase';
 import { useLeaderboard } from '@sudobility/mogulgame_client';
 import { Section } from '@sudobility/components';
 import { textVariants, designTokens, ui, variants, colors } from '@sudobility/design';
+import type { CountryCode } from '@sudobility/mogulgame_types';
+import { formatPrice as formatPriceLib } from '@sudobility/mogulgame_lib';
 import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 
-function formatPrice(price: number): string {
-  return `$${price.toLocaleString()}`;
+const COUNTRY_FLAGS: Record<CountryCode, string> = {
+  US: '\u{1F1FA}\u{1F1F8}',
+  CA: '\u{1F1E8}\u{1F1E6}',
+  GB: '\u{1F1EC}\u{1F1E7}',
+  AE: '\u{1F1E6}\u{1F1EA}',
+  ES: '\u{1F1EA}\u{1F1F8}',
+  AU: '\u{1F1E6}\u{1F1FA}',
+};
+
+const COUNTRY_CODES: CountryCode[] = ['US', 'CA', 'GB', 'AE', 'ES', 'AU'];
+
+function formatPrice(price: number, country: CountryCode): string {
+  return formatPriceLib(price, country);
 }
 
 export default function LeaderboardPage() {
   const { t } = useTranslation('common');
   const { networkClient, baseUrl } = useApi();
   const [sortBy, setSortBy] = useState<'balance' | 'wins'>('balance');
+  const [country, setCountry] = useState<CountryCode>('US');
 
-  const { data, isLoading, error } = useLeaderboard(networkClient, baseUrl, sortBy);
+  const { data, isLoading, error } = useLeaderboard(networkClient, baseUrl, country, sortBy);
 
   useEffect(() => {
     analyticsService.trackPageView('/leaderboard', 'Leaderboard');
@@ -30,7 +44,24 @@ export default function LeaderboardPage() {
         keywords={['leaderboard', 'top players', 'real estate mogul', 'rankings', 'MogulGame']}
       />
       <div className="flex items-center justify-between mb-6">
-        <h1 className={textVariants.heading.h3()}>{t('leaderboard.title')}</h1>
+        <div className="flex items-center gap-3">
+          <h1 className={textVariants.heading.h3()}>{t('leaderboard.title')}</h1>
+          <div className="flex gap-1">
+            {COUNTRY_CODES.map(c => (
+              <button
+                key={c}
+                onClick={() => setCountry(c)}
+                className={`px-2 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
+                  country === c
+                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                    : `${ui.text.muted} hover:bg-theme-hover-bg`
+                }`}
+              >
+                {COUNTRY_FLAGS[c]}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="flex gap-1">
           <button
             onClick={() => {
@@ -126,7 +157,7 @@ export default function LeaderboardPage() {
                     </span>
                   </td>
                   <td className={`px-4 py-3 text-right ${textVariants.body.sm()}`}>
-                    {formatPrice(entry.pretend_usd_balance)}
+                    {formatPrice(entry.pretend_balance, country)}
                   </td>
                   <td className={`px-4 py-3 text-right ${textVariants.body.sm()}`}>
                     {entry.total_wins}

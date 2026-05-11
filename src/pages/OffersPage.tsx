@@ -14,6 +14,9 @@ import {
   countActiveOffers,
   countWonOffers,
   totalActiveOfferValue,
+  formatPrice as formatPriceLib,
+  formatPriceShort as formatPriceShortLib,
+  getCurrencySymbol,
 } from '@sudobility/mogulgame_lib';
 import { Section } from '@sudobility/components';
 import {
@@ -24,7 +27,13 @@ import {
   variants,
   colors,
 } from '@sudobility/design';
-import type { PretendOffer, PretendOfferStatus, Property } from '@sudobility/mogulgame_types';
+import type {
+  PretendOffer,
+  PretendOfferStatus,
+  Property,
+  CountryCode,
+  CurrencyCode,
+} from '@sudobility/mogulgame_types';
 import { useQueries } from '@tanstack/react-query';
 import {
   APIProvider,
@@ -43,14 +52,25 @@ import { CONSTANTS } from '../config/constants';
 const US_CENTER = { lat: 39.8283, lng: -98.5795 };
 const US_ZOOM = 4;
 
-function formatPrice(price: number): string {
-  return `$${price.toLocaleString()}`;
+const CURRENCY_TO_COUNTRY: Record<CurrencyCode, CountryCode> = {
+  USD: 'US',
+  CAD: 'CA',
+  GBP: 'GB',
+  AED: 'AE',
+  EUR: 'ES',
+  AUD: 'AU',
+};
+
+function countryFromCurrency(currency: CurrencyCode): CountryCode {
+  return CURRENCY_TO_COUNTRY[currency] ?? 'US';
 }
 
-function formatPriceShort(price: number): string {
-  if (price >= 1_000_000) return `$${(price / 1_000_000).toFixed(1)}M`;
-  if (price >= 1_000) return `$${(price / 1_000).toFixed(0)}K`;
-  return `$${price.toLocaleString()}`;
+function formatPrice(price: number, country: CountryCode = 'US'): string {
+  return formatPriceLib(price, country);
+}
+
+function formatPriceShort(price: number, country: CountryCode = 'US'): string {
+  return formatPriceShortLib(price, country);
 }
 
 const STATUS_STYLES: Record<PretendOfferStatus, string> = {
@@ -85,6 +105,7 @@ function OfferCard({
   const [showConfirm, setShowConfirm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editPrice, setEditPrice] = useState(String(offer.offer_price));
+  const offerCountry = countryFromCurrency(offer.currency);
 
   const handleSave = () => {
     const price = Number(editPrice);
@@ -99,7 +120,7 @@ function OfferCard({
         <div className="min-w-0 flex-1">
           {editing ? (
             <div className="flex items-center gap-2 mb-2">
-              <span className={`${textVariants.body.sm()} ${ui.text.muted}`}>$</span>
+              <span className={`${textVariants.body.sm()} ${ui.text.muted}`}>{getCurrencySymbol(offerCountry)}</span>
               <input
                 type="number"
                 step="any"
@@ -128,7 +149,7 @@ function OfferCard({
             </div>
           ) : (
             <div className="flex items-center gap-2 mb-1">
-              <p className={textVariants.heading.h5()}>{formatPrice(offer.offer_price)}</p>
+              <p className={textVariants.heading.h5()}>{formatPrice(offer.offer_price, offerCountry)}</p>
               <span
                 className={`text-xs px-2 py-0.5 ${designTokens.radius.full} font-medium ${STATUS_STYLES[offer.status]}`}
               >
@@ -210,6 +231,7 @@ function OfferMarker({
   onSelect: (id: string | null) => void;
 }) {
   const { t } = useTranslation('common');
+  const offerCountry = countryFromCurrency(offer.currency);
   if (property.address.latitude == null || property.address.longitude == null) return null;
 
   return (
@@ -229,7 +251,7 @@ function OfferMarker({
           }`}
           style={{ transform: isSelected ? 'scale(1.1)' : undefined }}
         >
-          {formatPriceShort(offer.offer_price)}
+          {formatPriceShort(offer.offer_price, offerCountry)}
         </div>
       </AdvancedMarker>
       {isSelected && (
@@ -256,7 +278,7 @@ function OfferMarker({
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <p className="font-bold text-sm leading-tight">
-                    {formatPrice(offer.offer_price)}
+                    {formatPrice(offer.offer_price, offerCountry)}
                   </p>
                   <span
                     className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${STATUS_STYLES[offer.status]}`}
@@ -269,7 +291,7 @@ function OfferMarker({
                   {property.address.unit ? `, ${property.address.unit}` : ''}
                 </p>
                 <p className="text-xs text-gray-600 leading-tight">
-                  {property.address.city}, {property.address.state} {property.address.zip}
+                  {property.address.city}, {property.address.region} {property.address.postal_code}
                 </p>
               </div>
             </div>
@@ -457,9 +479,22 @@ function OffersPageInner() {
             className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
           >
             <p className={textVariants.caption.default()}>{t('offers.balance')}</p>
-            <p className={textVariants.heading.h4()}>
-              {profile ? formatPrice(profile.pretend_usd_balance) : '...'}
-            </p>
+            {profile ? (
+              <div className="space-y-0.5">
+                {(Object.entries(profile.balances) as [CountryCode, number][])
+                  .filter(([, bal]) => bal != null && bal > 0)
+                  .map(([c, bal]) => (
+                    <p key={c} className={textVariants.body.sm()}>
+                      {formatPrice(bal, c)}
+                    </p>
+                  ))}
+                {Object.keys(profile.balances).length === 0 && (
+                  <p className={textVariants.heading.h4()}>--</p>
+                )}
+              </div>
+            ) : (
+              <p className={textVariants.heading.h4()}>...</p>
+            )}
           </div>
           <div
             className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
@@ -471,7 +506,7 @@ function OffersPageInner() {
             className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
           >
             <p className={textVariants.caption.default()}>{t('offers.totalCommitted')}</p>
-            <p className={textVariants.heading.h4()}>{formatPrice(activeValue)}</p>
+            <p className={textVariants.heading.h4()}>{activeCount > 0 ? formatPrice(activeValue) : '--'}</p>
           </div>
           <div
             className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}

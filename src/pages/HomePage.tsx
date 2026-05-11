@@ -13,7 +13,11 @@ import {
   variants,
   colors,
 } from '@sudobility/design';
-import type { Property } from '@sudobility/mogulgame_types';
+import type { Property, CountryCode } from '@sudobility/mogulgame_types';
+import {
+  formatPrice as formatPriceLib,
+  formatPriceShort as formatPriceShortLib,
+} from '@sudobility/mogulgame_lib';
 import { APIProvider, Map, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import {
   Section,
@@ -31,9 +35,33 @@ import { SEOHead } from '@sudobility/seo_lib';
 import { analyticsService } from '../config/analytics';
 import { CONSTANTS } from '../config/constants';
 
-// Continental US center
-const US_CENTER = { lat: 39.8283, lng: -98.5795 };
-const US_ZOOM = 4;
+// Country configuration
+const COUNTRY_OPTIONS: {
+  code: CountryCode;
+  flag: string;
+  name: string;
+  center: { lat: number; lng: number };
+  zoom: number;
+}[] = [
+  { code: 'US', flag: '\u{1F1FA}\u{1F1F8}', name: 'United States', center: { lat: 39.8283, lng: -98.5795 }, zoom: 4 },
+  { code: 'CA', flag: '\u{1F1E8}\u{1F1E6}', name: 'Canada', center: { lat: 56.1304, lng: -106.3468 }, zoom: 4 },
+  { code: 'GB', flag: '\u{1F1EC}\u{1F1E7}', name: 'United Kingdom', center: { lat: 54.0, lng: -2.0 }, zoom: 6 },
+  { code: 'AE', flag: '\u{1F1E6}\u{1F1EA}', name: 'UAE', center: { lat: 24.4539, lng: 54.3773 }, zoom: 8 },
+  { code: 'ES', flag: '\u{1F1EA}\u{1F1F8}', name: 'Spain', center: { lat: 40.4637, lng: -3.7492 }, zoom: 6 },
+  { code: 'AU', flag: '\u{1F1E6}\u{1F1FA}', name: 'Australia', center: { lat: -25.2744, lng: 133.7751 }, zoom: 4 },
+];
+
+const STORAGE_KEY = 'mogulgame_selected_country';
+
+function getStoredCountry(): CountryCode {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && COUNTRY_OPTIONS.some(c => c.code === stored)) return stored as CountryCode;
+  } catch {
+    // ignore
+  }
+  return 'US';
+}
 
 // =============================================================================
 // Search History (localStorage)
@@ -108,25 +136,25 @@ function WelcomeOverlay({ onDismiss }: { onDismiss: () => void }) {
   );
 }
 
-function formatPrice(price: number | null): string {
+function formatPrice(price: number | null, country: CountryCode): string {
   if (price == null) return '';
-  if (price >= 1_000_000) return `$${(price / 1_000_000).toFixed(1)}M`;
-  if (price >= 1_000) return `$${(price / 1_000).toFixed(0)}K`;
-  return `$${price.toLocaleString()}`;
+  return formatPriceShortLib(price, country);
 }
 
-function formatPriceFull(price: number | null): string {
+function formatPriceFull(price: number | null, country: CountryCode): string {
   if (price == null) return '';
-  return `$${price.toLocaleString()}`;
+  return formatPriceLib(price, country);
 }
 
 /** Property card for the list view */
 function PropertyCard({
   property,
+  country,
   isFavorited,
   onToggleFavorite,
 }: {
   property: Property;
+  country: CountryCode;
   isFavorited?: boolean;
   onToggleFavorite?: () => Promise<void>;
 }) {
@@ -164,7 +192,7 @@ function PropertyCard({
         <div className="p-3">
           <div className="flex items-start justify-between gap-2 mb-1">
             <p className={`${textVariants.heading.h5()} text-base`}>
-              {formatPriceFull(property.price)}
+              {formatPriceFull(property.price, country)}
             </p>
             <span
               className={`text-xs px-2 py-0.5 ${designTokens.radius.full} font-medium whitespace-nowrap ${statusColors[property.listing_status] ?? statusColors.unknown}`}
@@ -175,7 +203,7 @@ function PropertyCard({
           <p className={`${textVariants.body.sm()} ${ui.text.muted} line-clamp-1`}>
             {property.address.street}
             {property.address.unit ? `, ${property.address.unit}` : ''}, {property.address.city},{' '}
-            {property.address.state}
+            {property.address.region}
           </p>
           <div className={`flex gap-3 text-xs ${ui.text.muted} mt-1`}>
             {property.bedrooms != null && (
@@ -213,10 +241,12 @@ function PropertyCard({
 /** Map marker with info window */
 function PropertyMarker({
   property,
+  country,
   isSelected,
   onSelect,
 }: {
   property: Property;
+  country: CountryCode;
   isSelected: boolean;
   onSelect: (id: string | null) => void;
 }) {
@@ -239,7 +269,7 @@ function PropertyMarker({
           }`}
           style={{ transform: isSelected ? 'scale(1.1)' : undefined }}
         >
-          {formatPrice(property.price)}
+          {formatPrice(property.price, country)}
         </div>
       </AdvancedMarker>
       {isSelected && (
@@ -264,13 +294,13 @@ function PropertyMarker({
                 />
               )}
               <div className="min-w-0">
-                <p className="font-bold text-sm leading-tight">{formatPriceFull(property.price)}</p>
+                <p className="font-bold text-sm leading-tight">{formatPriceFull(property.price, country)}</p>
                 <p className="text-xs text-gray-600 truncate leading-tight">
                   {property.address.street}
                   {property.address.unit ? `, ${property.address.unit}` : ''}
                 </p>
                 <p className="text-xs text-gray-600 leading-tight">
-                  {property.address.city}, {property.address.state} {property.address.zip}
+                  {property.address.city}, {property.address.region} {property.address.postal_code}
                 </p>
               </div>
             </div>
@@ -322,6 +352,8 @@ function SearchForm({
   initialRecentlySold,
   initialWithOffers,
   locatingUser,
+  country,
+  onCountryChange,
   onSearch,
   onCurrentLocation,
 }: {
@@ -332,6 +364,8 @@ function SearchForm({
   initialRecentlySold: boolean;
   initialWithOffers: boolean;
   locatingUser: boolean;
+  country: CountryCode;
+  onCountryChange: (country: CountryCode) => void;
   onSearch: (params: Record<string, string>) => void;
   onCurrentLocation: () => void;
 }) {
@@ -382,6 +416,17 @@ function SearchForm({
     <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-4 py-3">
       <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
         <div className="flex-1 flex gap-2">
+          <select
+            value={country}
+            onChange={e => onCountryChange(e.target.value as CountryCode)}
+            className={`h-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary px-2 py-2 text-sm flex-shrink-0`}
+          >
+            {COUNTRY_OPTIONS.map(c => (
+              <option key={c.code} value={c.code}>
+                {c.flag} {c.code}
+              </option>
+            ))}
+          </select>
           <input
             name="q"
             type="text"
@@ -531,11 +576,24 @@ function HomePageInner() {
   const urlLat = urlParams.get('lat');
   const urlLng = urlParams.get('lng');
 
+  const [country, setCountry] = useState<CountryCode>(getStoredCountry);
   const [viewMode, setViewMode] = useState<ViewMode>('map');
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
   const [locatingUser, setLocatingUser] = useState(false);
   const [showWelcome, setShowWelcome] = useState(() => !localStorage.getItem(WELCOME_SEEN_KEY));
   const [searchHistory, setSearchHistory] = useState<SearchHistoryEntry[]>(getSearchHistory);
+
+  const handleCountryChange = useCallback(
+    (newCountry: CountryCode) => {
+      setCountry(newCountry);
+      localStorage.setItem(STORAGE_KEY, newCountry);
+      setUrlParams({}, { replace: true });
+      setSelectedMarkerId(null);
+    },
+    [setUrlParams]
+  );
+
+  const countryOption = COUNTRY_OPTIONS.find(c => c.code === country)!;
 
   // Draft filter state is managed inside SearchFilters (keyed by urlKey to reset on URL change)
 
@@ -546,7 +604,7 @@ function HomePageInner() {
 
   // Build API search params from URL params
   const searchParams = useMemo(() => {
-    const params: Record<string, string> = {};
+    const params: Record<string, string> = { country };
     if (withOffers) {
       params.has_pretend_offers = 'true';
     } else if (recentlySold) {
@@ -564,7 +622,7 @@ function HomePageInner() {
       if (minBedrooms) params.min_bedrooms = minBedrooms;
     }
     return params;
-  }, [query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, recentlySold, withOffers]);
+  }, [country, query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, recentlySold, withOffers]);
 
   const hasSearched = !!(query || (urlLat && urlLng) || recentlySold || withOffers);
 
@@ -706,6 +764,8 @@ function HomePageInner() {
           initialRecentlySold={recentlySold}
           initialWithOffers={withOffers}
           locatingUser={locatingUser}
+          country={country}
+          onCountryChange={handleCountryChange}
           onSearch={handleSearch}
           onCurrentLocation={handleCurrentLocation}
         />
@@ -818,8 +878,8 @@ function HomePageInner() {
           <div className="h-full flex">
             <div className="flex-1 min-h-0">
               <Map
-                defaultCenter={US_CENTER}
-                defaultZoom={US_ZOOM}
+                defaultCenter={countryOption.center}
+                defaultZoom={countryOption.zoom}
                 gestureHandling="greedy"
                 disableDefaultUI={false}
                 mapId="mogulgame-map"
@@ -830,6 +890,7 @@ function HomePageInner() {
                   <PropertyMarker
                     key={p.id}
                     property={p}
+                    country={country}
                     isSelected={selectedMarkerId === p.id}
                     onSelect={setSelectedMarkerId}
                   />
@@ -844,6 +905,7 @@ function HomePageInner() {
                     <PropertyCard
                       key={p.id}
                       property={p}
+                      country={country}
                       isFavorited={favCheckData?.[p.id] ?? false}
                       onToggleFavorite={() => handleToggleFavorite(p.id)}
                     />
@@ -863,6 +925,7 @@ function HomePageInner() {
                   <PropertyCard
                     key={p.id}
                     property={p}
+                    country={country}
                     isFavorited={favCheckData?.[p.id] ?? false}
                     onToggleFavorite={() => handleToggleFavorite(p.id)}
                   />

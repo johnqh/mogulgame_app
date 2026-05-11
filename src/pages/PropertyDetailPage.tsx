@@ -9,7 +9,11 @@ import {
   useOffers,
   useUserProfile,
 } from '@sudobility/mogulgame_client';
-import { validateOfferPrice, calculateMaxOffer } from '@sudobility/mogulgame_lib';
+import {
+  validateOfferPrice,
+  calculateMaxOffer,
+  formatPrice as formatPriceLib,
+} from '@sudobility/mogulgame_lib';
 import { Section } from '@sudobility/components';
 import { APIProvider, Map as GoogleMap, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -26,7 +30,7 @@ import {
   variants,
   colors,
 } from '@sudobility/design';
-import type { PriceHistoryEntry, PropertyDetail } from '@sudobility/mogulgame_types';
+import type { PriceHistoryEntry, PropertyDetail, CountryCode } from '@sudobility/mogulgame_types';
 import LocalizedLink from '../components/layout/LocalizedLink';
 import { useLocalizedNavigate } from '../hooks/useLocalizedNavigate';
 import { formatDateTime } from '../utils/formatDateTime';
@@ -37,9 +41,9 @@ import { FavoriteButton } from '../components/FavoriteButton';
 import { BreadcrumbBuilder } from '../utils/BreadcrumbBuilder';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-function formatPrice(price: number | null): string {
+function formatPrice(price: number | null, country: CountryCode = 'US'): string {
   if (price == null) return '';
-  return `$${price.toLocaleString()}`;
+  return formatPriceLib(price, country);
 }
 
 const EVENT_COLORS: Record<string, string> = {
@@ -51,7 +55,7 @@ const EVENT_COLORS: Record<string, string> = {
   relisted: 'text-purple-600 dark:text-purple-400',
 };
 
-function PriceHistoryRow({ entry, locale }: { entry: PriceHistoryEntry; locale: string }) {
+function PriceHistoryRow({ entry, locale, country }: { entry: PriceHistoryEntry; locale: string; country: CountryCode }) {
   return (
     <div
       className={`flex justify-between items-center py-2 border-b ${ui.border.default} last:border-0`}
@@ -64,7 +68,7 @@ function PriceHistoryRow({ entry, locale }: { entry: PriceHistoryEntry; locale: 
           {formatDateTime(entry.date, locale)}
         </span>
       </div>
-      <span className={textVariants.body.sm()}>{formatPrice(entry.price)}</span>
+      <span className={textVariants.body.sm()}>{formatPrice(entry.price, country)}</span>
     </div>
   );
 }
@@ -177,7 +181,7 @@ export default function PropertyDetailPage() {
     }
 
     if (profile) {
-      const validationError = validateOfferPrice(price, profile.pretend_usd_balance);
+      const validationError = validateOfferPrice(price, balance);
       if (validationError) {
         setSubmitError(validationError);
         return;
@@ -207,7 +211,7 @@ export default function PropertyDetailPage() {
     }
 
     if (profile) {
-      const validationError = validateOfferPrice(price, profile.pretend_usd_balance);
+      const validationError = validateOfferPrice(price, balance);
       if (validationError) {
         setSubmitError(validationError);
         return;
@@ -255,7 +259,9 @@ export default function PropertyDetailPage() {
     );
   }
 
-  const maxOffer = profile ? calculateMaxOffer(profile.pretend_usd_balance) : 0;
+  const country = property.address.country;
+  const balance = profile?.balances[country] ?? 0;
+  const maxOffer = profile ? calculateMaxOffer(balance) : 0;
   const detail: PropertyDetail | null = property.detail ?? null;
 
   return (
@@ -303,9 +309,9 @@ export default function PropertyDetailPage() {
       </Section>
 
       <SEOHead
-        title={`${property.normalized_address} - ${formatPrice(property.price)}`}
+        title={`${property.normalized_address} - ${formatPrice(property.price, country)}`}
         description={[
-          `${property.normalized_address} listed at ${formatPrice(property.price)}.`,
+          `${property.normalized_address} listed at ${formatPrice(property.price, country)}.`,
           property.bedrooms != null ? `${property.bedrooms} beds` : null,
           property.bathrooms != null ? `${property.bathrooms} baths` : null,
           property.sqft != null ? `${property.sqft.toLocaleString()} sqft` : null,
@@ -316,7 +322,7 @@ export default function PropertyDetailPage() {
         ogImage={property.images[0]}
         keywords={[
           property.address.city,
-          property.address.state,
+          property.address.region,
           'real estate',
           'property',
           property.property_type ?? '',
@@ -335,8 +341,8 @@ export default function PropertyDetailPage() {
             '@type': 'PostalAddress',
             streetAddress: property.address.street,
             addressLocality: property.address.city,
-            addressRegion: property.address.state,
-            postalCode: property.address.zip,
+            addressRegion: property.address.region,
+            postalCode: property.address.postal_code,
           },
           ...(property.price ? { price: property.price, priceCurrency: 'USD' } : {}),
         }}
@@ -367,7 +373,7 @@ export default function PropertyDetailPage() {
                   <div
                     className={`px-2 py-1 ${designTokens.radius.md} text-xs font-bold shadow-lg bg-blue-600 text-white`}
                   >
-                    {formatPrice(property.price)}
+                    {formatPrice(property.price, country)}
                   </div>
                 </AdvancedMarker>
               </GoogleMap>
@@ -389,7 +395,7 @@ export default function PropertyDetailPage() {
         {/* Address & price */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-1">
-            <h1 className={textVariants.heading.h2()}>{formatPrice(property.price)}</h1>
+            <h1 className={textVariants.heading.h2()}>{formatPrice(property.price, country)}</h1>
             <FavoriteButton isFavorited={isFavorited} onToggle={handleToggleFavorite} />
           </div>
           <p className={`${textVariants.body.lg()} ${ui.text.muted}`}>
@@ -397,7 +403,7 @@ export default function PropertyDetailPage() {
             {property.address.unit ? `, ${property.address.unit}` : ''}
           </p>
           <p className={`${textVariants.body.md()} ${ui.text.muted}`}>
-            {property.address.city}, {property.address.state} {property.address.zip}
+            {property.address.city}, {property.address.region} {property.address.postal_code}
           </p>
           {detail?.neighborhoods && detail.neighborhoods.length > 0 && (
             <p className={`${textVariants.body.sm()} ${ui.text.muted} mt-1`}>
@@ -436,7 +442,7 @@ export default function PropertyDetailPage() {
           )}
           {detail?.price_per_sqft != null && (
             <div>
-              <p className={textVariants.heading.h4()}>${detail.price_per_sqft.toLocaleString()}</p>
+              <p className={textVariants.heading.h4()}>{formatPrice(detail.price_per_sqft, country)}</p>
               <p className={`${textVariants.caption.default()} ${ui.text.muted}`}>
                 {t('property.pricePerSqft')}
               </p>
@@ -520,7 +526,7 @@ export default function PropertyDetailPage() {
                 {t('property.hoaFee')}
               </p>
               <p className={`${textVariants.body.md()} font-medium`}>
-                {t('property.hoaPerMonth', { amount: formatPrice(detail.hoa_fee) })}
+                {t('property.hoaPerMonth', { amount: formatPrice(detail.hoa_fee, country) })}
               </p>
             </div>
           )}
@@ -540,7 +546,7 @@ export default function PropertyDetailPage() {
                 {t('property.soldPrice')}
               </p>
               <p className={`${textVariants.body.md()} font-medium`}>
-                {formatPrice(property.sold_price)}
+                {formatPrice(property.sold_price, country)}
               </p>
             </div>
           )}
@@ -560,7 +566,7 @@ export default function PropertyDetailPage() {
                 {t('property.zestimate')}
               </p>
               <p className={`${textVariants.body.md()} font-medium`}>
-                {formatPrice(property.zestimate)}
+                {formatPrice(property.zestimate, country)}
               </p>
             </div>
           )}
@@ -609,7 +615,7 @@ export default function PropertyDetailPage() {
               className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
             >
               {historyData.entries.map((entry, i) => (
-                <PriceHistoryRow key={i} entry={entry} locale={i18n.language} />
+                <PriceHistoryRow key={i} entry={entry} locale={i18n.language} country={country} />
               ))}
             </div>
           </div>
@@ -638,7 +644,7 @@ export default function PropertyDetailPage() {
                     </span>
                   </div>
                   {event.price != null && (
-                    <span className={textVariants.body.sm()}>{formatPrice(event.price)}</span>
+                    <span className={textVariants.body.sm()}>{formatPrice(event.price, country)}</span>
                   )}
                 </div>
               ))}
@@ -660,10 +666,10 @@ export default function PropertyDetailPage() {
                 >
                   <span className={textVariants.body.sm()}>{tx.year}</span>
                   <div className="text-right">
-                    <span className={textVariants.body.sm()}>{formatPrice(tx.tax)}</span>
+                    <span className={textVariants.body.sm()}>{formatPrice(tx.tax, country)}</span>
                     {tx.assessment_total != null && (
                       <span className={`${textVariants.caption.default()} ${ui.text.muted} ml-2`}>
-                        ({t('property.assessed', { amount: formatPrice(tx.assessment_total) })})
+                        ({t('property.assessed', { amount: formatPrice(tx.assessment_total, country) })})
                       </span>
                     )}
                   </div>
@@ -751,8 +757,8 @@ export default function PropertyDetailPage() {
                       </label>
                       {profile && (
                         <span className={`${textVariants.caption.default()} ${ui.text.muted}`}>
-                          {t('offers.balance')}: {formatPrice(profile.pretend_usd_balance)} |{' '}
-                          {t('offers.maxOffer')}: {formatPrice(maxOffer)}
+                          {t('offers.balance')}: {formatPrice(balance, country)} |{' '}
+                          {t('offers.maxOffer')}: {formatPrice(maxOffer, country)}
                         </span>
                       )}
                     </div>
@@ -792,7 +798,7 @@ export default function PropertyDetailPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className={`${textVariants.body.sm()} font-medium`}>
-                      {t('offers.yourOffer')}: {formatPrice(existingOffer.offer_price)}
+                      {t('offers.yourOffer')}: {formatPrice(existingOffer.offer_price, country)}
                     </p>
                     <p className={`${textVariants.caption.default()} ${ui.text.muted}`}>
                       {t('offers.placedOn')}{' '}
@@ -820,8 +826,8 @@ export default function PropertyDetailPage() {
                     </label>
                     {profile && (
                       <span className={`${textVariants.caption.default()} ${ui.text.muted}`}>
-                        {t('offers.balance')}: {formatPrice(profile.pretend_usd_balance)} |{' '}
-                        {t('offers.maxOffer')}: {formatPrice(maxOffer)}
+                        {t('offers.balance')}: {formatPrice(balance, country)} |{' '}
+                        {t('offers.maxOffer')}: {formatPrice(maxOffer, country)}
                       </span>
                     )}
                   </div>

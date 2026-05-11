@@ -179,7 +179,7 @@ export default function MyFavoritesPage() {
             const property = propertyMap.get(fav.property_id);
             const image = property?.images[0] ?? null;
             const address = property
-              ? `${property.address.street}, ${property.address.city}, ${property.address.state}`
+              ? `${property.address.street}, ${property.address.city}, ${property.address.region}`
               : '...';
 
             return (
