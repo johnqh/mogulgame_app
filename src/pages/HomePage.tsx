@@ -43,12 +43,48 @@ const COUNTRY_OPTIONS: {
   center: { lat: number; lng: number };
   zoom: number;
 }[] = [
-  { code: 'US', flag: '\u{1F1FA}\u{1F1F8}', name: 'United States', center: { lat: 39.8283, lng: -98.5795 }, zoom: 4 },
-  { code: 'CA', flag: '\u{1F1E8}\u{1F1E6}', name: 'Canada', center: { lat: 56.1304, lng: -106.3468 }, zoom: 4 },
-  { code: 'GB', flag: '\u{1F1EC}\u{1F1E7}', name: 'United Kingdom', center: { lat: 54.0, lng: -2.0 }, zoom: 6 },
-  { code: 'AE', flag: '\u{1F1E6}\u{1F1EA}', name: 'UAE', center: { lat: 24.4539, lng: 54.3773 }, zoom: 8 },
-  { code: 'ES', flag: '\u{1F1EA}\u{1F1F8}', name: 'Spain', center: { lat: 40.4637, lng: -3.7492 }, zoom: 6 },
-  { code: 'AU', flag: '\u{1F1E6}\u{1F1FA}', name: 'Australia', center: { lat: -25.2744, lng: 133.7751 }, zoom: 4 },
+  {
+    code: 'US',
+    flag: '\u{1F1FA}\u{1F1F8}',
+    name: 'United States',
+    center: { lat: 39.8283, lng: -98.5795 },
+    zoom: 4,
+  },
+  {
+    code: 'CA',
+    flag: '\u{1F1E8}\u{1F1E6}',
+    name: 'Canada',
+    center: { lat: 56.1304, lng: -106.3468 },
+    zoom: 4,
+  },
+  {
+    code: 'GB',
+    flag: '\u{1F1EC}\u{1F1E7}',
+    name: 'United Kingdom',
+    center: { lat: 54.0, lng: -2.0 },
+    zoom: 6,
+  },
+  {
+    code: 'AE',
+    flag: '\u{1F1E6}\u{1F1EA}',
+    name: 'UAE',
+    center: { lat: 24.4539, lng: 54.3773 },
+    zoom: 8,
+  },
+  {
+    code: 'ES',
+    flag: '\u{1F1EA}\u{1F1F8}',
+    name: 'Spain',
+    center: { lat: 40.4637, lng: -3.7492 },
+    zoom: 6,
+  },
+  {
+    code: 'AU',
+    flag: '\u{1F1E6}\u{1F1FA}',
+    name: 'Australia',
+    center: { lat: -25.2744, lng: 133.7751 },
+    zoom: 4,
+  },
 ];
 
 const STORAGE_KEY = 'mogulgame_selected_country';
@@ -294,7 +330,9 @@ function PropertyMarker({
                 />
               )}
               <div className="min-w-0">
-                <p className="font-bold text-sm leading-tight">{formatPriceFull(property.price, country)}</p>
+                <p className="font-bold text-sm leading-tight">
+                  {formatPriceFull(property.price, country)}
+                </p>
                 <p className="text-xs text-gray-600 truncate leading-tight">
                   {property.address.street}
                   {property.address.unit ? `, ${property.address.unit}` : ''}

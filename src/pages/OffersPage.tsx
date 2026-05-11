@@ -120,7 +120,9 @@ function OfferCard({
         <div className="min-w-0 flex-1">
           {editing ? (
             <div className="flex items-center gap-2 mb-2">
-              <span className={`${textVariants.body.sm()} ${ui.text.muted}`}>{getCurrencySymbol(offerCountry)}</span>
+              <span className={`${textVariants.body.sm()} ${ui.text.muted}`}>
+                {getCurrencySymbol(offerCountry)}
+              </span>
               <input
                 type="number"
                 step="any"
@@ -149,7 +151,9 @@ function OfferCard({
             </div>
           ) : (
             <div className="flex items-center gap-2 mb-1">
-              <p className={textVariants.heading.h5()}>{formatPrice(offer.offer_price, offerCountry)}</p>
+              <p className={textVariants.heading.h5()}>
+                {formatPrice(offer.offer_price, offerCountry)}
+              </p>
               <span
                 className={`text-xs px-2 py-0.5 ${designTokens.radius.full} font-medium ${STATUS_STYLES[offer.status]}`}
               >
@@ -506,7 +510,9 @@ function OffersPageInner() {
             className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}
           >
             <p className={textVariants.caption.default()}>{t('offers.totalCommitted')}</p>
-            <p className={textVariants.heading.h4()}>{activeCount > 0 ? formatPrice(activeValue) : '--'}</p>
+            <p className={textVariants.heading.h4()}>
+              {activeCount > 0 ? formatPrice(activeValue) : '--'}
+            </p>
           </div>
           <div
             className={`${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default}`}

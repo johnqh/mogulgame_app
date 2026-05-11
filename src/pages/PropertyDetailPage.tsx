@@ -55,7 +55,15 @@ const EVENT_COLORS: Record<string, string> = {
   relisted: 'text-purple-600 dark:text-purple-400',
 };
 
-function PriceHistoryRow({ entry, locale, country }: { entry: PriceHistoryEntry; locale: string; country: CountryCode }) {
+function PriceHistoryRow({
+  entry,
+  locale,
+  country,
+}: {
+  entry: PriceHistoryEntry;
+  locale: string;
+  country: CountryCode;
+}) {
   return (
     <div
       className={`flex justify-between items-center py-2 border-b ${ui.border.default} last:border-0`}
@@ -442,7 +450,9 @@ export default function PropertyDetailPage() {
           )}
           {detail?.price_per_sqft != null && (
             <div>
-              <p className={textVariants.heading.h4()}>{formatPrice(detail.price_per_sqft, country)}</p>
+              <p className={textVariants.heading.h4()}>
+                {formatPrice(detail.price_per_sqft, country)}
+              </p>
               <p className={`${textVariants.caption.default()} ${ui.text.muted}`}>
                 {t('property.pricePerSqft')}
               </p>
@@ -644,7 +654,9 @@ export default function PropertyDetailPage() {
                     </span>
                   </div>
                   {event.price != null && (
-                    <span className={textVariants.body.sm()}>{formatPrice(event.price, country)}</span>
+                    <span className={textVariants.body.sm()}>
+                      {formatPrice(event.price, country)}
+                    </span>
                   )}
                 </div>
               ))}
@@ -669,7 +681,11 @@ export default function PropertyDetailPage() {
                     <span className={textVariants.body.sm()}>{formatPrice(tx.tax, country)}</span>
                     {tx.assessment_total != null && (
                       <span className={`${textVariants.caption.default()} ${ui.text.muted} ml-2`}>
-                        ({t('property.assessed', { amount: formatPrice(tx.assessment_total, country) })})
+                        (
+                        {t('property.assessed', {
+                          amount: formatPrice(tx.assessment_total, country),
+                        })}
+                        )
                       </span>
                     )}
                   </div>
