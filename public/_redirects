@@ -1,0 +1,6 @@
+# Serve pre-rendered HTML for SEO routes (takes priority over SPA fallback)
+/:lang/how-to-play /:lang/how-to-play/index.html 200
+/:lang/why-play /:lang/why-play/index.html 200
+
+# SPA fallback for all other routes
+/* /index.html 200
