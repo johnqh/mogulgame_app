@@ -329,8 +329,11 @@ export default function PropertyDetailPage() {
           .join(' | ')}
         ogImage={property.images[0]}
         keywords={[
+          property.normalized_address,
+          property.address.street,
           property.address.city,
           property.address.region,
+          property.address.postal_code,
           'real estate',
           'property',
           property.property_type ?? '',

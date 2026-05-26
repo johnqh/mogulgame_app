@@ -57,6 +57,10 @@ src/
     └── SitemapPage.tsx                   # All pages and languages
 ```
 
+## Configuration Files
+
+- `seo.config.mjs` - SEO route config for generate-seo-assets.mjs (sitemap.xml, robots.txt, per-route meta)
+
 ## Commands
 
 ```bash
@@ -66,6 +70,7 @@ bun run preview        # Preview production build
 bun run typecheck      # TypeScript check
 bun run lint           # Run ESLint
 bun run format         # Format with Prettier
+bun run seo:fetch      # Download generate-seo-assets.mjs to /tmp
 bun run verify         # Run typecheck + lint + format:check (no test suite; relies on type checking)
 ```
 
