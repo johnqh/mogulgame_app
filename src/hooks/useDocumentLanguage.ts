@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /** Languages written right-to-left that require the `dir="rtl"` attribute. */
-const RTL_LANGUAGES = ['ar', 'he', 'fa', 'ur'];
+const RTL_LANGUAGES = ['he', 'fa', 'ur'];
 
 /**
  * Synchronises the `<html>` element's `lang` and `dir` attributes with

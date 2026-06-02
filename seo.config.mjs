@@ -9,13 +9,12 @@ const APP_NAME = process.env.VITE_APP_NAME || 'MogulGame';
 
 export default {
   supportedLanguages: [
-    'en', 'ar', 'de', 'es', 'fr', 'it', 'ja', 'ko',
+    'en', 'de', 'es', 'fr', 'it', 'ja', 'ko',
     'pt', 'ru', 'sv', 'th', 'uk', 'vi', 'zh', 'zh-hant',
   ],
 
   languageHreflangMap: {
     en: 'en',
-    ar: 'ar',
     de: 'de',
     es: 'es',
     fr: 'fr',

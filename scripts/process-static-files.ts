@@ -33,7 +33,7 @@ interface FileTemplate {
 // Define files to process
 const FILES_TO_PROCESS: FileTemplate[] = [
   {
-    template: 'index_template.html',
+    template: 'index.template.html',
     output: 'index.html',
     description: 'Main HTML file',
   },

@@ -9,7 +9,6 @@ import { analyticsService } from '../config/analytics';
 
 const LANGUAGE_INFO: Record<string, { label: string; flag: string }> = {
   en: { label: 'English', flag: '🇺🇸' },
-  ar: { label: 'العربية', flag: '🇸🇦' },
   de: { label: 'Deutsch', flag: '🇩🇪' },
   es: { label: 'Español', flag: '🇪🇸' },
   fr: { label: 'Français', flag: '🇫🇷' },

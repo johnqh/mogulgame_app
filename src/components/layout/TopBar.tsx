@@ -23,7 +23,6 @@ import LocalizedLink from './LocalizedLink';
 
 const LANGUAGE_INFO: Record<string, { name: string; flag: string }> = {
   en: { name: 'English', flag: '🇺🇸' },
-  ar: { name: 'العربية', flag: '🇸🇦' },
   de: { name: 'Deutsch', flag: '🇩🇪' },
   es: { name: 'Español', flag: '🇪🇸' },
   fr: { name: 'Français', flag: '🇫🇷' },

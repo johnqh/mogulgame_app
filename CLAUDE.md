@@ -14,7 +14,7 @@ Real estate simulation game where users place pretend offers on real properties.
 - **Build**: Vite 6
 - **Styling**: Tailwind CSS 3
 - **Maps**: Google Maps via `@vis.gl/react-google-maps`
-- **i18n**: i18next (16 languages, RTL support)
+- **i18n**: i18next (15 languages, RTL support)
 - **Auth**: Firebase Auth
 
 ## Project Structure
@@ -88,7 +88,7 @@ Main routes:
 - `/login` — Authentication
 - `/settings` — User preferences
 
-16 supported languages: en, ar, de, es, fr, it, ja, ko, pt, ru, sv, th, uk, vi, zh, zh-hant.
+15 supported languages: en, de, es, fr, it, ja, ko, pt, ru, sv, th, uk, vi, zh, zh-hant.
 
 Pages are lazy-loaded with React Suspense.
 
@@ -126,7 +126,7 @@ Uses `@sudobility/building_blocks` for shared shell components (TopBar, LoginPag
 
 - All routes are language-prefixed: `/:lang/*` (e.g., `/en/offers`, `/ja/leaderboard`) -- never create routes without the language prefix
 - Pages are lazy-loaded with `React.lazy()` and wrapped in `<Suspense>` for code splitting
-- 16 languages are supported with RTL support (Arabic) -- use `LocalizedLink` and `useLocalizedNavigate` for navigation
+- 15 languages are supported -- use `LocalizedLink` and `useLocalizedNavigate` for navigation
 - `ThemeContext` provides light/dark theme switching throughout the app
 - `ProtectedRoute` component guards authenticated pages -- wrap any page requiring auth with it
 - Vite config deduplicates React and shared dependencies to prevent multiple React instances

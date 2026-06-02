@@ -30,7 +30,7 @@ bun run preview        # Preview production build
 
 ## Features
 
-- **i18n**: 16 languages with RTL support (Arabic). Language-prefixed routes (`/:lang/*`).
+- **i18n**: 15 languages. Language-prefixed routes (`/:lang/*`).
 - **Auth**: Firebase Auth with protected routes.
 - **Theming**: Light/dark theme switching via ThemeContext.
 - **Code splitting**: Lazy-loaded pages with React Suspense.

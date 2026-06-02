@@ -5,10 +5,9 @@
   <url>
     <loc>https://{{VITE_APP_DOMAIN}}/en</loc>
     <lastmod>{{TODAY}}</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://{{VITE_APP_DOMAIN}}/en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://{{VITE_APP_DOMAIN}}/ar" />
     <xhtml:link rel="alternate" hreflang="de" href="https://{{VITE_APP_DOMAIN}}/de" />
     <xhtml:link rel="alternate" hreflang="es" href="https://{{VITE_APP_DOMAIN}}/es" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://{{VITE_APP_DOMAIN}}/fr" />
@@ -31,9 +30,8 @@
     <loc>https://{{VITE_APP_DOMAIN}}/en/why-play</loc>
     <lastmod>{{TODAY}}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://{{VITE_APP_DOMAIN}}/en/why-play" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://{{VITE_APP_DOMAIN}}/ar/why-play" />
     <xhtml:link rel="alternate" hreflang="de" href="https://{{VITE_APP_DOMAIN}}/de/why-play" />
     <xhtml:link rel="alternate" hreflang="es" href="https://{{VITE_APP_DOMAIN}}/es/why-play" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://{{VITE_APP_DOMAIN}}/fr/why-play" />
@@ -56,9 +54,8 @@
     <loc>https://{{VITE_APP_DOMAIN}}/en/how-to-play</loc>
     <lastmod>{{TODAY}}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://{{VITE_APP_DOMAIN}}/en/how-to-play" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://{{VITE_APP_DOMAIN}}/ar/how-to-play" />
     <xhtml:link rel="alternate" hreflang="de" href="https://{{VITE_APP_DOMAIN}}/de/how-to-play" />
     <xhtml:link rel="alternate" hreflang="es" href="https://{{VITE_APP_DOMAIN}}/es/how-to-play" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://{{VITE_APP_DOMAIN}}/fr/how-to-play" />
@@ -80,10 +77,9 @@
   <url>
     <loc>https://{{VITE_APP_DOMAIN}}/en/popular</loc>
     <lastmod>{{TODAY}}</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://{{VITE_APP_DOMAIN}}/en/popular" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://{{VITE_APP_DOMAIN}}/ar/popular" />
     <xhtml:link rel="alternate" hreflang="de" href="https://{{VITE_APP_DOMAIN}}/de/popular" />
     <xhtml:link rel="alternate" hreflang="es" href="https://{{VITE_APP_DOMAIN}}/es/popular" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://{{VITE_APP_DOMAIN}}/fr/popular" />
@@ -105,10 +101,9 @@
   <url>
     <loc>https://{{VITE_APP_DOMAIN}}/en/leaderboard</loc>
     <lastmod>{{TODAY}}</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://{{VITE_APP_DOMAIN}}/en/leaderboard" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://{{VITE_APP_DOMAIN}}/ar/leaderboard" />
     <xhtml:link rel="alternate" hreflang="de" href="https://{{VITE_APP_DOMAIN}}/de/leaderboard" />
     <xhtml:link rel="alternate" hreflang="es" href="https://{{VITE_APP_DOMAIN}}/es/leaderboard" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://{{VITE_APP_DOMAIN}}/fr/leaderboard" />
@@ -133,7 +128,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://{{VITE_APP_DOMAIN}}/en/sitemap" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://{{VITE_APP_DOMAIN}}/ar/sitemap" />
     <xhtml:link rel="alternate" hreflang="de" href="https://{{VITE_APP_DOMAIN}}/de/sitemap" />
     <xhtml:link rel="alternate" hreflang="es" href="https://{{VITE_APP_DOMAIN}}/es/sitemap" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://{{VITE_APP_DOMAIN}}/fr/sitemap" />

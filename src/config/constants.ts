@@ -58,7 +58,6 @@ export const CONSTANTS = {
 /** All language codes the application supports for i18n routing. */
 export const SUPPORTED_LANGUAGES = [
   'en',
-  'ar',
   'de',
   'es',
   'fr',
