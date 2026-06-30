@@ -67,7 +67,7 @@ export default function WhyPlayPage() {
 
       {/* Section 2: Paper Trading for Real Estate */}
       <div
-        className={`mb-10 ${ui.spacing.card.lg} ${designTokens.radius.xl} bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800`}
+        className={`mb-10 ${ui.spacing.card.lg} ${designTokens.radius.xl} bg-info/10 border border-info/30`}
       >
         <h2 className={`${textVariants.heading.h3()} mb-4`}>{t('whyPlay.paperTradingTitle')}</h2>
         <div className="space-y-3">
@@ -103,7 +103,7 @@ export default function WhyPlayPage() {
 
       {/* Section 4: Build Your Pricing Instincts */}
       <div
-        className={`mb-10 ${ui.spacing.card.lg} ${designTokens.radius.xl} bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800`}
+        className={`mb-10 ${ui.spacing.card.lg} ${designTokens.radius.xl} bg-success/10 border border-success/30`}
       >
         <h2 className={`${textVariants.heading.h3()} mb-4`}>{t('whyPlay.instinctsTitle')}</h2>
         <div className="space-y-3">

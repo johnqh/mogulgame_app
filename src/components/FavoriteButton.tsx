@@ -53,11 +53,11 @@ export function FavoriteButton({
     >
       {isFavorited ? (
         <HeartSolid
-          className={`${iconSize} text-red-500 ${animating ? 'animate-heart-bounce' : ''}`}
+          className={`${iconSize} text-destructive ${animating ? 'animate-heart-bounce' : ''}`}
         />
       ) : (
         <HeartOutline
-          className={`${iconSize} text-gray-400 hover:text-red-400 ${animating ? 'animate-heart-bounce' : ''}`}
+          className={`${iconSize} text-muted-foreground hover:text-destructive/80 ${animating ? 'animate-heart-bounce' : ''}`}
         />
       )}
     </button>

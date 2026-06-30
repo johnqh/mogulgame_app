@@ -53,8 +53,8 @@ export default function HowToPlayPage() {
             key={step}
             className={`flex gap-4 ${ui.spacing.card.md} ${designTokens.radius.lg} border ${ui.border.default}`}
           >
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-              <span className="text-lg font-bold text-blue-700 dark:text-blue-300">{step}</span>
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-lg font-bold text-primary">{step}</span>
             </div>
             <div>
               <h3 className={`${textVariants.heading.h4()} mb-1`}>
@@ -103,7 +103,7 @@ export default function HowToPlayPage() {
 
       {/* Example */}
       <div
-        className={`mb-10 ${ui.spacing.card.md} ${designTokens.radius.lg} bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800`}
+        className={`mb-10 ${ui.spacing.card.md} ${designTokens.radius.lg} bg-info/10 border border-info/30`}
       >
         <h2 className={`${textVariants.heading.h4()} mb-3`}>{t('howToPlay.exampleTitle')}</h2>
         <p className={`${textVariants.body.sm()} leading-relaxed`}>{t('howToPlay.exampleText')}</p>
@@ -111,7 +111,7 @@ export default function HowToPlayPage() {
 
       {/* Why Play link */}
       <div
-        className={`mb-10 text-center ${ui.spacing.card.md} ${designTokens.radius.lg} bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800`}
+        className={`mb-10 text-center ${ui.spacing.card.md} ${designTokens.radius.lg} bg-info/10 border border-info/30`}
       >
         <p className={`${textVariants.heading.h4()} mb-4`}>{t('howToPlay.whyPlayPrompt')}</p>
         <LocalizedLink

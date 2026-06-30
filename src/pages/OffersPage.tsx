@@ -74,11 +74,11 @@ function formatPriceShort(price: number, country: CountryCode = 'US'): string {
 }
 
 const STATUS_STYLES: Record<PretendOfferStatus, string> = {
-  active: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-  won: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-  lost: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-  cancelled: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
-  expired: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+  active: 'bg-info/10 text-info',
+  won: 'bg-success/10 text-success',
+  lost: 'bg-destructive/10 text-destructive',
+  cancelled: 'bg-muted text-muted-foreground',
+  expired: 'bg-warning/10 text-warning',
 };
 
 type FilterMode = 'all' | 'current' | 'past';
@@ -250,8 +250,8 @@ function OfferMarker({
         <div
           className={`px-2 py-1 ${designTokens.radius.md} text-xs font-bold shadow-lg cursor-pointer ${
             isSelected
-              ? 'bg-blue-600 text-white scale-110'
-              : 'bg-white text-gray-900 dark:bg-gray-800 dark:text-white'
+              ? 'bg-primary text-primary-foreground scale-110'
+              : 'bg-card text-card-foreground'
           }`}
           style={{ transform: isSelected ? 'scale(1.1)' : undefined }}
         >
@@ -267,6 +267,8 @@ function OfferMarker({
           onCloseClick={() => onSelect(null)}
           pixelOffset={[0, -30]}
         >
+          {/* Google Maps InfoWindow renders inside a fixed light/white bubble that
+              is not theme-aware; keep explicit light-surface text colors here. */}
           <LocalizedLink
             to={`/properties/${offer.property_id}`}
             className="block text-gray-900 no-underline hover:text-blue-600"
@@ -465,8 +467,7 @@ function OffersPageInner() {
   const wonCount = countWonOffers(offers);
   const activeValue = totalActiveOfferValue(offers);
 
-  const activeTabStyle =
-    'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium';
+  const activeTabStyle = 'bg-primary/10 text-primary font-medium';
   const inactiveTabStyle = `${ui.text.muted} hover:bg-theme-hover-bg`;
 
   return (

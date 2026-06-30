@@ -53,7 +53,7 @@ export default function LeaderboardPage() {
                 onClick={() => setCountry(c)}
                 className={`px-2 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
                   country === c
-                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                    ? 'bg-primary/10 text-primary font-medium'
                     : `${ui.text.muted} hover:bg-theme-hover-bg`
                 }`}
               >
@@ -70,7 +70,7 @@ export default function LeaderboardPage() {
             }}
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'balance'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                ? 'bg-primary/10 text-primary font-medium'
                 : `${ui.text.muted} hover:bg-theme-hover-bg`
             }`}
           >
@@ -83,7 +83,7 @@ export default function LeaderboardPage() {
             }}
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'wins'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                ? 'bg-primary/10 text-primary font-medium'
                 : `${ui.text.muted} hover:bg-theme-hover-bg`
             }`}
           >
@@ -145,7 +145,7 @@ export default function LeaderboardPage() {
                   <td className="px-4 py-3">
                     <span
                       className={`${textVariants.heading.h5()} ${
-                        entry.rank <= 3 ? 'text-yellow-600 dark:text-yellow-400' : ''
+                        entry.rank <= 3 ? 'text-warning' : ''
                       }`}
                     >
                       #{entry.rank}

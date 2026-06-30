@@ -93,7 +93,7 @@ export default function PopularPage() {
             }}
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'popularity'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                ? 'bg-primary/10 text-primary font-medium'
                 : `${ui.text.muted} hover:bg-theme-hover-bg`
             }`}
           >
@@ -106,7 +106,7 @@ export default function PopularPage() {
             }}
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'recent'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                ? 'bg-primary/10 text-primary font-medium'
                 : `${ui.text.muted} hover:bg-theme-hover-bg`
             }`}
           >
@@ -119,7 +119,7 @@ export default function PopularPage() {
             }}
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'favorites'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                ? 'bg-primary/10 text-primary font-medium'
                 : `${ui.text.muted} hover:bg-theme-hover-bg`
             }`}
           >
@@ -132,7 +132,7 @@ export default function PopularPage() {
             }}
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'with_offers'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                ? 'bg-primary/10 text-primary font-medium'
                 : `${ui.text.muted} hover:bg-theme-hover-bg`
             }`}
           >
@@ -179,7 +179,7 @@ export default function PopularPage() {
               className={`block ${designTokens.radius.lg} border ${ui.border.default} overflow-hidden hover:bg-theme-hover-bg ${ui.transition.default}`}
             >
               {view.image_url ? (
-                <div className="h-40 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                <div className="h-40 bg-muted overflow-hidden">
                   <img
                     src={view.image_url}
                     alt={view.address}
@@ -188,7 +188,7 @@ export default function PopularPage() {
                   />
                 </div>
               ) : (
-                <div className="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                <div className="h-40 bg-muted flex items-center justify-center">
                   <span className={`${ui.text.muted} text-sm`}>{t('property.noImage')}</span>
                 </div>
               )}

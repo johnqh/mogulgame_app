@@ -47,12 +47,12 @@ function formatPrice(price: number | null, country: CountryCode = 'US'): string 
 }
 
 const EVENT_COLORS: Record<string, string> = {
-  listed: 'text-green-600 dark:text-green-400',
-  price_change: 'text-blue-600 dark:text-blue-400',
-  pending: 'text-yellow-600 dark:text-yellow-400',
-  sold: 'text-red-600 dark:text-red-400',
-  delisted: 'text-gray-600 dark:text-gray-400',
-  relisted: 'text-purple-600 dark:text-purple-400',
+  listed: 'text-success',
+  price_change: 'text-info',
+  pending: 'text-warning',
+  sold: 'text-destructive',
+  delisted: 'text-muted-foreground',
+  relisted: 'text-primary',
 };
 
 function PriceHistoryRow({
@@ -310,7 +310,7 @@ export default function PropertyDetailPage() {
             ))}
           </Swiper>
         ) : (
-          <div className="w-full h-[300px] md:h-[450px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
+          <div className="w-full h-[300px] md:h-[450px] bg-muted flex items-center justify-center rounded-lg">
             <span className={ui.text.muted}>{t('property.noPhotos')}</span>
           </div>
         )}
@@ -382,7 +382,7 @@ export default function PropertyDetailPage() {
                   }}
                 >
                   <div
-                    className={`px-2 py-1 ${designTokens.radius.md} text-xs font-bold shadow-lg bg-blue-600 text-white`}
+                    className={`px-2 py-1 ${designTokens.radius.md} text-xs font-bold shadow-lg bg-primary text-primary-foreground`}
                   >
                     {formatPrice(property.price, country)}
                   </div>
@@ -723,7 +723,7 @@ export default function PropertyDetailPage() {
                   {school.rating != null && (
                     <div className="text-center">
                       <p
-                        className={`${textVariants.heading.h5()} ${school.rating >= 7 ? 'text-green-600 dark:text-green-400' : school.rating >= 4 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-600 dark:text-red-400'}`}
+                        className={`${textVariants.heading.h5()} ${school.rating >= 7 ? 'text-success' : school.rating >= 4 ? 'text-warning' : 'text-destructive'}`}
                       >
                         {school.rating}/10
                       </p>

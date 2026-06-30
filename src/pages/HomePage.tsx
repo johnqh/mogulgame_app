@@ -144,14 +144,14 @@ function WelcomeOverlay({ onDismiss }: { onDismiss: () => void }) {
   return (
     <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/30">
       <div
-        className={`mx-4 max-w-lg ${designTokens.radius.xl} bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-2xl border ${ui.border.default} p-6 sm:p-8`}
+        className={`mx-4 max-w-lg ${designTokens.radius.xl} bg-card/95 backdrop-blur-sm shadow-2xl border ${ui.border.default} p-6 sm:p-8`}
       >
         <h2 className={`${textVariants.heading.h3()} mb-5 text-center`}>{t('welcome.title')}</h2>
         <div className="space-y-4 mb-6">
           {[1, 2, 3].map(n => (
             <div key={n} className="flex gap-3 items-start">
               <span
-                className={`flex-shrink-0 w-7 h-7 ${designTokens.radius.full} bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 flex items-center justify-center text-sm font-bold`}
+                className={`flex-shrink-0 w-7 h-7 ${designTokens.radius.full} bg-primary/10 text-primary flex items-center justify-center text-sm font-bold`}
               >
                 {n}
               </span>
@@ -196,11 +196,11 @@ function PropertyCard({
 }) {
   const { t } = useTranslation('common');
   const statusColors: Record<string, string> = {
-    for_sale: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-    pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
-    sold: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-    delisted: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
-    unknown: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
+    for_sale: 'bg-success/10 text-success',
+    pending: 'bg-warning/10 text-warning',
+    sold: 'bg-destructive/10 text-destructive',
+    delisted: 'bg-muted text-muted-foreground',
+    unknown: 'bg-muted text-muted-foreground',
   };
 
   return (
@@ -212,7 +212,7 @@ function PropertyCard({
         className={`block hover:bg-theme-hover-bg ${ui.transition.default}`}
       >
         {property.images.length > 0 ? (
-          <div className="h-40 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+          <div className="h-40 bg-muted overflow-hidden">
             <img
               src={property.images[0]}
               alt={property.normalized_address}
@@ -221,7 +221,7 @@ function PropertyCard({
             />
           </div>
         ) : (
-          <div className="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+          <div className="h-40 bg-muted flex items-center justify-center">
             <span className={`${ui.text.muted} text-sm`}>{t('property.noImage')}</span>
           </div>
         )}
@@ -266,7 +266,7 @@ function PropertyCard({
             isFavorited={isFavorited ?? false}
             onToggle={onToggleFavorite}
             size="sm"
-            className="bg-white/80 dark:bg-gray-900/80 rounded-full p-1"
+            className="bg-card/80 rounded-full p-1"
           />
         </div>
       )}
@@ -300,8 +300,8 @@ function PropertyMarker({
         <div
           className={`px-2 py-1 ${designTokens.radius.md} text-xs font-bold shadow-lg cursor-pointer ${
             isSelected
-              ? 'bg-blue-600 text-white scale-110'
-              : 'bg-white text-gray-900 dark:bg-gray-800 dark:text-white'
+              ? 'bg-primary text-primary-foreground scale-110'
+              : 'bg-card text-card-foreground'
           }`}
           style={{ transform: isSelected ? 'scale(1.1)' : undefined }}
         >
@@ -317,6 +317,8 @@ function PropertyMarker({
           onCloseClick={() => onSelect(null)}
           pixelOffset={[0, -30]}
         >
+          {/* Google Maps InfoWindow renders inside a fixed light/white bubble that
+              is not theme-aware; keep explicit light-surface text colors here. */}
           <LocalizedLink
             to={`/properties/${property.id}`}
             className="block text-gray-900 no-underline hover:text-blue-600 pt-2 pr-6"
@@ -575,9 +577,7 @@ function SearchForm({
               type="button"
               onClick={() => setShowAdvanced(v => !v)}
               className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} flex-shrink-0 flex items-center justify-center ${
-                draftRecentlySold || draftWithOffers
-                  ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                  : ''
+                draftRecentlySold || draftWithOffers ? 'border-primary text-primary' : ''
               }`}
               title={t('search.advanced')}
             >
@@ -875,7 +875,7 @@ function HomePageInner() {
               onClick={() => setViewMode('map')}
               className={`px-3 py-1 ${designTokens.radius.md} text-sm ${ui.transition.default} ${
                 viewMode === 'map'
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                  ? 'bg-primary/10 text-primary font-medium'
                   : `${ui.text.muted} hover:bg-theme-hover-bg`
               }`}
             >
@@ -885,7 +885,7 @@ function HomePageInner() {
               onClick={() => setViewMode('list')}
               className={`px-3 py-1 ${designTokens.radius.md} text-sm ${ui.transition.default} ${
                 viewMode === 'list'
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium'
+                  ? 'bg-primary/10 text-primary font-medium'
                   : `${ui.text.muted} hover:bg-theme-hover-bg`
               }`}
             >

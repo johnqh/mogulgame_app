@@ -192,7 +192,7 @@ export default function MyFavoritesPage() {
                   className={`block hover:bg-theme-hover-bg ${ui.transition.default}`}
                 >
                   {image ? (
-                    <div className="h-40 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                    <div className="h-40 bg-muted overflow-hidden">
                       <img
                         src={image}
                         alt={address}
@@ -201,7 +201,7 @@ export default function MyFavoritesPage() {
                       />
                     </div>
                   ) : (
-                    <div className="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <div className="h-40 bg-muted flex items-center justify-center">
                       <span className={`${ui.text.muted} text-sm`}>{t('property.noImage')}</span>
                     </div>
                   )}
@@ -216,7 +216,7 @@ export default function MyFavoritesPage() {
                     isFavorited={true}
                     onToggle={() => handleUnfavorite(fav.property_id)}
                     size="sm"
-                    className="bg-white/80 dark:bg-gray-900/80 rounded-full p-1"
+                    className="bg-card/80 rounded-full p-1"
                   />
                 </div>
               </div>

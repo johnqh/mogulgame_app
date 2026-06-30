@@ -1,5 +1,11 @@
+import { createTailwindPreset } from '@sudobility/design';
+
 /** @type {import('tailwindcss').Config} */
 export default {
+  // Maps the design system's semantic tokens (bg-primary, border-input, ...) to
+  // hsl(var(--primary)) etc. The variable values come from index.css (:root /
+  // .dark), so the design components are theme-aware and flip light/dark.
+  presets: [createTailwindPreset()],
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
