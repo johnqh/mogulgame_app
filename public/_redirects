@@ -1,6 +1,13 @@
-# Serve pre-rendered HTML for SEO routes (takes priority over SPA fallback)
-/:lang/how-to-play /:lang/how-to-play/index.html 200
-/:lang/why-play /:lang/why-play/index.html 200
+# Canonical language entry point (no trailing slash — source of truth)
+/ /en 308
 
-# SPA fallback for all other routes
+# Unsupported languages are permanently redirected to en (see sudobility/docs/SEO.md).
+/ar /en 308
+/ar/ /en 308
+/ar/* /en/:splat 308
+
+# SPA fallback for all other routes (history, credits, login, settings, …).
+# Document routes with a committed snapshot in /html are handled earlier by
+# functions/_middleware.js (it injects the snapshot into the live index.html);
+# everything else falls through to the per-route static file or the SPA here.
 /* /index.html 200

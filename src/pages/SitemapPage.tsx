@@ -39,6 +39,7 @@ export default function SitemapPage() {
         title={t('seo.sitemap.title')}
         description={t('seo.sitemap.description')}
         keywords={t('seo.sitemap.keywords', { returnObjects: true }) as string[]}
+        noIndex
       />
       <h1 className={`${textVariants.heading.h3()} mb-8`}>{t('nav.sitemap')}</h1>
 

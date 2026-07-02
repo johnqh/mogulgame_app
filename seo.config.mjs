@@ -34,6 +34,9 @@ export default {
   primaryDomain: 'mogulgame.app',
   appName: APP_NAME,
   appDomain: process.env.VITE_APP_DOMAIN || 'mogulgame.app',
+  // Canonical URLs have NO trailing slash (source of truth). v2 defaults to
+  // true; pin false to match seo_lib runtime canonical and the middleware 301.
+  trailingSlashUrls: false,
   robotsDisallowPaths: ['/*/dashboard/', '/*/login'],
 
   routes: [
