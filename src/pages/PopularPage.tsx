@@ -94,7 +94,7 @@ export default function PopularPage() {
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'popularity'
                 ? 'bg-primary/10 text-primary font-medium'
-                : `${ui.text.muted} hover:bg-theme-hover-bg`
+                : `${ui.text.muted} hover:bg-accent`
             }`}
           >
             {t('popular.byPopularity')}
@@ -107,7 +107,7 @@ export default function PopularPage() {
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'recent'
                 ? 'bg-primary/10 text-primary font-medium'
-                : `${ui.text.muted} hover:bg-theme-hover-bg`
+                : `${ui.text.muted} hover:bg-accent`
             }`}
           >
             {t('popular.byRecent')}
@@ -120,7 +120,7 @@ export default function PopularPage() {
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'favorites'
                 ? 'bg-primary/10 text-primary font-medium'
-                : `${ui.text.muted} hover:bg-theme-hover-bg`
+                : `${ui.text.muted} hover:bg-accent`
             }`}
           >
             {t('popular.byFavorites')}
@@ -133,7 +133,7 @@ export default function PopularPage() {
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'with_offers'
                 ? 'bg-primary/10 text-primary font-medium'
-                : `${ui.text.muted} hover:bg-theme-hover-bg`
+                : `${ui.text.muted} hover:bg-accent`
             }`}
           >
             {t('popular.byOffers')}
@@ -176,7 +176,7 @@ export default function PopularPage() {
             <LocalizedLink
               key={view.id}
               to={`/properties/${view.property_id}`}
-              className={`block ${designTokens.radius.lg} border ${ui.border.default} overflow-hidden hover:bg-theme-hover-bg ${ui.transition.default}`}
+              className={`block ${designTokens.radius.lg} border ${ui.border.default} overflow-hidden hover:bg-accent ${ui.transition.default}`}
             >
               {view.image_url ? (
                 <div className="h-40 bg-muted overflow-hidden">

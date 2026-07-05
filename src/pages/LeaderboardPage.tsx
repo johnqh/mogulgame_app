@@ -54,7 +54,7 @@ export default function LeaderboardPage() {
                 className={`px-2 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
                   country === c
                     ? 'bg-primary/10 text-primary font-medium'
-                    : `${ui.text.muted} hover:bg-theme-hover-bg`
+                    : `${ui.text.muted} hover:bg-accent`
                 }`}
               >
                 {COUNTRY_FLAGS[c]}
@@ -71,7 +71,7 @@ export default function LeaderboardPage() {
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'balance'
                 ? 'bg-primary/10 text-primary font-medium'
-                : `${ui.text.muted} hover:bg-theme-hover-bg`
+                : `${ui.text.muted} hover:bg-accent`
             }`}
           >
             {t('leaderboard.byBalance')}
@@ -84,7 +84,7 @@ export default function LeaderboardPage() {
             className={`px-3 py-1 ${designTokens.radius.full} text-sm ${ui.transition.default} ${
               sortBy === 'wins'
                 ? 'bg-primary/10 text-primary font-medium'
-                : `${ui.text.muted} hover:bg-theme-hover-bg`
+                : `${ui.text.muted} hover:bg-accent`
             }`}
           >
             {t('leaderboard.byWins')}
@@ -118,7 +118,7 @@ export default function LeaderboardPage() {
         <div className={`${designTokens.radius.lg} border ${ui.border.default} overflow-hidden`}>
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-theme-hover-bg">
+              <tr className="border-b bg-accent">
                 <th className={`px-4 py-3 text-left ${textVariants.caption.default()}`}>
                   {t('leaderboard.rank')}
                 </th>
@@ -140,7 +140,7 @@ export default function LeaderboardPage() {
               {data.entries.map(entry => (
                 <tr
                   key={entry.user_id}
-                  className={`border-b ${ui.border.default} last:border-0 hover:bg-theme-hover-bg ${ui.transition.default}`}
+                  className={`border-b ${ui.border.default} last:border-0 hover:bg-accent ${ui.transition.default}`}
                 >
                   <td className="px-4 py-3">
                     <span

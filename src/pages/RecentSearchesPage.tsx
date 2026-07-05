@@ -128,7 +128,7 @@ export default function RecentSearchesPage() {
             <button
               key={i}
               onClick={() => handleSearchClick(search)}
-              className={`w-full text-left ${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default} hover:bg-theme-hover-bg ${ui.transition.default} flex items-center justify-between gap-3`}
+              className={`w-full text-left ${ui.spacing.card.sm} ${designTokens.radius.lg} border ${ui.border.default} hover:bg-accent ${ui.transition.default} flex items-center justify-between gap-3`}
             >
               <div className="min-w-0">
                 <p className={`${textVariants.body.md()} font-medium truncate`}>

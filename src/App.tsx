@@ -31,7 +31,7 @@ const MySearchesPage = lazy(() => import('./pages/MySearchesPage'));
  * components are being fetched.
  */
 const LoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-theme-bg-primary">
+  <div className="min-h-screen flex items-center justify-center bg-background">
     <div role="status" aria-label="Loading" className={variants.loading.spinner.default()} />
   </div>
 );

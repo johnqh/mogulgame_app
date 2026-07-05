@@ -53,7 +53,7 @@ export default function SitemapPage() {
               <a
                 key={code}
                 href={`/${code}`}
-                className={`flex items-center gap-2 px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} hover:bg-theme-hover-bg text-sm`}
+                className={`flex items-center gap-2 px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} hover:bg-accent text-sm`}
               >
                 <span>{info?.flag}</span>
                 <span className={textVariants.body.sm()}>{info?.label}</span>

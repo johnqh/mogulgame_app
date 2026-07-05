@@ -752,7 +752,7 @@ export default function PropertyDetailPage() {
 
       {/* Sticky Offer Panel */}
       <div
-        className={`sticky bottom-0 border-t ${ui.border.default} bg-theme-bg-primary shadow-[0_-2px_10px_rgba(0,0,0,0.1)]`}
+        className={`sticky bottom-0 border-t ${ui.border.default} bg-background shadow-[0_-2px_10px_rgba(0,0,0,0.1)]`}
       >
         <Section spacing="none">
           <div className="py-3">
@@ -791,7 +791,7 @@ export default function PropertyDetailPage() {
                         setEditOfferPrice(e.target.value);
                         setSubmitError(null);
                       }}
-                      className={`w-full px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary`}
+                      className={`w-full px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-foreground`}
                       required
                     />
                   </div>
@@ -861,7 +861,7 @@ export default function PropertyDetailPage() {
                       setSubmitError(null);
                     }}
                     placeholder={t('offers.pricePlaceholder')}
-                    className={`w-full px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary`}
+                    className={`w-full px-3 py-2 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-foreground`}
                     required
                   />
                 </div>

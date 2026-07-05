@@ -209,7 +209,7 @@ function PropertyCard({
     >
       <LocalizedLink
         to={`/properties/${property.id}`}
-        className={`block hover:bg-theme-hover-bg ${ui.transition.default}`}
+        className={`block hover:bg-accent ${ui.transition.default}`}
       >
         {property.images.length > 0 ? (
           <div className="h-40 bg-muted overflow-hidden">
@@ -495,13 +495,13 @@ function SearchForm({
             type="text"
             defaultValue={initialQuery}
             placeholder={t('search.placeholder')}
-            className={`flex-1 h-10 px-4 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+            className={`flex-1 h-10 px-4 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-foreground text-sm`}
           />
           <button
             type="button"
             onClick={onCurrentLocation}
             disabled={locatingUser}
-            className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} ${ui.states.disabled} flex-shrink-0 flex items-center justify-center`}
+            className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-foreground text-sm hover:bg-accent ${ui.transition.default} ${ui.states.disabled} flex-shrink-0 flex items-center justify-center`}
             title={t('search.currentLocation')}
           >
             {locatingUser ? (
@@ -576,7 +576,7 @@ function SearchForm({
             <button
               type="button"
               onClick={() => setShowAdvanced(v => !v)}
-              className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm hover:bg-theme-hover-bg ${ui.transition.default} flex-shrink-0 flex items-center justify-center ${
+              className={`h-10 w-10 ${designTokens.radius.lg} border ${ui.border.default} ${ui.background.surface} text-foreground text-sm hover:bg-accent ${ui.transition.default} flex-shrink-0 flex items-center justify-center ${
                 draftRecentlySold || draftWithOffers ? 'border-primary text-primary' : ''
               }`}
               title={t('search.advanced')}
@@ -594,7 +594,7 @@ function SearchForm({
             </button>
             {showAdvanced && (
               <div
-                className={`absolute right-0 top-full mt-1 ${designTokens.radius.lg} border ${ui.border.default} bg-theme-bg-primary shadow-lg z-50 p-3 space-y-3 min-w-[200px]`}
+                className={`absolute right-0 top-full mt-1 ${designTokens.radius.lg} border ${ui.border.default} bg-background shadow-lg z-50 p-3 space-y-3 min-w-[200px]`}
               >
                 <label className="flex items-center justify-between gap-3 cursor-pointer">
                   <span className="text-sm">{t('search.recentlySold')}</span>
@@ -815,7 +815,7 @@ function HomePageInner() {
       <SEOHead title={t('seo.home.title')} description={t('seo.home.description')} />
 
       {/* Search bar */}
-      <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
+      <div className={`border-b ${ui.border.default} bg-background`}>
         <SearchForm
           key={urlKey}
           initialQuery={query}
@@ -834,7 +834,7 @@ function HomePageInner() {
 
       {/* Search history chips (show when no active search) */}
       {!hasSearched && searchHistory.length > 0 && (
-        <div className={`border-b ${ui.border.default} bg-theme-bg-primary`}>
+        <div className={`border-b ${ui.border.default} bg-background`}>
           <div className="max-w-7xl mx-auto px-4 py-2">
             <div className="flex items-center gap-2">
               <span className={`text-xs ${ui.text.muted} flex-shrink-0`}>
@@ -845,7 +845,7 @@ function HomePageInner() {
                   <button
                     key={i}
                     onClick={() => handleHistoryClick(entry)}
-                    className={`px-3 py-1 ${designTokens.radius.full} text-xs border ${ui.border.default} ${ui.text.muted} hover:bg-theme-hover-bg ${ui.transition.default} whitespace-nowrap flex-shrink-0`}
+                    className={`px-3 py-1 ${designTokens.radius.full} text-xs border ${ui.border.default} ${ui.text.muted} hover:bg-accent ${ui.transition.default} whitespace-nowrap flex-shrink-0`}
                   >
                     {entry.query}
                   </button>
@@ -865,7 +865,7 @@ function HomePageInner() {
       {/* View toggle + results count */}
       {(hasResults || (hasSearched && isLoading)) && (
         <div
-          className={`flex items-center justify-between px-4 py-2 border-b ${ui.border.default} bg-theme-bg-primary max-w-7xl mx-auto w-full`}
+          className={`flex items-center justify-between px-4 py-2 border-b ${ui.border.default} bg-background max-w-7xl mx-auto w-full`}
         >
           <p className={`${textVariants.body.sm()} ${ui.text.muted}`}>
             {data ? t('search.resultCount', { count: data.total }) : t('common.loading')}
@@ -876,7 +876,7 @@ function HomePageInner() {
               className={`px-3 py-1 ${designTokens.radius.md} text-sm ${ui.transition.default} ${
                 viewMode === 'map'
                   ? 'bg-primary/10 text-primary font-medium'
-                  : `${ui.text.muted} hover:bg-theme-hover-bg`
+                  : `${ui.text.muted} hover:bg-accent`
               }`}
             >
               {t('search.mapView')}
@@ -886,7 +886,7 @@ function HomePageInner() {
               className={`px-3 py-1 ${designTokens.radius.md} text-sm ${ui.transition.default} ${
                 viewMode === 'list'
                   ? 'bg-primary/10 text-primary font-medium'
-                  : `${ui.text.muted} hover:bg-theme-hover-bg`
+                  : `${ui.text.muted} hover:bg-accent`
               }`}
             >
               {t('search.listView')}
@@ -914,7 +914,7 @@ function HomePageInner() {
 
         {/* Loading overlay */}
         {isLoading && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-theme-bg-primary/50">
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/50">
             <div
               role="status"
               aria-label="Searching properties"
@@ -927,7 +927,7 @@ function HomePageInner() {
         {hasSearched && data && properties.length === 0 && !isLoading && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
             <div
-              className={`px-4 py-2 ${designTokens.radius.lg} bg-theme-bg-primary shadow-lg border ${ui.border.default}`}
+              className={`px-4 py-2 ${designTokens.radius.lg} bg-background shadow-lg border ${ui.border.default}`}
             >
               <p className={ui.text.muted}>{t('search.noResults')}</p>
             </div>
@@ -960,7 +960,7 @@ function HomePageInner() {
             </div>
             {/* Side list (desktop only, when results exist) */}
             {hasResults && (
-              <div className="hidden lg:block w-80 border-l overflow-y-auto bg-theme-bg-primary">
+              <div className="hidden lg:block w-80 border-l overflow-y-auto bg-background">
                 <div className="p-3 space-y-3">
                   {properties.map(p => (
                     <PropertyCard

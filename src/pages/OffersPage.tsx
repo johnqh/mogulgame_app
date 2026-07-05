@@ -129,7 +129,7 @@ function OfferCard({
                 min="1"
                 value={editPrice}
                 onChange={e => setEditPrice(e.target.value)}
-                className={`w-40 px-2 py-1 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-theme-text-primary text-sm`}
+                className={`w-40 px-2 py-1 ${designTokens.radius.md} border ${ui.border.default} ${ui.background.surface} text-foreground text-sm`}
                 autoFocus
               />
               <button
@@ -468,7 +468,7 @@ function OffersPageInner() {
   const activeValue = totalActiveOfferValue(offers);
 
   const activeTabStyle = 'bg-primary/10 text-primary font-medium';
-  const inactiveTabStyle = `${ui.text.muted} hover:bg-theme-hover-bg`;
+  const inactiveTabStyle = `${ui.text.muted} hover:bg-accent`;
 
   return (
     <div className="flex flex-col flex-1 min-h-0">

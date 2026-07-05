@@ -39,7 +39,7 @@ export default function LoginPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-theme-bg-primary">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div
           role="status"
           aria-label="Loading authentication"
@@ -51,7 +51,7 @@ export default function LoginPage() {
 
   if (!auth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-theme-bg-primary">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <p role="alert" className={ui.text.error}>
           {t('common.firebaseNotConfigured')}
         </p>

@@ -189,7 +189,7 @@ export default function MyFavoritesPage() {
               >
                 <LocalizedLink
                   to={`/properties/${fav.property_id}`}
-                  className={`block hover:bg-theme-hover-bg ${ui.transition.default}`}
+                  className={`block hover:bg-accent ${ui.transition.default}`}
                 >
                   {image ? (
                     <div className="h-40 bg-muted overflow-hidden">
