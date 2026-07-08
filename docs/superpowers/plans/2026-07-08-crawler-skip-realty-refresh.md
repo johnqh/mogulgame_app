@@ -1034,3 +1034,31 @@ Therefore the release sequence is:
 
 Also: `push_all.sh` runs `git add -A` (`:1144`). Make sure the tree contains nothing you don't want
 published — e.g. Playwright MCP writes a `.playwright-mcp/` directory into the repo root.
+
+### The trap, stated plainly
+
+**`push_all.sh` exits 0 and prints `All Projects Processed Successfully!` when it has done nothing.**
+
+It skips any repo with a clean working tree. If you commit your work first — as you would on any
+normal workflow — every repo is clean, every repo is skipped, and the run "succeeds" while pushing
+and publishing nothing. This happened twice during this change:
+
+- First run: `mogulgame_types` skipped. Worked around by bumping + pushing types by hand *before*
+  the run, which made every downstream repo dirty (via the dep rewrite) and let the cascade proceed.
+- Second run (the security hardening): `mogulgame_api` skipped, `EXIT=0`, banner printed success,
+  nothing pushed. Caught only by checking `git rev-list --count origin/main..main` afterwards.
+
+**Always verify after a run:**
+
+```bash
+for d in mogulgame_types mogulgame_api mogulgame_client mogulgame_lib mogulgame_app mogulgame_app_rn; do
+  p=../$d
+  printf "%-18s v=%-8s unpushed=%s\n" "$d" \
+    "$(node -p "require('$p/package.json').version")" \
+    "$(git -C $p rev-list --count origin/main..main)"
+done
+```
+
+Any nonzero `unpushed` means the script skipped that repo. Either leave the change uncommitted and
+let the script author the commit (its intended workflow), bump the version by hand and `git push`,
+or use `--force`.
