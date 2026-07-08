@@ -17,8 +17,12 @@ Spec: `docs/superpowers/specs/2026-07-08-crawler-skip-realty-refresh-design.md`
 - `QUERY_KEYS` in `mogulgame_client/src/types.ts` is **not** modified. `IS_CRAWLER` is constant per session.
 - `mogulgame_lib` is **not** touched. It peer-depends on `react`, so the API cannot import it.
 - Version floors: `mogulgame_types` → `0.0.22`, `mogulgame_client` → `0.0.31`, `mogulgame_app` → `1.0.95`.
-- The API's local dev port is **8022** (`src/index.ts:63`), not the 8029 the docs claim.
+- The API's local dev port default is `8022` (`src/index.ts:63`), but `.env` sets `PORT=8029`, so it actually runs on **8029**.
 - Publishing to npm is outward-facing and irreversible. Tasks 2 and 7 are **human gates** — stop and get explicit confirmation.
+
+> **STATUS: implemented 2026-07-08.** Executed inline on `main` (no feature branches).
+> Tasks 2 and 7 were **dissolved**: `mogulgame_app/scripts/push_all.sh` + CI own publishing,
+> so there is no manual `npm publish`. See "Release" below.
 
 ### Local development before publishing
 
@@ -960,3 +964,73 @@ Then check the RealtyAPI dashboard for a drop in daily call volume. If `[crawler
 - A global `REALTY_API_ENABLED=false` env kill-switch.
 - Background/async refresh on the read path.
 - The pre-existing bugs recorded at the end of the spec (`cache.ts:17` EDT offset, `PORT` default 8022 vs documented 8029, `REALTY_API_KEY` missing from `.env.example`).
+
+---
+
+## What execution actually found (2026-07-08)
+
+**1. `tsc` breaks ESM re-exports without a `.js` extension.** `mogulgame_types` is
+`"type": "module"`, and `index.ts` had never had a relative import before. `export * from './crawler'`
+typechecks, passes vitest (bundler resolution), and **builds** — then dies at runtime with
+`ERR_MODULE_NOT_FOUND` when Node imports `dist/index.js`. `bun run verify` does not catch this.
+The fix is `export * from './crawler.js'`. Caught only by importing the built artifact:
+
+```bash
+node -e "import('./dist/index.js').then(m => console.log(typeof m.isCrawler))"
+```
+
+Worth adding to `verify` for any package with relative imports.
+
+**2. The API repo enforces `no-console` (only `warn`/`error`).** The three `[crawler]` observability
+logs need `// eslint-disable-next-line no-console` rather than downgrading to `console.warn`, which
+would fire warn-level alerting on every crawl.
+
+**3. `getProperty` / `getPropertyHistory` already had an options bag** (`{ timeout?: number }`), and
+the hooks already had `{ enabled?: boolean }`. `crawler` was added to those, not as a new parameter.
+`searchProperties(params)` takes a `Record<string, string>` and needed **no** client change.
+
+**4. `/:id/history` also needed an observability log.** The plan only specified logs on `/:id` and
+`/search`, so history-endpoint savings were invisible. Added.
+
+**5. The app's dev server runs the API on 8029, not 8022** — `.env` sets `PORT`.
+
+## Verification performed
+
+Live API + postgres + vite + Playwright, against property `679eaf0c…` (cached `2026-05-05`, i.e. stale):
+
+| Request | RealtyAPI | `cached_at` | `view_count` | Latency |
+|---|---|---|---|---|
+| `/:id?crawler=true` | not called | unchanged | unchanged | 25 ms |
+| `/:id` + Googlebot UA | not called | unchanged | unchanged | 24 ms |
+| `/:id` + Chrome UA (control) | **called** | **refreshed** | **0 → 1** | 1797 ms |
+| `/:id/history` + Googlebot UA | not called | — | — | fast |
+| `/:id/history` + Chrome UA (control) | **called** | — | — | 727 ms |
+| `/search` + Googlebot UA | not called | — | 0 `search_logs` rows | 1.8 ms |
+
+Browser-level, via Playwright with `addInitScript` overriding `navigator.userAgent` before app JS runs:
+
+- Real Chrome UA → `GET /properties/:id` and `/history` with **no** `crawler` param; `view_count` incremented.
+- Googlebot UA → both requests carry **`?crawler=true`**; API emits two `[crawler]` lines; `view_count`
+  and `cached_at` unchanged; page still renders `<title>`, `<h1>`, and price, so indexing is unaffected.
+
+## Release
+
+`push_all.sh` (which sources `workflows/scripts/push_projects.sh`) decides "has changes" from a
+**dirty working tree** (`:1289-1292`), not from unpushed commits. With everything committed, it
+**skips** every clean repo. It also never checks the branch — a plain `git push` (`:1168`) plus
+`--set-upstream origin <current-branch>` (`:1177`) will happily push feature branches, where CI
+(`on: push: branches: [main, develop]`) never publishes.
+
+Therefore the release sequence is:
+
+1. Bump `mogulgame_types` version manually, commit, `git push` → CI publishes.
+2. Poll `npm view @sudobility/mogulgame_types@<version> --prefer-online` until live. **Do not** rely on
+   the script's fixed `sleep 60` (`:1432`) — CI takes 1–3 min, and `fetch_latest_versions_parallel`
+   (`:390`) omits `--prefer-online`, so npm's 5-min metadata cache can serve a stale version.
+   (`get_latest_version` at `:376-379` *does* pass the flag but is dead code — never called.)
+3. `./push_all.sh` — `api`, `client`, `lib`, `app`, `app_rn` now see the new types, go dirty, bump,
+   validate, and publish in dependency order.
+4. If it aborts (loudly) on a stale `npm view`, resume with `./push_all.sh --starting-project <name>`.
+
+Also: `push_all.sh` runs `git add -A` (`:1144`). Make sure the tree contains nothing you don't want
+published — e.g. Playwright MCP writes a `.playwright-mcp/` directory into the repo root.
