@@ -23,9 +23,9 @@
         "@sudobility/di": "^1.5.58",
         "@sudobility/di_web": "^0.1.209",
         "@sudobility/entity_client": "^0.0.36",
-        "@sudobility/mogulgame_client": "^0.0.30",
-        "@sudobility/mogulgame_lib": "^0.0.28",
-        "@sudobility/mogulgame_types": "^0.0.21",
+        "@sudobility/mogulgame_client": "^0.0.31",
+        "@sudobility/mogulgame_lib": "^0.0.29",
+        "@sudobility/mogulgame_types": "^0.0.22",
         "@sudobility/seo_lib": "^0.0.32",
         "@sudobility/subscription-components": "^1.0.31",
         "@sudobility/subscription_lib": "^0.0.44",
@@ -471,11 +471,11 @@
 
     "@sudobility/entity_client": ["@sudobility/entity_client@0.0.36", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": "^5.0.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-ksYFQnC4t/SqGasf5ImYrxD2L/kSxnFkex1KOGUchd8NXi9M9RUQB2AwvYuF1JpgXpk5JF/ueJohU9IVpVatwA=="],
 
-    "@sudobility/mogulgame_client": ["@sudobility/mogulgame_client@0.0.30", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-ITcs0TSHd9eYwKvVviWRqKfh0qPzBqDQ9tFAjNUEe7/Q4e+dDMs8Uv/5O628i9FFEqZc38+fgpNrKoTC6vL8Eg=="],
+    "@sudobility/mogulgame_client": ["@sudobility/mogulgame_client@0.0.31", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-AWdzRtqA8KHBy5Ntq5VPZO45CB2ov639pxqpWf7UuzVoH75yZ3h9XhKBqLvd27pcY+lr2hzFy/CMr9bTUDy1ZA=="],
 
-    "@sudobility/mogulgame_lib": ["@sudobility/mogulgame_lib@0.0.28", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0", "zustand": ">=5.0.0" } }, "sha512-V6TYWoZm2QRvW84X/GnUbuh8Y0EmKUhKLAxH7v4vP9r+xErN7WlIvHxVDpIu8lUADdEEXqpkgqO5rKvv5DrwfQ=="],
+    "@sudobility/mogulgame_lib": ["@sudobility/mogulgame_lib@0.0.29", "", { "peerDependencies": { "@sudobility/types": "^1.9.62", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0", "zustand": ">=5.0.0" } }, "sha512-lT7fRA8m6ExIk2cbTlAYrZ01VqB8z0YwB4/PX3r/jPG/VAJQKodglI3yTlx4ci4/gI6aRYuosBOc6cJiSZF5Vg=="],
 
-    "@sudobility/mogulgame_types": ["@sudobility/mogulgame_types@0.0.21", "", { "peerDependencies": { "@sudobility/types": "^1.9.62" } }, "sha512-pnRvXgvDneyke0WW4qWrfUpVO0Urr0W3tKI48NjpvDh+2wshgKH8FnP69oImll89/Q2BEFPXSZ37xg63frCBfQ=="],
+    "@sudobility/mogulgame_types": ["@sudobility/mogulgame_types@0.0.22", "", { "peerDependencies": { "@sudobility/types": "^1.9.62" } }, "sha512-Iv1hBig/61tfmsA5irMIRJRBN0ZmAImXCcFJoJSEB0+8y048SIgzz1LpLxfhCYRQM6AHA2eDvU8+PYp3SYfXbg=="],
 
     "@sudobility/seo_lib": ["@sudobility/seo_lib@0.0.32", "", { "peerDependencies": { "i18next": ">=23.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0", "react-helmet-async": ">=2.0.0", "react-i18next": ">=14.0.0", "react-router-dom": ">=6.0.0" }, "optionalPeers": ["i18next", "react-i18next", "react-router-dom"] }, "sha512-5Np9OWZVpzx810DuYzEphn/Fbtd1srZBLzDLSONm+V45LkFpFGHtHKluBadczZe+LJ61SDPHpWs8WBlXIMGY1w=="],
 
