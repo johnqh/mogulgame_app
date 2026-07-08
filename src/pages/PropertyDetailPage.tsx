@@ -14,6 +14,7 @@ import {
   calculateMaxOffer,
   formatPrice as formatPriceLib,
 } from '@sudobility/mogulgame_lib';
+import { IS_CRAWLER } from '../utils/crawler';
 import { Section } from '@sudobility/components';
 import { APIProvider, Map as GoogleMap, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -88,8 +89,12 @@ export default function PropertyDetailPage() {
   const { networkClient, baseUrl, token } = useApi();
   const { navigate } = useLocalizedNavigate();
 
-  const { property, isLoading, error } = useProperty(networkClient, baseUrl, propertyId ?? null);
-  const { data: historyData } = usePropertyHistory(networkClient, baseUrl, propertyId ?? null);
+  const { property, isLoading, error } = useProperty(networkClient, baseUrl, propertyId ?? null, {
+    crawler: IS_CRAWLER,
+  });
+  const { data: historyData } = usePropertyHistory(networkClient, baseUrl, propertyId ?? null, {
+    crawler: IS_CRAWLER,
+  });
   const {
     offers,
     createOffer,

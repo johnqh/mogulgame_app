@@ -18,6 +18,7 @@ import {
   formatPrice as formatPriceLib,
   formatPriceShort as formatPriceShortLib,
 } from '@sudobility/mogulgame_lib';
+import { IS_CRAWLER } from '../utils/crawler';
 import { APIProvider, Map, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import {
   Section,
@@ -682,6 +683,7 @@ function HomePageInner() {
       if (maxPrice) params.max_price = maxPrice;
       if (minBedrooms) params.min_bedrooms = minBedrooms;
     }
+    if (IS_CRAWLER) params.crawler = 'true';
     return params;
   }, [country, query, urlLat, urlLng, minPrice, maxPrice, minBedrooms, recentlySold, withOffers]);
 
