@@ -32,9 +32,12 @@ export async function onRequest(context) {
   const { request, next, env } = context;
   const url = new URL(request.url);
 
-  // Only transform GET document navigations. Anything with a file extension is
-  // a real asset (js/css/png/json/xml/...) — let Cloudflare serve it directly.
-  if (request.method !== 'GET') return next();
+  // Only transform GET/HEAD document navigations. Anything with a file extension
+  // is a real asset (js/css/png/json/xml/...) — let Cloudflare serve it directly.
+  // HEAD must take the same path as GET: letting it fall through to static
+  // serving made HEAD /en 308 to /en/ while GET /en/ 301s to /en — opposite
+  // canonicalization signals for crawlers.
+  if (request.method !== 'GET' && request.method !== 'HEAD') return next();
   const lastSegment = url.pathname.split('/').pop() ?? '';
   if (lastSegment.includes('.')) return next();
 
@@ -54,17 +57,32 @@ export async function onRequest(context) {
   const langMatch = url.pathname.match(/^\/([a-z]{2}(?:-[a-z]+)?)(?:\/|$)/);
   const lang = langMatch ? langMatch[1] : 'en';
 
+  // Serve a document response for this route without falling through to static
+  // directory handling: routes that have a thin fallback directory (dist/<route>/
+  // index.html) but NO snapshot used to loop forever — the asset layer 308s
+  // /en/login -> /en/login/ and the canonicalization above 301s it right back.
+  const serveFallback = async () => {
+    const fileUrl = new URL(request.url);
+    fileUrl.pathname = `${url.pathname}/index.html`.replace(/\/+/g, '/');
+    const fileResp = await env.ASSETS.fetch(new Request(fileUrl, { method: 'GET' }));
+    if (!fileResp.ok) return next();
+    if (request.method === 'HEAD') {
+      return new Response(null, { status: fileResp.status, headers: fileResp.headers });
+    }
+    return fileResp;
+  };
+
   // Look up the committed snapshot for this route.
   const snapshotUrl = new URL(request.url);
   snapshotUrl.pathname = snapshotPathFor(url.pathname);
   const snapshotResp = await env.ASSETS.fetch(new Request(snapshotUrl, { method: 'GET' }));
-  if (!snapshotResp.ok) return next();
+  if (!snapshotResp.ok) return serveFallback();
 
   const snapshot = await snapshotResp.text();
   // ASSETS.fetch returns the SPA fallback (200) for missing files; the marker
   // check ensures we only inject genuine snapshots.
   const bodyIdx = snapshot.indexOf(BODY_MARKER);
-  if (snapshot.indexOf(HEAD_MARKER) === -1 || bodyIdx === -1) return next();
+  if (snapshot.indexOf(HEAD_MARKER) === -1 || bodyIdx === -1) return serveFallback();
 
   const head = snapshot.slice(HEAD_MARKER.length, bodyIdx).trim();
   const body = snapshot.slice(bodyIdx + BODY_MARKER.length).trim();
@@ -74,6 +92,14 @@ export async function onRequest(context) {
   shellUrl.pathname = '/index.html';
   const shellResp = await env.ASSETS.fetch(new Request(shellUrl, { method: 'GET' }));
   if (!shellResp.ok) return next();
+
+  // HEAD gets the same status/headers as GET, without building the body.
+  if (request.method === 'HEAD') {
+    return new Response(null, {
+      status: 200,
+      headers: { 'content-type': 'text/html; charset=utf-8' },
+    });
+  }
 
   // Strip the shell's static/default SEO tags, then inject the route-specific
   // head and rendered body. (The shell's Organization JSON-LD is left intact.)

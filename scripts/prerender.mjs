@@ -135,6 +135,23 @@ async function snapshotOne(context, urlPath) {
         { timeout: 10000 }
       )
       .catch(() => {});
+
+    // Every page mounts SEOHead immediately, so a helmet-managed canonical is the
+    // signal that the lazy route chunk resolved and the page component rendered
+    // (the shell alone satisfies the #root check above, which can capture the
+    // Suspense "Loading..." fallback with the generic shell head).
+    await page
+      .waitForSelector('link[rel="canonical"][data-rh="true"]', {
+        state: 'attached',
+        timeout: 15000,
+      })
+      .catch(() => {});
+    // ... and wait for the Suspense fallback spinner (role="status") to unmount.
+    await page
+      .waitForFunction(() => !document.querySelector('#root [role="status"]'), {
+        timeout: 15000,
+      })
+      .catch(() => {});
     await page.waitForTimeout(400);
 
     const captured = await page.evaluate(() => {
@@ -164,6 +181,25 @@ async function snapshotOne(context, urlPath) {
 
     if (!captured.body) {
       return { urlPath, ok: false, error: 'empty #root' };
+    }
+
+    // Quality gate — refuse to write a snapshot that would hurt SEO:
+    //  - no helmet canonical means the page component never mounted (Suspense
+    //    fallback captured), so the head would be the generic shell head;
+    //  - a role="status" element is the Suspense/loading spinner still on screen;
+    //  - near-empty text means the page content never arrived.
+    if (!/rel="canonical"/.test(captured.head)) {
+      return { urlPath, ok: false, error: 'no canonical in head (page never mounted?)' };
+    }
+    if (/role="status"/.test(captured.body)) {
+      return { urlPath, ok: false, error: 'loading spinner (role="status") still in body' };
+    }
+    const visibleText = captured.body
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (visibleText.length < 100) {
+      return { urlPath, ok: false, error: `body text too thin (${visibleText.length} chars)` };
     }
 
     // The dev host is flagged non-production → noindex; all sitemap routes are
