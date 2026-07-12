@@ -2,7 +2,7 @@
   "name": "@sudobility/mogulgame_app",
   "private": true,
   "license": "BUSL-1.1",
-  "version": "1.0.97",
+  "version": "1.0.98",
   "type": "module",
   "scripts": {
     "dev": "bun run process:static && vite",
@@ -36,7 +36,7 @@
     "@sudobility/auth_lib": "^0.0.82",
     "@sudobility/automotive-components": "^2.0.12",
     "@sudobility/building_blocks": "^0.0.272",
-    "@sudobility/components": "^5.0.95",
+    "@sudobility/components": "^5.0.96",
     "@sudobility/design": "^1.1.46",
     "@sudobility/devops-components": "^2.0.19",
     "@sudobility/di": "^1.5.58",
