@@ -2,7 +2,7 @@
   "name": "@sudobility/mogulgame_app",
   "private": true,
   "license": "BUSL-1.1",
-  "version": "1.0.99",
+  "version": "1.0.100",
   "type": "module",
   "scripts": {
     "dev": "bun run process:static && vite",
@@ -45,7 +45,7 @@
     "@sudobility/mogulgame_client": "^0.0.31",
     "@sudobility/mogulgame_lib": "^0.0.29",
     "@sudobility/mogulgame_types": "^0.0.22",
-    "@sudobility/seo_lib": "^0.0.32",
+    "@sudobility/seo_lib": "^0.0.33",
     "@sudobility/subscription-components": "^1.0.31",
     "@sudobility/subscription_lib": "^0.0.44",
     "@sudobility/types": "^1.9.62",
