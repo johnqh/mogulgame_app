@@ -57,19 +57,53 @@ export async function onRequest(context) {
   const langMatch = url.pathname.match(/^\/([a-z]{2}(?:-[a-z]+)?)(?:\/|$)/);
   const lang = langMatch ? langMatch[1] : 'en';
 
+  // On a full miss (no snapshot, no genuine thin fallback), pass through to
+  // normal static serving so `_redirects` rules (e.g. /ar/* 308) get to answer
+  // the original request. When that still yields a 200 HTML document it is the
+  // bare SPA shell (empty #root) for an app-only route — every sitemap route
+  // has a snapshot — so mark it noindex to keep it out of crawl reports.
+  const passthrough = async () => {
+    const resp = await next();
+    const type = resp.headers.get('content-type') ?? '';
+    if (resp.status !== 200 || !type.includes('text/html')) return resp;
+    const tagged = new Response(resp.body, resp);
+    tagged.headers.set('X-Robots-Tag', 'noindex');
+    return tagged;
+  };
+
   // Serve a document response for this route without falling through to static
   // directory handling: routes that have a thin fallback directory (dist/<route>/
   // index.html) but NO snapshot used to loop forever — the asset layer 308s
   // /en/login -> /en/login/ and the canonicalization above 301s it right back.
+  //
+  // ASSETS.fetch resolves `_redirects` rules and the SPA not-found fallback
+  // internally, so it can hand back a silently-followed redirect target (e.g.
+  // /ar/* used to serve the English page as a 200) or the bare shell for a
+  // missing file. Only a GENUINE per-route fallback may be served here, and
+  // every generated thin fallback declares its own route as the canonical URL —
+  // the shell declares none — so require the canonical to match this route.
   const serveFallback = async () => {
     const fileUrl = new URL(request.url);
     fileUrl.pathname = `${url.pathname}/index.html`.replace(/\/+/g, '/');
     const fileResp = await env.ASSETS.fetch(new Request(fileUrl, { method: 'GET' }));
-    if (!fileResp.ok) return next();
+    if (!fileResp.ok) return passthrough();
+    const fileText = await fileResp.text();
+    const canonicalMatch =
+      fileText.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i) ||
+      fileText.match(/<link[^>]+href="([^"]+)"[^>]+rel="canonical"/i);
+    let canonicalPath = null;
+    if (canonicalMatch) {
+      try {
+        canonicalPath = new URL(canonicalMatch[1], url).pathname.replace(/\/+$/, '');
+      } catch {
+        canonicalPath = null;
+      }
+    }
+    if (canonicalPath !== url.pathname.replace(/\/+$/, '')) return passthrough();
     if (request.method === 'HEAD') {
       return new Response(null, { status: fileResp.status, headers: fileResp.headers });
     }
-    return fileResp;
+    return new Response(fileText, { status: fileResp.status, headers: fileResp.headers });
   };
 
   // Look up the committed snapshot for this route.
